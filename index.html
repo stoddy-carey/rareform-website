@@ -1298,22 +1298,7 @@ footer {
     <h2 class="section-title">Rareform<br>Recommendations</h2>
     <p class="section-desc">Our favourite spots, events and hidden gems across Berlin — all in one map.</p>
     <div class="recs-map-wrap">
-      <!-- PLACEHOLDER — replace this div with the iframe below once the map is hosted:
-           <iframe src="https://yoursite.com/berlin-events-map.html" loading="lazy" allow="geolocation"></iframe>
-      -->
-      <div class="recs-placeholder">
-        <div class="recs-placeholder-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div class="recs-placeholder-text">
-          <h3>Interactive Map Coming Soon</h3>
-          <p>We're pinning our favourite cafés, runs, parks and hidden gems across Berlin.</p>
-        </div>
-        <span class="recs-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          Launching Soon
-        </span>
-      </div>
+      <iframe src="https://rareform.health/berlin-events-map.html" width="100%" height="600" frameborder="0" loading="lazy"></iframe>
     </div>
   </div>
 </section>
@@ -1362,27 +1347,60 @@ footer {
       <h2 class="section-title">Contact Us</h2>
       <p class="section-desc" style="margin: 0 auto;">Want to list an event, collaborate, or just say hi? Drop us a line.</p>
 
-      <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('.btn-submit').textContent='Sent!'; setTimeout(() => this.querySelector('.btn-submit').textContent='Send Message', 2000);">
+      <!-- Replace YOUR_SCRIPT_ID with your deployed Google Apps Script URL -->
+      <form class="contact-form" id="contactForm">
+        <input type="text" name="_gotcha" style="display:none">
         <div class="form-row">
           <div>
             <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your name" required>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
           </div>
           <div>
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="you@example.com" required>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
           </div>
         </div>
         <div>
           <label for="subject">Subject</label>
-          <input type="text" id="subject" placeholder="Event listing, partnership, etc.">
+          <input type="text" id="subject" name="subject" placeholder="Event listing, partnership, etc.">
         </div>
         <div>
           <label for="message">Message</label>
-          <textarea id="message" placeholder="Tell us what's on your mind..." required></textarea>
+          <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
         </div>
-        <button type="submit" class="btn-submit">Send Message</button>
+        <button type="submit" class="btn-submit" id="contactSubmit">Send Message</button>
       </form>
+      <script>
+      const CONTACT_SCRIPT_URL = 'https://script.google.com/a/macros/outcurve.ai/s/AKfycbySmRNE8OK91QNtxdPCLevFegOBUaWKKJl0q1uS17RnPdk2RcyLjZGHYONwrdvONLn1/exec';
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        const btn = document.getElementById('contactSubmit');
+        const form = this;
+        e.preventDefault();
+        if (form.querySelector('[name="_gotcha"]').value) return;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          subject: form.subject.value,
+          message: form.message.value,
+          timestamp: new Date().toISOString()
+        };
+        fetch(CONTACT_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }).then(() => {
+          btn.textContent = 'Sent!';
+          form.reset();
+          setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; }, 3000);
+        }).catch(() => {
+          btn.textContent = 'Error — try again';
+          btn.disabled = false;
+        });
+      });
+      </script>
     </div>
   </div>
 </section>
