@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berlin Recurring Events Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+  }
+  #app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+  }
+  /* ── Sidebar ── */
+  #sidebar {
+    width: 380px;
+    min-width: 380px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e5e5e5;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  .sidebar-header {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid #eee;
+  }
+  .sidebar-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  .sidebar-header p {
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+  }
+  /* ── Filters ── */
+  .filters-section {
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+  }
+  .filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #999;
+    margin-bottom: 10px;
+  }
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .cat-btn {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .cat-btn .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .cat-btn.active { opacity: 1; }
+  .cat-btn:not(.active) { opacity: 0.4; }
+  .cat-btn[data-cat="running"]        { background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7; }
+  .cat-btn[data-cat="wellness"]       { background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8; }
+  .cat-btn[data-cat="book-club"]      { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+  .cat-btn[data-cat="games-social"]   { background: #e3f2fd; color: #1565c0; border-color: #90caf9; }
+  .day-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .day-btn {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1.5px solid #ddd;
+    background: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: #555;
+  }
+  .day-btn.active {
+    background: #1a1a1a;
+    color: #fff;
+    border-color: #1a1a1a;
+  }
+  .day-btn:hover:not(.active) {
+    border-color: #aaa;
+  }
+  .results-count {
+    padding: 10px 20px;
+    font-size: 12px;
+    color: #999;
+    border-bottom: 1px solid #eee;
+  }
+  /* ── Event List ── */
+  .event-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+  }
+  .event-list::-webkit-scrollbar { width: 4px; }
+  .event-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+  .event-card {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .event-card:hover { background: #fafafa; }
+  .event-card.highlighted { background: #f0f7ff; }
+  .event-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .event-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .event-card-info { flex: 1; }
+  .event-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+  }
+  .event-org {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+  }
+  .event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    color: #666;
+  }
+  .event-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .event-meta svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: #999;
+    stroke-width: 2;
+  }
+  /* ── Map ── */
+  #map {
+    flex: 1;
+    height: 100%;
+  }
+  /* ── Custom Markers ── */
+  .custom-marker {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    transition: transform 0.15s;
+  }
+  .custom-marker:hover {
+    transform: scale(1.3);
+    z-index: 9999 !important;
+  }
+  .marker-running      { background: #43a047; }
+  .marker-wellness     { background: #8e24aa; }
+  .marker-book-club    { background: #ef6c00; }
+  .marker-games-social { background: #1e88e5; }
+  /* ── Popup ── */
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+    padding: 0 !important;
+  }
+  .leaflet-popup-content {
+    margin: 0 !important;
+    min-width: 240px;
+  }
+  .popup-inner {
+    padding: 16px;
+  }
+  .popup-cat {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .popup-cat-running      { background: #e8f5e9; color: #2e7d32; }
+  .popup-cat-wellness     { background: #f3e5f5; color: #7b1fa2; }
+  .popup-cat-book-club    { background: #fff3e0; color: #e65100; }
+  .popup-cat-games-social { background: #e3f2fd; color: #1565c0; }
+  .popup-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+  }
+  .popup-org {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .popup-detail {
+    font-size: 12px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+  .popup-detail svg {
+    width: 14px;
+    height: 14px;
+    stroke: #999;
+    fill: none;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+  .popup-links {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .popup-links a {
+    font-size: 11px;
+    color: #1e88e5;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .popup-links a:hover { text-decoration: underline; }
+  /* ── Mobile Toggle ── */
+  .mobile-toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    padding: 12px 24px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  @media (max-width: 768px) {
+    #sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; min-width: 100%;
+      height: 100vh;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 2000;
+    }
+    #sidebar.open { transform: translateX(0); }
+    .mobile-toggle { display: block; }
+    #map { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <h1>Berlin Recurring Events</h1>
+      <p id="subtitle">Weekly meetups, runs, and community events</p>
+    </div>
+    <div class="filters-section">
+      <div class="filter-label">Category</div>
+      <div class="category-filters" id="catFilters">
+        <button class="cat-btn active" data-cat="all"><span class="dot" style="background:#666"></span> All</button>
+        <button class="cat-btn active" data-cat="running"><span class="dot" style="background:#43a047"></span> Running</button>
+        <button class="cat-btn active" data-cat="wellness"><span class="dot" style="background:#8e24aa"></span> Wellness</button>
+        <button class="cat-btn active" data-cat="book-club"><span class="dot" style="background:#ef6c00"></span> Book Club</button>
+        <button class="cat-btn active" data-cat="games-social"><span class="dot" style="background:#1e88e5"></span> Games & Social</button>
+      </div>
+      <div class="filter-label">Day of the Week</div>
+      <div class="day-filters" id="dayFilters">
+        <button class="day-btn active" data-day="all">All</button>
+        <button class="day-btn" data-day="Monday">Mon</button>
+        <button class="day-btn" data-day="Tuesday">Tue</button>
+        <button class="day-btn" data-day="Wednesday">Wed</button>
+        <button class="day-btn" data-day="Thursday">Thu</button>
+        <button class="day-btn" data-day="Friday">Fri</button>
+        <button class="day-btn" data-day="Saturday">Sat</button>
+        <button class="day-btn" data-day="Sunday">Sun</button>
+      </div>
+    </div>
+    <div class="results-count" id="resultsCount">35 events</div>
+    <div class="event-list" id="eventList"></div>
+  </div>
+  <div id="map"></div>
+</div>
+<button class="mobile-toggle" id="mobileToggle">View List</button>
+<script>
+// ── Event Data ──
+const events = [
+  { name:"Saturday Event (Book Club / Focus Session)", org:"Pausify", day:"Saturday", time:"11:00-13:45", location:"EDGE Grand Central, Invalidenstraße 65, 10557 Berlin", lat:52.5305, lng:13.3878, cat:"book-club", instagram:"https://www.instagram.com/pausifyspaces", link:"https://www.pausify.org/de/event" },
+  { name:"Sunday Event (Book Club / Focus Session)", org:"Pausify", day:"Sunday", time:"11:00-13:45", location:"EDGE Grand Central, Invalidenstraße 65, 10557 Berlin", lat:52.5305, lng:13.3878, cat:"book-club", instagram:"https://www.instagram.com/pausifyspaces", link:"https://www.pausify.org/de/event" },
+  { name:"Weekly Meditation", org:"BodhiSpace", day:"Thursday", time:"19:30-21:00", location:"Neckarstraße 12, 12053 Berlin", lat:52.4867, lng:13.4378, cat:"wellness", instagram:"https://www.instagram.com/bodhispace.berlin", link:"https://bodhispace.net/events/" },
+  { name:"Weekly Open Sitting Meditation", org:"BodhiSpace", day:"Monday", time:"19:30-21:00", location:"Neckarstraße 12, 12053 Berlin", lat:52.4867, lng:13.4378, cat:"wellness", instagram:"https://www.instagram.com/bodhispace.berlin", link:"https://bodhispace.net/events/" },
+  { name:"Deep Rest Ceremony", org:"BodhiSpace", day:"Friday", time:"Evening", location:"Neckarstraße 12, 12053 Berlin", lat:52.4867, lng:13.4378, cat:"wellness", instagram:"https://www.instagram.com/bodhispace.berlin", link:"https://www.eventbrite.de/e/1440832682339" },
+  { name:"Game Night Berlin", org:"Markthalle Neun", day:"Monday", time:"16:00-22:00", location:"Eisenbahnstr. 42/43, 10997 Berlin-Kreuzberg", lat:52.4985, lng:13.4340, cat:"games-social", instagram:"https://www.instagram.com/markthalleneun", link:"https://markthalleneun.de/en/events/play-date-berlin" },
+  { name:"Weekly Social Run | Enduure Alexanderplatz", org:"Enduure Endurance Club", day:"Monday", time:"18:00", location:"Rosa-Luxemburg-Straße 5, 10178 Berlin", lat:52.5256, lng:13.4050, cat:"running", instagram:"https://www.instagram.com/enduure.de/" },
+  { name:"Weekly Slow Run", org:"Slow Poke Run Club", day:"Monday", time:"18:30", location:"Mauerpark (M10 Entrance)", lat:52.5484, lng:13.4015, cat:"running", instagram:"https://www.instagram.com/slowpokerunclub.berlin/", link:"https://www.eventbrite.de/o/itscoachme" },
+  { name:"LOAD 7@7", org:"Load", day:"Monday", time:"19:00", location:"New Balance Store Berlin", lat:52.5200, lng:13.4050, cat:"running", instagram:"https://www.instagram.com/loadberlin/" },
+  { name:"Mystik Community Tuesdays", org:"Mystik Running Club", day:"Tuesday", time:"17:45", location:"Anton-Wilhelm-Amo-Straße 50 (Mindspace)", lat:52.4956, lng:13.4511, cat:"running", instagram:"https://www.instagram.com/mystikrun" },
+  { name:"Track Tuesday", org:"Mikkeller Run Club", day:"Tuesday", time:"18:30", location:"Mikkeller", lat:52.5069, lng:13.4247, cat:"running", instagram:"https://www.instagram.com/mrc_berlin/" },
+  { name:"Intervals", org:"Kraft Runners", day:"Tuesday", time:"19:00", location:"KRAFTRAUM", lat:52.5155, lng:13.4289, cat:"running", instagram:"https://www.instagram.com/kraftrunners" },
+  { name:"8K Community Run", org:"Potsdam Runners", day:"Tuesday", time:"19:00", location:"Brandenburger Tor Potsdam", lat:52.3959, lng:13.0570, cat:"running", instagram:"https://www.instagram.com/potsdam.runners/" },
+  { name:"Tempo Tuesday", org:"Adidas Runners", day:"Tuesday", time:"19:00", location:"TSV GutsMuths 1861 e.V.", lat:52.5480, lng:13.3505, cat:"running", instagram:"https://www.instagram.com/adidasrunners/", link:"https://www.adidas.de/adidasrunners/community/berlin" },
+  { name:"Run with us", org:"ARYS Outdoor Club", day:"Tuesday", time:"19:00", location:"ARYS Store", lat:52.5230, lng:13.4100, cat:"running", instagram:"https://www.instagram.com/arysstore_berlin" },
+  { name:"School of Running", org:"Adidas Runners", day:"Wednesday", time:"18:00", location:"adidas Sports Base Berlin", lat:52.5100, lng:13.4200, cat:"running", instagram:"https://www.instagram.com/adidasrunners/", link:"https://www.adidas.de/adidasrunners/community/berlin" },
+  { name:"Decathlon Run", org:"Decathlon Runners", day:"Wednesday", time:"18:00", location:"Decathlon Alexanderplatz", lat:52.5220, lng:13.4115, cat:"running", instagram:"https://www.instagram.com/decathlondeutschland/", link:"https://www.decathlon.de/Decathlon-Runners-Berlin" },
+  { name:"Weekly Run Club", org:"OYSHO Run Club", day:"Wednesday", time:"18:30", location:"OYSHO Store Mitte", lat:52.5240, lng:13.4080, cat:"running", instagram:"https://www.instagram.com/oysho_community", link:"https://www.oysho.com/de/en/community/events" },
+  { name:"FLINTA* Track Session", org:"FLINTA* Running", day:"Wednesday", time:"18:30", location:"Volkspark Rehberge", lat:52.5560, lng:13.3420, cat:"running", instagram:"https://www.instagram.com/flinta_running/" },
+  { name:"FML Wednesday Run", org:"Flat Mountain Living", day:"Wednesday", time:"19:00", location:"Flat Mountain Living", lat:52.5189, lng:13.4256, cat:"running", instagram:"https://www.instagram.com/flatmountainliving" },
+  { name:"10km Bootcamp", org:"Midnight Runners", day:"Wednesday", time:"19:00", location:"Generator Berlin Mitte", lat:52.5277, lng:13.4030, cat:"running", instagram:"https://www.instagram.com/midnightrunners_berlin/" },
+  { name:"Social Run", org:"Adidas Runners", day:"Wednesday", time:"19:00", location:"adidas Sports Base Berlin", lat:52.5105, lng:13.4205, cat:"running", instagram:"https://www.instagram.com/adidasrunners/", link:"https://www.adidas.de/adidasrunners/community/berlin" },
+  { name:"Run-N-Rave", org:"Run-N-Rave", day:"Thursday", time:"7:00", location:"CIC Berlin", lat:52.5350, lng:13.4400, cat:"running", instagram:"https://www.instagram.com/run_n_rave/" },
+  { name:"Enduure Prenzlauer Berg Run", org:"Enduure Endurance Club", day:"Thursday", time:"17:45", location:"Brammibal's Donuts Prenzlauer Berg", lat:52.5456, lng:13.4089, cat:"running", instagram:"https://www.instagram.com/enduure.de/" },
+  { name:"Weekly Soft Run", org:"On Run Club", day:"Thursday", time:"18:00", location:"On Store Berlin Mitte", lat:52.5240, lng:13.4085, cat:"running", instagram:"https://www.instagram.com/on/" },
+  { name:"Social Run | FLINTA*", org:"PACE Berlin", day:"Thursday", time:"19:00", location:"Südblock", lat:52.4950, lng:13.4230, cat:"running", instagram:"https://www.instagram.com/paceberlin_/" },
+  { name:"Track Session", org:"Adidas Runners", day:"Thursday", time:"19:00", location:"TSV GutsMuths 1861 e.V.", lat:52.5485, lng:13.3510, cat:"running", instagram:"https://www.instagram.com/adidasrunners/", link:"https://www.adidas.de/adidasrunners/community/berlin" },
+  { name:"Social Run", org:"Adidas Runners", day:"Thursday", time:"19:00", location:"Südblock, Admiralstr. 1-2", lat:52.4952, lng:13.4235, cat:"running", instagram:"https://www.instagram.com/adidasrunners/", link:"https://www.adidas.de/adidasrunners/community/berlin" },
+  { name:"Morning Run", org:"Adidas Runners", day:"Friday", time:"7:00", location:"Zeit für Brot / Alte Schönhauser Str. 4", lat:52.5268, lng:13.4042, cat:"running", instagram:"https://www.instagram.com/adidasrunners/" },
+  { name:"Morning Coffee Run", org:"Flat Mountain Living", day:"Friday", time:"8:00", location:"Flat Mountain Living", lat:52.5192, lng:13.4260, cat:"running", instagram:"https://www.instagram.com/flatmountainliving" },
+  { name:"Community Run", org:"Hasenheide parkrun", day:"Saturday", time:"9:00", location:"Volkspark Hasenheide", lat:52.4878, lng:13.4100, cat:"running", instagram:"https://www.instagram.com/parkrundeutschland", link:"https://www.parkrun.com.de/hasenheide/" },
+  { name:"O.R Saturday's Run Club", org:"Optimistic Runners", day:"Saturday", time:"9:00", location:"Berlin", lat:52.5120, lng:13.3890, cat:"running", instagram:"https://www.instagram.com/optimisticrunners/" },
+  { name:"Saturday Social Run", org:"TreptRunners", day:"Saturday", time:"9:20", location:"S Treptower Park", lat:52.4925, lng:13.4511, cat:"running", instagram:"https://www.instagram.com/treptrunnersberlin" },
+  { name:"8K around Babelsberg Park", org:"Potsdam Runners", day:"Saturday", time:"9:30", location:"DM Store Potsdam HBF", lat:52.3906, lng:13.0645, cat:"running", instagram:"https://www.instagram.com/potsdam.runners/" },
+  { name:"5km easy run & kiez coffee", org:"Cru Running", day:"Saturday", time:"10:00", location:"Café Frau Honig 2", lat:52.5278, lng:13.4105, cat:"running", instagram:"https://www.instagram.com/cru_running" },
+];
+// ── Category Config ──
+const catConfig = {
+  "running":      { label: "Running",       color: "#43a047", markerClass: "marker-running",      popupClass: "popup-cat-running" },
+  "wellness":     { label: "Wellness",      color: "#8e24aa", markerClass: "marker-wellness",     popupClass: "popup-cat-wellness" },
+  "book-club":    { label: "Book Club",     color: "#ef6c00", markerClass: "marker-book-club",    popupClass: "popup-cat-book-club" },
+  "games-social": { label: "Games & Social", color: "#1e88e5", markerClass: "marker-games-social", popupClass: "popup-cat-games-social" },
+};
+// ── State ──
+let activeCats = new Set(["running","wellness","book-club","games-social"]);
+let activeDay = "all";
+let markers = [];
+let map;
+// ── Icons ──
+const svgClock = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+const svgPin = '<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+const svgCal = '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+// ── Init Map ──
+function initMap() {
+  map = L.map('map', { zoomControl: false }).setView([52.52, 13.405], 12);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19
+  }).addTo(map);
+  L.control.zoom({ position: 'topright' }).addTo(map);
+}
+// ── Create Marker ──
+function createMarker(ev) {
+  const cfg = catConfig[ev.cat];
+  const icon = L.divIcon({
+    className: '',
+    html: `<div class="custom-marker ${cfg.markerClass}"></div>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -18]
+  });
+  const marker = L.marker([ev.lat, ev.lng], { icon });
+  let linksHtml = '';
+  if (ev.instagram) linksHtml += `<a href="${ev.instagram}" target="_blank" rel="noopener">Instagram</a>`;
+  if (ev.link) linksHtml += `<a href="${ev.link}" target="_blank" rel="noopener">Sign Up / More Info</a>`;
+  marker.bindPopup(`
+    <div class="popup-inner">
+      <span class="popup-cat ${cfg.popupClass}">${cfg.label}</span>
+      <div class="popup-name">${ev.name}</div>
+      <div class="popup-org">${ev.org}</div>
+      <div class="popup-detail">${svgCal} ${ev.day}</div>
+      <div class="popup-detail">${svgClock} ${ev.time}</div>
+      <div class="popup-detail">${svgPin} ${ev.location}</div>
+      ${linksHtml ? `<div class="popup-links">${linksHtml}</div>` : ''}
+    </div>
+  `, { maxWidth: 280 });
+  marker.eventData = ev;
+  return marker;
+}
+// ── Render ──
+function render() {
+  // Clear
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  const filtered = events.filter(ev => {
+    if (!activeCats.has(ev.cat)) return false;
+    if (activeDay !== "all") {
+      const evDay = ev.day.toLowerCase();
+      const filterDay = activeDay.toLowerCase();
+      if (!evDay.includes(filterDay)) return false;
+    }
+    return true;
+  });
+  // Update count
+  document.getElementById('resultsCount').textContent = `${filtered.length} event${filtered.length !== 1 ? 's' : ''}`;
+  // Build list
+  const listEl = document.getElementById('eventList');
+  listEl.innerHTML = '';
+  filtered.forEach(ev => {
+    const cfg = catConfig[ev.cat];
+    const marker = createMarker(ev);
+    marker.addTo(map);
+    markers.push(marker);
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    card.innerHTML = `
+      <div class="event-card-top">
+        <div class="event-dot" style="background:${cfg.color}"></div>
+        <div class="event-card-info">
+          <div class="event-name">${ev.name}</div>
+          <div class="event-org">${ev.org}</div>
+          <div class="event-meta">
+            <span>${svgCal} ${ev.day}</span>
+            <span>${svgClock} ${ev.time}</span>
+          </div>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      map.setView([ev.lat, ev.lng], 15, { animate: true });
+      marker.openPopup();
+      document.querySelectorAll('.event-card').forEach(c => c.classList.remove('highlighted'));
+      card.classList.add('highlighted');
+      // Close sidebar on mobile
+      if (window.innerWidth <= 768) {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('mobileToggle').textContent = 'View List';
+      }
+    });
+    marker.on('click', () => {
+      document.querySelectorAll('.event-card').forEach(c => c.classList.remove('highlighted'));
+      card.classList.add('highlighted');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+    listEl.appendChild(card);
+  });
+  // Fit bounds if we have markers
+  if (markers.length > 0) {
+    const group = L.featureGroup(markers);
+    map.fitBounds(group.getBounds().pad(0.1));
+  }
+}
+// ── Category Filter Logic ──
+document.getElementById('catFilters').addEventListener('click', (e) => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  const cat = btn.dataset.cat;
+  if (cat === 'all') {
+    const allActive = activeCats.size === 4;
+    if (allActive) {
+      activeCats.clear();
+    } else {
+      activeCats = new Set(["running","wellness","book-club","games-social"]);
+    }
+  } else {
+    if (activeCats.has(cat)) activeCats.delete(cat);
+    else activeCats.add(cat);
+  }
+  // Update button states
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    if (b.dataset.cat === 'all') {
+      b.classList.toggle('active', activeCats.size === 4);
+    } else {
+      b.classList.toggle('active', activeCats.has(b.dataset.cat));
+    }
+  });
+  render();
+});
+// ── Day Filter Logic ──
+document.getElementById('dayFilters').addEventListener('click', (e) => {
+  const btn = e.target.closest('.day-btn');
+  if (!btn) return;
+  activeDay = btn.dataset.day;
+  document.querySelectorAll('.day-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.day === activeDay);
+  });
+  render();
+});
+// ── Mobile Toggle ──
+document.getElementById('mobileToggle').addEventListener('click', () => {
+  const sidebar = document.getElementById('sidebar');
+  const isOpen = sidebar.classList.toggle('open');
+  document.getElementById('mobileToggle').textContent = isOpen ? 'View Map' : 'View List';
+});
+// ── Boot ──
+initMap();
+render();
+</script>
+</body>
+</html>
