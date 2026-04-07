@@ -813,6 +813,115 @@ section, .panel {
   box-shadow: 0 6px 24px rgba(236,231,14,0.25);
 }
 
+/* ─── CONTACT SUCCESS OVERLAY ─── */
+.contact-inner { position: relative; }
+.contact-success {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background: rgba(10,87,164,0.97);
+  border-radius: 20px;
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.contact-success.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.success-check {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(236,231,14,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: success-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes success-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.success-check svg {
+  width: 52px;
+  height: 52px;
+  stroke: #ece70e;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.success-check svg path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: draw-check 0.5s 0.3s ease forwards;
+}
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+.success-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid rgba(236,231,14,0.3);
+  animation: success-ring-expand 0.8s 0.2s ease-out forwards;
+  opacity: 0;
+}
+@keyframes success-ring-expand {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.contact-success h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: success-text-in 0.4s 0.5s ease forwards;
+}
+.contact-success p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 320px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: success-text-in 0.4s 0.65s ease forwards;
+}
+.contact-success .success-btn {
+  margin-top: 0.5rem;
+  background: rgba(236,231,14,0.1);
+  border: 1px solid rgba(236,231,14,0.25);
+  color: #ece70e;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.65rem 1.6rem;
+  border-radius: 40px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: success-text-in 0.4s 0.8s ease forwards;
+  transition: background 0.2s;
+}
+.contact-success .success-btn:hover {
+  background: rgba(236,231,14,0.2);
+}
+@keyframes success-text-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ─── FOOTER ─── */
 footer {
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -1370,9 +1479,25 @@ footer {
         </div>
         <button type="submit" class="btn-submit" id="contactSubmit">Send Message</button>
       </form>
+
+      <div class="contact-success" id="contactSuccess">
+        <div style="position:relative;display:flex;align-items:center;justify-content:center;">
+          <div class="success-ring"></div>
+          <div class="success-check">
+            <svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6"/></svg>
+          </div>
+        </div>
+        <h3>Message Sent</h3>
+        <p>Thanks for reaching out — we'll get back to you soon.</p>
+        <button class="success-btn" id="successReset">Send Another</button>
+      </div>
+
       <script>
-      const CONTACT_SCRIPT_URL = 'https://script.google.com/a/macros/outcurve.ai/s/AKfycbySmRNE8OK91QNtxdPCLevFegOBUaWKKJl0q1uS17RnPdk2RcyLjZGHYONwrdvONLn1/exec';
-      document.getElementById('contactForm').addEventListener('submit', function(e) {
+      const CONTACT_SCRIPT_URL = 'https://script.google.com/a/macros/outcurve.ai/s/AKfycbxRmpp--Bdb7MUtwe_AqHq0X5IJQM65asraF7mFDQsYB7qOllLhMahURZcD25LJVeZs/exec';
+      const contactForm = document.getElementById('contactForm');
+      const contactSuccess = document.getElementById('contactSuccess');
+
+      contactForm.addEventListener('submit', function(e) {
         const btn = document.getElementById('contactSubmit');
         const form = this;
         e.preventDefault();
@@ -1392,13 +1517,18 @@ footer {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
         }).then(() => {
-          btn.textContent = 'Sent!';
           form.reset();
-          setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; }, 3000);
+          btn.textContent = 'Send Message';
+          btn.disabled = false;
+          contactSuccess.classList.add('visible');
         }).catch(() => {
           btn.textContent = 'Error — try again';
           btn.disabled = false;
         });
+      });
+
+      document.getElementById('successReset').addEventListener('click', function() {
+        contactSuccess.classList.remove('visible');
       });
       </script>
     </div>
