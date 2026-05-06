@@ -1,0 +1,250 @@
+{
+  "source": "Notion: 🔥 LinkedIn Viral Health Posts (Raw Viral 1k+ filter)",
+  "source_url": "https://www.notion.so/5bfdf697f4394b60befdc50833cb5b9b",
+  "note": "Extracted opening hooks from high-engagement LinkedIn health posts. Each entry tagged with closest Outcurve persona match and hook shape. Refresh manually as new posts are added to the source database.",
+  "shape_legend": {
+    "contrarian": "Reverses a mainstream belief — 'X is dead', 'You may have heard Y, the truth is Z'",
+    "listicle": "Numbered or pillared structure announced upfront — '3 things I stopped believing'",
+    "question": "Opens with a direct question to the reader",
+    "story": "Personal or named-character narrative with specifics",
+    "declarative": "Confident statement of fact, often big-picture",
+    "problem_led": "Names a recognizable pain or frustration the reader has",
+    "data_led": "Leads with a specific stat, study, or quantitative finding"
+  },
+  "hooks": [
+    {
+      "hook": "Protein supplements are officially dead, and here's what's taking its place",
+      "shape": "contrarian",
+      "persona_match": "Longevity Hacker",
+      "topic": "Supplements & Compounds",
+      "author": "Jake Heyen",
+      "engagement_rate": 2.24,
+      "notes": "Reversal hook + promise of replacement. Works because it's both a death-knell and a lead to the new thing."
+    },
+    {
+      "hook": "3 things I stopped believing about longevity:",
+      "shape": "listicle",
+      "persona_match": "Longevity Hacker",
+      "topic": "Longevity / Healthspan",
+      "author": "Joseph Raffaele, MD",
+      "engagement_rate": 2.44,
+      "notes": "Authority + reversal. 'Stopped believing' creates intrigue — implies hard-won perspective from experience."
+    },
+    {
+      "hook": "Magnesium isn't one supplement. It's 4 different tools. (7 actually, but I am sharing the most potent 4.) And you may be using the wrong one.",
+      "shape": "contrarian",
+      "persona_match": "Longevity Hacker",
+      "topic": "Supplements & Compounds",
+      "author": "Marianne Tafani",
+      "engagement_rate": 2.96,
+      "notes": "Reframe + parenthetical credibility-flex + reader-implicates-self. The '(7 actually, but...)' aside signals depth."
+    },
+    {
+      "hook": "You may have heard that genetics accounts for just 7% of how long you live. The pendulum has swung back. A landmark study published in Science in January 2026 now puts that number above 50%.",
+      "shape": "contrarian",
+      "persona_match": "Longevity Hacker",
+      "topic": "Longevity / Healthspan",
+      "author": "Eric Verdin",
+      "engagement_rate": 4.76,
+      "notes": "Acknowledges the reader's prior — then flips it with a named, dated study. Specific number (7% → 50%) creates a clean before/after."
+    },
+    {
+      "hook": "A few things in the wellness industry genuinely concern me. Here are 3 you've likely been hearing about: IV vitamin drips. Your $700 infusion of ingredients costs roughly $2 to $5 to produce.",
+      "shape": "contrarian",
+      "persona_match": "Longevity Hacker",
+      "topic": "Supplements & Compounds",
+      "author": "Eric Verdin",
+      "engagement_rate": 8.12,
+      "notes": "Personal stake ('genuinely concern me') + insider reveal (cost margin). Highest engagement in the corpus."
+    },
+    {
+      "hook": "The WHO Just Redefined Longevity—And Most of Medicine Hasn't Caught Up. For decades, we've treated aging as a disease accumulation problem. The World Health Organization reframed it entirely.",
+      "shape": "contrarian",
+      "persona_match": "Longevity Hacker",
+      "topic": "Longevity / Healthspan",
+      "author": "Stuart Diamond MD",
+      "engagement_rate": 4.69,
+      "notes": "Authority body (WHO) + the rest of medicine is behind. Positions reader as in-the-know."
+    },
+    {
+      "hook": "We tell patients to exercise. We're usually vague about the dose. A 2025 UK Biobank study put real numbers on it — using accelerometers, not self-report.",
+      "shape": "contrarian",
+      "persona_match": "Cognitive Performer",
+      "topic": "Exercise Science",
+      "author": "Daniel Carlat",
+      "engagement_rate": 4.98,
+      "notes": "Self-implication ('we' = clinicians) + named methodology callout (accelerometers vs self-report). Targets a data-skeptical audience."
+    },
+    {
+      "hook": "For too long, the longevity conversation has begun and ended with muscle. Muscle is essential but muscle alone does not make movement accessible across a lifetime.",
+      "shape": "contrarian",
+      "persona_match": "Athletic Performer",
+      "topic": "Longevity / Healthspan",
+      "author": "Vonda Wright MD",
+      "engagement_rate": 2.27,
+      "notes": "'For too long' is a classic reversal opener — suggests the reader's been operating on incomplete info."
+    },
+    {
+      "hook": "We tend to think of longevity as something that starts later in life. But the reality is very different.",
+      "shape": "contrarian",
+      "persona_match": null,
+      "topic": "Longevity / Healthspan",
+      "author": "Mafalda Honório",
+      "engagement_rate": 2.37,
+      "notes": "Plain-language reversal. Light on detail in the hook itself but earns the click."
+    },
+    {
+      "hook": "Whenever I don't feel like working out, I remind myself of this: Lean muscle mass isn't about aesthetics. Sure, it looks great. But what matters most is what muscle does for your health.",
+      "shape": "story",
+      "persona_match": "Aesthetic Aspirational",
+      "topic": "Exercise Science",
+      "author": "Ketty Minissale",
+      "engagement_rate": 8.35,
+      "notes": "Personal-confession opener + reframe from aesthetics to function. Top engagement — relatable trigger ('don't feel like') wins."
+    },
+    {
+      "hook": "6 months ago, completing a 3km run felt hard. This Sunday, I finished my first HYROX singles open.",
+      "shape": "story",
+      "persona_match": "Athletic Performer",
+      "topic": "Sports & Endurance",
+      "author": "Balaji Soundararaj",
+      "engagement_rate": 2.81,
+      "notes": "Specific timeframe + specific distance change. Earns trust via concrete numbers."
+    },
+    {
+      "hook": "Is this man the greatest endurance athlete in history?",
+      "shape": "question",
+      "persona_match": "Athletic Performer",
+      "topic": "Sports & Endurance",
+      "author": "Adam Acworth",
+      "engagement_rate": 2.16,
+      "notes": "Open-question hook drives comments and replies. Works when followed by genuinely impressive evidence."
+    },
+    {
+      "hook": "I am often asked: 'At what age should we start caring about skin longevity?' My answer is always: at any age. It is never too early.",
+      "shape": "question",
+      "persona_match": "Aesthetic Aspirational",
+      "topic": "Longevity / Healthspan",
+      "author": "Vania LACASCADE",
+      "engagement_rate": 2.97,
+      "notes": "Frames the writer as the authority being asked — then flips the implicit assumption ('start caring late')."
+    },
+    {
+      "hook": "From a webcam and an idea to a working AI recovery system in 24 hours. No wearables. No backend. No server. Just a browser, a camera, and a team that refused to sleep.",
+      "shape": "story",
+      "persona_match": "Longevity Hacker",
+      "topic": "General Health",
+      "author": "Dhruv Patel",
+      "engagement_rate": 1.68,
+      "notes": "Specific time constraint + the negative-space pattern ('No X. No Y. Just Z.') sells the surprise of what they didn't need."
+    },
+    {
+      "hook": "Creatine for Perimenopause & Menopause. As estrogen levels decline in perimenopause and menopause, many women may experience: reduced neuromuscular efficiency, slower recovery, increased muscle loss.",
+      "shape": "listicle",
+      "persona_match": "Graduating Woman",
+      "topic": "Nutrition & Metabolism",
+      "author": "Stacy T. Sims, PhD",
+      "engagement_rate": 3.64,
+      "notes": "Authority figure (Sims) + niche-specific compound match. Direct-target hook; no waste."
+    },
+    {
+      "hook": "DKA Diabetic Ketoacidosis: Recognition & Nursing Priorities (Quick Guide). DKA is a life-threatening metabolic emergency that requires rapid recognition and aggressive management.",
+      "shape": "listicle",
+      "persona_match": null,
+      "topic": "Nutrition & Metabolism",
+      "author": "Sheryl Mazil",
+      "engagement_rate": 1.92,
+      "notes": "Clinical-utility hook (the '(Quick Guide)' parenthetical promises bounded, useful content)."
+    },
+    {
+      "hook": "GLP-1 weight loss drugs aren't just shedding pounds, they could also reshape mortality trends. Our research suggests GLP-1s could reduce mortality by up to 6% in the US by 2045.",
+      "shape": "data_led",
+      "persona_match": "GLP-1 Companion",
+      "topic": "Nutrition & Metabolism",
+      "author": "Swiss Re",
+      "engagement_rate": 0.0003,
+      "notes": "'Aren't just X, also Y' is a versatile reframe. Specific stat (6% by 2045) anchors credibility."
+    },
+    {
+      "hook": "Medications that can complicate diabetes control. A patient with well-controlled diabetes suddenly has spiked readings — the culprit might be a new prescription.",
+      "shape": "problem_led",
+      "persona_match": "Confused",
+      "topic": "Nutrition & Metabolism",
+      "author": "Antonina Sanders",
+      "engagement_rate": 2.85,
+      "notes": "Named the puzzle (suddenly spiked readings, no obvious cause) before naming the answer. Mirrors how the reader is feeling."
+    },
+    {
+      "hook": "Are you ready for it???? While most people are still scrolling they've already gone to sleep. Not because they're tired. Because they understand this: Recovery is performance.",
+      "shape": "story",
+      "persona_match": "Sleep Mystery",
+      "topic": "Exercise Science",
+      "author": "Joy Mcadams",
+      "engagement_rate": 2.67,
+      "notes": "Tribal-positioning hook ('most people' vs 'they who understand'). The 'not because X, because Y' beat reframes."
+    },
+    {
+      "hook": "Zealand Pharma Announces Phase 3 Win for Survodutide. A major milestone in the obesity and metabolic health space — survodutide delivered up to 16.6% weight loss over 76 weeks.",
+      "shape": "data_led",
+      "persona_match": "GLP-1 Companion",
+      "topic": "Nutrition & Metabolism",
+      "author": "Archie Reaney",
+      "engagement_rate": 1.78,
+      "notes": "News + specific outcome stat (16.6% / 76 weeks). Credibility via numerals."
+    },
+    {
+      "hook": "SECOND WORLD MAJOR MARATHON. Yesterday, Caleb completed his second full marathon in London. The crowd support was electric and he was truly in his element; high-fives and fist bumps for an entire 26.2 miles.",
+      "shape": "story",
+      "persona_match": "Athletic Performer",
+      "topic": "Sports & Endurance",
+      "author": "Karen Prewitt",
+      "engagement_rate": 1.74,
+      "notes": "Caps-lock milestone + named character + sensory detail. Works for personal-narrative shapes."
+    },
+    {
+      "hook": "If you have ever needed medicine, biotechnology is what makes it possible. More than 100 million Americans live with a condition that can be treated, however millions more are still waiting for the next breakthrough.",
+      "shape": "declarative",
+      "persona_match": null,
+      "topic": "General Health",
+      "author": "Deborah Glasser",
+      "engagement_rate": 1.27,
+      "notes": "Universal-experience opener ('if you have ever') + specific stat. Lower engagement — works for advocacy more than personal targeting."
+    },
+    {
+      "hook": "A longer life is a gift, but it also asks more of us than just a strong financial plan.",
+      "shape": "declarative",
+      "persona_match": null,
+      "topic": "Longevity / Healthspan",
+      "author": "Aimee DeCamillo",
+      "engagement_rate": 1.42,
+      "notes": "Aphoristic open. Earns the click via the unexpected pivot ('asks more of us')."
+    },
+    {
+      "hook": "What #skin reveals about aging - a measurable interface of biological ageing.",
+      "shape": "declarative",
+      "persona_match": "Aesthetic Aspirational",
+      "topic": "Longevity / Healthspan",
+      "author": "Andrea B. Maier",
+      "engagement_rate": 2.97,
+      "notes": "Reframes a familiar surface (skin) as a measurable signal. 'Measurable interface' is the credibility lift."
+    },
+    {
+      "hook": "The AI revolution in technology is inescapable right now, and with good reason. It has been quietly powering Oura Ring for over a decade.",
+      "shape": "declarative",
+      "persona_match": "Longevity Hacker",
+      "topic": "General Health",
+      "author": "Tom Hale",
+      "engagement_rate": 3.19,
+      "notes": "Bandwagon ack + insider reveal ('quietly powering ... for over a decade')."
+    },
+    {
+      "hook": "15 years after Génifique, Lancôme is making history again 🔥",
+      "shape": "declarative",
+      "persona_match": "Aesthetic Aspirational",
+      "topic": "Longevity / Healthspan",
+      "author": "Elena Perez",
+      "engagement_rate": 2.62,
+      "notes": "Brand-anchor hook ('15 years after [iconic product]'). Works when the audience knows the reference."
+    }
+  ]
+}

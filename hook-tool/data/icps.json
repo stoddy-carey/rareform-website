@@ -1,0 +1,296 @@
+{
+  "source": "Notion: Persona × Trigger × Creative Format Matrix — Pre-Launch Paid UA @April 27, 2026",
+  "source_url": "https://www.notion.so/34fcb2c07fe68161a1e8dd79236d4acb",
+  "framework_note": "Memory is the connective tissue. The differential isn't *that* a feature exists, it's *how specific* the output is because the coach knows the user.",
+  "personas": [
+    {
+      "id": 1,
+      "shape": "Confused",
+      "verb": "Triage / explain",
+      "one_liner": "Body sending signals they can't decode",
+      "demographics": "30–45, even gender split, urban, knowledge worker, household income €60k+",
+      "currently_uses": "Apple Health, maybe Oura, MyFitnessPal sometimes, ChatGPT for health questions",
+      "trigger_moments": [
+        "3pm wall daily",
+        "Friday wreckage — wakes up Saturday destroyed despite an unremarkable week",
+        "sleeps 8h feels like 4h",
+        "'I do everything right and still feel bad'",
+        "unexplained mood dip",
+        "bad workout autopsy",
+        "compounding bad week with no thread",
+        "post-vacation reveal — felt great on holiday, depleted again within 4 days",
+        "the mystery bad morning — wakes up wrecked, no obvious cause"
+      ],
+      "direct_competitors": "ChatGPT/Claude for health Qs, MyFitnessPal, Apple Health, Oura's Tags feature",
+      "where_outcurve_sits": "A diagnostic ally — not daily, but the first thing they reach for when something's off. Becomes daily once it earns trust.",
+      "communication_style": "Curious, skeptical, evidence-seeking. Watches full Reels. Saves to come back to. Distrusts polish. Wants to figure it out themselves with help.",
+      "scroll_context": "Tue–Wed 2:30–4pm at desk; Sunday 9–11pm; bathroom doom-scroll",
+      "best_creative_grammar": "Raw POV video. Founder or user explaining one specific puzzle. Screen recording of the app surfacing the answer. Hook = the question they've asked themselves out loud.",
+      "lead_features_by_format": {
+        "demo_led": "Photo → meal analysis with full breakdown (macros, glycemic, micronutrients)",
+        "story_led": "Coach reply explaining the bad workout / morning, surfacing the unexpected variable",
+        "problem_led": "'I do everything right' paradox → coach surfaces actual driver",
+        "persona_led": "User POV: 'I asked it why I crash every Friday'"
+      },
+      "relevant_features": "AI coach (memory-driven explanations); daily/weekly insights; modeled curves (glucose, caffeine, hydration); meal photo analysis; bad-workout autopsy via cross-referencing meals + sleep + cycle + caffeine; daily ring as 'what's actually driving today'"
+    },
+    {
+      "id": 2,
+      "shape": "Stress / Burnout",
+      "verb": "Break the cycle",
+      "one_liner": "Being ground down, the system is breaking them",
+      "demographics": "28–42, slight female skew, big-city, demanding job (consulting, law, tech, founders, parents-with-jobs)",
+      "currently_uses": "Calm or Headspace (lapsed), Oura, Notion / Apple Notes for journaling, melatonin, magnesium, therapy",
+      "trigger_moments": [
+        "4th coffee at 3pm with no food — 'I'm operating on nothing'",
+        "Sunday scaries dialed to 10 — anxiety spike at 7pm Sunday night",
+        "snapped at partner over nothing",
+        "2am wake-up 3x/week, mind racing about work",
+        "tension headache that won't go away; eye twitch; stomach issues",
+        "the 'I used to handle this' comparison — same workload, lower capacity",
+        "the friend who quit and looks reborn"
+      ],
+      "direct_competitors": "Calm, Headspace, Othership, BetterHelp, Insight Timer, Reset",
+      "where_outcurve_sits": "A circuit-breaker. Has to feel like less work, not more. Lives next to therapy and quitting drinking — 'things I'm doing to save myself.'",
+      "communication_style": "Emotional, exhausted, low-bandwidth. Responds to recognition more than information. 'Oh shit, that's me' > 'Here's how it works.'",
+      "scroll_context": "Late evening 10pm–midnight; Sunday 7–10pm; Tue/Wed mid-week wall",
+      "best_creative_grammar": "Sub-15-sec emotional hooks. Name the feeling before naming the product. Soft visual register — not optimization-bro. Voice memos, journal-style POV, ambient quiet.",
+      "lead_features_by_format": {
+        "demo_led": "Caffeine taper curve — yesterday's 4pm coffee still in your blood at 11pm",
+        "story_led": "Wind-down audio session generated from today's data",
+        "problem_led": "The cycle diagram broken at the caffeine node",
+        "persona_led": "Ex-burnout founder showing daily ring shifts"
+      },
+      "relevant_features": "Caffeine taper curve; guided-audio wind-down sessions; breathwork + meditation generator; food → stress correlation; calendar auto-blocking (protect rest); coach as 3am check-in companion; daily ring (Recovery segment lead)"
+    },
+    {
+      "id": 3,
+      "shape": "Cognitive Performer",
+      "verb": "Protect the edge",
+      "one_liner": "Protecting their professional edge",
+      "demographics": "32–48, male skew (~65/35), founders / execs / consultants / lawyers / engineers, household income €120k+",
+      "currently_uses": "Whoop or Oura, Levels / Lingo CGM, AG1, nicotine gum, espresso, ChatGPT, Bryan Johnson curiosity",
+      "trigger_moments": [
+        "6 cups of coffee realization — quietly alarmed by the count",
+        "brain fog mid-board-meeting / pitch / important call",
+        "forgot a colleague's name",
+        "2pm cliff every day",
+        "can't think for 4hrs straight anymore — now 90 minutes max",
+        "CGM revealed post-lunch glucose spike — connected it to brain fog",
+        "the peer who looks sharper"
+      ],
+      "direct_competitors": "Whoop, Oura, ChatGPT, Levels, AG1, Lumen, modafinil/Adderall (the dark version)",
+      "where_outcurve_sits": "Performance infrastructure. Same shelf as the espresso machine and noise-cancelling headphones. 'Runs in the background; makes my work hours sharper.'",
+      "communication_style": "Skeptical of wellness language. Allergic to 'holistic.' Wants data, mechanism, charts, half-life curves. Trusts founders and operators more than influencers.",
+      "scroll_context": "Late evening 9–11pm; weekend morning coffee scroll; Steven Bartlett / Huberman / Attia clips",
+      "best_creative_grammar": "Data-forward demos. Photo → glucose curve. Caffeine taper visualization. Founder POV with screen-recorded UI. No fluff, no music swells. Show don't say.",
+      "lead_features_by_format": {
+        "demo_led": "Photo of menu → 'pick this, your 2pm meeting needs it'",
+        "story_led": "Founder POV: 3pm crash mid-board-meeting + data reveal",
+        "problem_led": "'4 coffees by 11am, here's what my glucose actually looked like'",
+        "persona_led": "Founder-on-founder (Ilkka or peer) showing dashboard"
+      },
+      "relevant_features": "Photo → glucose curve; caffeine titration timing; menu/restaurant photo for contextual food picks; calendar integration (peak-focus-window forecasts); morning calibration / mental sharpness score; voice-log meals at end of day (zero friction); daily ring (Performance segment)"
+    },
+    {
+      "id": 4,
+      "shape": "Athletic Performer",
+      "verb": "Win the race",
+      "one_liner": "Race / event / performance goal on the calendar",
+      "demographics": "28–45, even gender split (slight male in endurance, female in Hyrox/CrossFit), middle to upper-middle income, training 4–6x/week",
+      "currently_uses": "Garmin or Whoop, Strava, TrainingPeaks, Runna, MyFitnessPal, possibly a coach",
+      "trigger_moments": [
+        "got dropped on the run — hung on for 6k, blew up, walked the rest",
+        "the Whoop group chat — friend posted 19 recovery, theirs was 41",
+        "signed up for marathon/Hyrox 12wks out",
+        "3-month plateau on lifts/pace",
+        "bonked at halfway in last race",
+        "comparing this year's Strava to last year's",
+        "gym friend who started 'doing all the things' — cold plunge, CGM, coach, dropped 8kg"
+      ],
+      "direct_competitors": "Runna, TrainingPeaks, Whoop, Garmin Connect, Strava, human coaches, Hyrox-specific apps",
+      "where_outcurve_sits": "Coach replacement / coach augmentation. The thing that makes their existing training data finally mean something.",
+      "communication_style": "High info tolerance. Will watch a 60-sec explainer. Trusts athlete creators (Camille Herron, Nick Bare, Hyrox pros), not influencers. Wants proof: real training plans, real splits.",
+      "scroll_context": "Post-workout (locker room, walking home); Sunday night planning; Monday morning post-coffee",
+      "best_creative_grammar": "Athlete-led testimonials. Real splits / real lifts / real PR stories. Screen-recordings of the workout generator producing a real plan. Avoid stock-fitness aesthetic.",
+      "lead_features_by_format": {
+        "demo_led": "Workout generator: injury + equipment + race goal → full plan in 8 sec",
+        "story_led": "12-week race prep, watching daily ring evolve",
+        "problem_led": "'TrainingPeaks tells me what. Doesn't tell me why I bonked.'",
+        "persona_led": "Athlete-creator showing real splits + recovery cycle"
+      },
+      "relevant_features": "Custom workout generator (injury + equipment aware); recipe generator (race-fueling); recovery scoring across HRV + sleep + load; cycle-aware training (for women); calendar auto-blocking workouts; lab interpretation (e.g. ferritin for endurance); coach for race-week taper"
+    },
+    {
+      "id": 5,
+      "shape": "Aesthetic Aspirational",
+      "verb": "Look like that",
+      "one_liner": "Saw someone, wants to look like that",
+      "demographics": "24–38, slight female skew, mid-career professional, active on Instagram",
+      "currently_uses": "MyFitnessPal, ClassPass / boutique gym, Instagram saves folder, possibly a PT, Reformation/Aritzia for the after-photos",
+      "trigger_moments": [
+        "the dress fitting / suit fitting — 'that's how I look right now?'",
+        "saw a transformation post on Instagram — 'I want to look exactly like that, how did they do it'",
+        "friend who lost weight and looks reborn",
+        "tagged photo of themselves",
+        "trying on summer clothes",
+        "just went through a breakup and wants to look better"
+      ],
+      "direct_competitors": "MyFitnessPal, Noom, fitness influencers' programs (Madalin Frodeno, Krissy Cela, etc.), bootcamps",
+      "where_outcurve_sits": "The how-they-actually-did-it manual. The thing that decodes the influencer's transformation into a personal plan.",
+      "communication_style": "Visual. Trusts before-and-afters. Trusts named people more than brands. Trusts specific numbers ('I dropped 6 kilos in 14 weeks doing X') more than claims.",
+      "scroll_context": "Instagram & TikTok evening scroll; gym mirror; trying-on moments",
+      "best_creative_grammar": "Real transformation stories with the specific protocol shown. Side-by-side before/after with the daily plan from Outcurve overlaid. UGC > polished.",
+      "lead_features_by_format": {
+        "demo_led": "Voice-log a day at 9pm in 30 sec → full breakdown",
+        "story_led": "'She lost 8 kilos in 14 weeks. Here's the daily plan that did it.'",
+        "problem_led": "'Every diet app makes me log everything. I have a job. Here's what I do instead.'",
+        "persona_led": "Real transformation UGC with the actual Outcurve plan visible"
+      },
+      "relevant_features": "Voice-log all meals at end of day; photo → meal analysis; recipe generator from fridge photo; custom workouts; calendar auto-blocking; daily ring with body-composition-aligned actions; menu photo for restaurant decisions"
+    },
+    {
+      "id": 6,
+      "shape": "Event",
+      "verb": "Hit the date",
+      "one_liner": "Calendar deadline (wedding, milestone, photo shoot)",
+      "demographics": "26–42, female skew (~70/30 — wedding-led), engaged or with a deadline, willing to spend",
+      "currently_uses": "A diet program (Noom, Weight Watchers), a temporary gym membership, possibly a 75-Hard attempt, Pinterest boards",
+      "trigger_moments": [
+        "dress / suit fitting reveal",
+        "got the save-the-date and did the math",
+        "tried-on photo from a friend's wedding last year",
+        "honeymoon photos preview — 'I don't want to look like that'",
+        "7-days-out panic",
+        "'I want to feel good not just look good' reframe"
+      ],
+      "direct_competitors": "Noom, Weight Watchers, 75 Hard, the Sweat app, wedding-specific programs (FitOnWeddings, Tone It Up Bride)",
+      "where_outcurve_sits": "The structured countdown. The thing that turns 'I have 11 weeks' into 'here's what I do today.'",
+      "communication_style": "Time-pressured, high-conviction at the start, fragile in the middle. Responds to deadlines and structure. Will pay more than usual if the deadline is real.",
+      "scroll_context": "Sunday night planning; Pinterest sessions; late evening solo scrolling; right after a tagged-photo trigger",
+      "best_creative_grammar": "Countdown-driven creative. '11 weeks out' / '30 days out.' Show the calendar. Show the daily ring filling. Soft tone — not aggressive bootcamp energy.",
+      "lead_features_by_format": {
+        "demo_led": "Calendar auto-blocking — '11 weeks to the wedding' → everything booked",
+        "story_led": "Bride/groom countdown + daily ring filling + 'I felt good on the day'",
+        "problem_led": "'I tried 75 Hard, Noom, a trainer. None adjusted to my actual life.'",
+        "persona_led": "Real bride/groom UGC walking through 12-week prep"
+      },
+      "relevant_features": "Calendar auto-blocking (countdown structure); custom workout generator; recipe generator; voice-log meals; daily ring as countdown thermometer; coach for week-of taper / wedding-day fueling; adaptive plan updates as date approaches"
+    },
+    {
+      "id": 7,
+      "shape": "GLP-1 Companion",
+      "verb": "Do this right",
+      "one_liner": "On a peptide, doesn't want to lose muscle",
+      "demographics": "30–55, even gender split (slight female), suburban + urban, €70k+, often via telehealth (Hims/Hers, Ro, Mochi, Eden)",
+      "currently_uses": "Their GLP-1 prescriber app, Apple Health, MyFitnessPal occasionally, a basic protein powder, Reddit subs",
+      "trigger_moments": [
+        "mirror moment 3mo in — skin looser, face hollower",
+        "heard 'you're losing muscle' on a podcast",
+        "couldn't lift what they used to",
+        "doctor flagged low protein / lost lean mass on a DEXA",
+        "'what happens when I come off this' anxiety",
+        "under-eating from killed appetite",
+        "three friends also on it, none have a plan"
+      ],
+      "direct_competitors": "MacroFactor, Carbon Diet Coach, MyFitnessPal, Future (PT app), GLP-1 prescriber companion apps (Hers, Mochi)",
+      "where_outcurve_sits": "The protect-yourself layer. The thing that ensures the weight loss doesn't cost them muscle, strength, or a normal relationship with food.",
+      "communication_style": "Anxious, well-informed, lurker on Reddit. Trusts other GLP-1 users more than experts. Sensitive to medical-claim language. Wants reassurance + structure, not optimization.",
+      "scroll_context": "Reddit r/Mounjaro / r/Zepbound / r/Ozempic; late-evening Instagram; WhatsApp with friends also on it",
+      "best_creative_grammar": "UGC from real GLP-1 users showing protein / strength / energy. Screen-recordings of agentic protein logging. Avoid weight-loss imagery — focus on what they kept (muscle, strength, energy).",
+      "lead_features_by_format": {
+        "demo_led": "Voice-log 'salad, half chicken, yogurt' → protein vs. target instantly",
+        "story_led": "'Lost 18 kilos on Mounjaro and felt weaker every week. Then I started this.'",
+        "problem_led": "'GLP-1 prescribers give you a shot. They don't give you a plan to keep your muscle.'",
+        "persona_led": "Real GLP-1 user UGC: protein logging + tailored workout"
+      },
+      "relevant_features": "Voice-log meals (low-friction agentic logging); protein tracking against target; GLP-1-specific workout generator (muscle preservation); recipe generator (high-protein, GLP-1 appetite-aware); lab interpretation (lean mass markers); coach for fueling when appetite is suppressed"
+    },
+    {
+      "id": 8,
+      "shape": "Longevity Hacker",
+      "verb": "Consolidate",
+      "one_liner": "Quantified-self, tool consolidation",
+      "demographics": "28–45, heavy male skew (~80/20), tech-adjacent, high income, early-adopter",
+      "currently_uses": "Whoop, Oura, Eight Sleep, Levels, Function Health, InsideTracker, AG1, Bryan Johnson protocols, Claude/ChatGPT, a personal Notion spreadsheet",
+      "trigger_moments": [
+        "copy-paste session with Claude trying to triangulate data",
+        "Function panel came back with 80 markers, spent 2hrs Googling",
+        "Sunday 5-app review — Whoop, Oura, Strava, MyFitnessPal, Levels",
+        "just got a CGM/DEXA/genomic panel — 'now what'",
+        "another protocol added on top of seven",
+        "got asked by a friend 'what should I do?' and realized they have no system",
+        "seeing a really cool demo of the tool in action"
+      ],
+      "direct_competitors": "Function Health, InsideTracker, Levels, Eight Sleep, Whoop, Bryan Johnson Blueprint, Notion personal dashboards, Claude/ChatGPT",
+      "where_outcurve_sits": "The integration layer. The product that finally makes the 7 tools talk to each other. The 'I built this in Claude but it's a mess' replacement.",
+      "communication_style": "Tech-fluent, demo-driven. Watches long-form. Trusts founder voices, podcast guests, Twitter/X threads. Dismissive of mainstream wellness aesthetics.",
+      "scroll_context": "X (formerly Twitter); YouTube long-form; Reddit r/Biohackers, r/QuantifiedSelf, r/PeterAttia; podcast comment sections; not Reels primarily",
+      "best_creative_grammar": "Long-form demo content. Founder-on-founder podcast cuts. Screen-recordings of the data integration. Twitter threads. The product is the hook — show it working.",
+      "lead_features_by_format": {
+        "demo_led": "Upload Function panel PDF → 80 markers parsed in 30 sec",
+        "story_led": "Founder/operator POV: '7 apps, a Notion, tried Claude. Then this.'",
+        "problem_led": "'ChatGPT can't see my Whoop. Notion can't think. Function gives 80 markers and walks away.'",
+        "persona_led": "Investor-anchor / respected operator showing integrated dashboard"
+      },
+      "relevant_features": "Lab interpretation (Function, InsideTracker, blood panels); wearable consolidation (Oura + Whoop + Garmin + Apple Health in one); coach as the integration layer across all data; modeled curves; daily ring as unified score; long-term memory across years of data; multi-agent weekly briefing"
+    },
+    {
+      "id": 9,
+      "shape": "Sleep Mystery",
+      "verb": "Solve the mystery",
+      "one_liner": "Sleep is broken, generic advice failed",
+      "demographics": "30–55, slight female skew (perimenopausal sub-segment), urban, mid-to-high income",
+      "currently_uses": "Oura or Whoop or 8 Sleep, melatonin, magnesium, blue-light glasses, sleep podcasts, has tried mouth tape",
+      "trigger_moments": [
+        "Oura paradox — got a 92 sleep score, feels destroyed",
+        "3am wake every night same time",
+        "wine-on-Tuesday autopsy — two glasses, sleep score tanked",
+        "post-workout terrible sleep — worked out hard at 6pm, slept worse not better",
+        "bought a Whoop, still doesn't sleep",
+        "'everyone else is fine' loneliness — partner sleeps through everything",
+        "cycle realization — luteal-phase sleep crash"
+      ],
+      "direct_competitors": "Oura, Whoop, 8 Sleep, Eight, Calm Sleep Stories, Sleep Cycle, Rise, sleep-tracking via Apple Watch",
+      "where_outcurve_sits": "The detective. The thing that finally explains why the bad nights happen — not just that they happened.",
+      "communication_style": "Tired, frustrated, has read the obvious advice. Dismisses generic ('just sleep more') immediately. Responds to specificity and surprise — 'I never connected those two things.'",
+      "scroll_context": "11pm in bed; 6am still in bed; Reddit r/insomnia, r/sleep, r/Whoop; sleep podcast comments",
+      "best_creative_grammar": "The 'Oura paradox' hook — good score / felt destroyed. Walk through the actual cause Outcurve found. Nighttime visual register — dim, intimate, not energetic.",
+      "lead_features_by_format": {
+        "demo_led": "Sleep score + causal explanation: 'you slept 6h because: late caffeine + luteal + heavy dinner'",
+        "story_led": "'I sleep 8 hours and wake up destroyed. So I gave it everything.'",
+        "problem_led": "Oura paradox: great score + felt destroyed → cross-referenced answer",
+        "persona_led": "User-creator with insomnia showing week-over-week pattern"
+      },
+      "relevant_features": "Sleep + HRV ingestion from wearables; caffeine taper curve; cycle-aware sleep modeling; food → sleep correlation; wind-down audio sessions; coach for 3am wake-up patterns; daily ring (Recovery segment); journal/mood inputs as additional signal"
+    },
+    {
+      "id": 10,
+      "shape": "Graduating Woman",
+      "verb": "Stop fragmenting myself",
+      "one_liner": "Outgrew her single-purpose cycle/training app",
+      "demographics": "30–48, female only, knowledge worker or active mom, mid-to-high income, hormonally literate",
+      "currently_uses": "Wild.AI, Flo, Clue, Natural Cycles, Oura, MyFitnessPal, Stacy Sims books, Mary Claire Haver content, Mindy Pelz, Mel Robbins-adjacent",
+      "trigger_moments": [
+        "'Flo said high-energy day, I cried at 11am'",
+        "'5 apps for one body'",
+        "'is it my cycle or the wine'",
+        "'I outgrew tracking, I want integration'",
+        "'Wild.AI is for athletes, I'm just trying to live'",
+        "perimenopause inflection — patterns no longer predictable"
+      ],
+      "direct_competitors": "Wild.AI, Flo, Clue, Natural Cycles, Stardust, Hormona, 28 by Brittany Mahomes' team, Midi (perimenopause), Tally Health",
+      "where_outcurve_sits": "The integration layer for women's health. The product that lets her stop being the synapse between her cycle app, her food app, her wearable, and her stress.",
+      "communication_style": "Hormonally literate, Substack-reading, podcast-listening. Trusts women experts (Sims, Haver, Pelz, Hyman, Mosconi). Allergic to pink-marketing. Wants serious tools that respect her intelligence.",
+      "scroll_context": "Saved Reels from women's-health creators; Substacks (Mary Claire Haver, Hot Flash); late-night IG; women's-health-leaning podcasts",
+      "best_creative_grammar": "The contradiction hook ('Flo said high-energy day, I cried at 11am — here's what was actually happening'). Real woman POV. Screen-recordings showing cycle data + meals + sleep + stress in the same view. Don't position against Wild.AI by name — demonstrate the integration.",
+      "lead_features_by_format": {
+        "demo_led": "Cycle + meals + sleep + stress in one daily view",
+        "story_led": "'Flo said high-energy day. I cried at 11am. Here's what was actually going on.'",
+        "problem_led": "'5 apps for one body. None talk. Here's what happens when one app sees everything.'",
+        "persona_led": "Women's-health creator (Substack-tier, not pink) showing integrated cycle view"
+      },
+      "relevant_features": "Cycle phase as modifier across all features (training, fueling, sleep, stress); cycle-aware workouts; cycle-aware nutrition; perimenopause life-stage flag; lab interpretation (hormonal panels); coach with cycle memory; food → mood correlation; wind-down audio adapted to luteal phase"
+    }
+  ]
+}

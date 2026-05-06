@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Hook Tool — Outcurve</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Hook Tool <span class="brand-sub">/ Outcurve</span></div>
+    <div class="topbar-controls">
+      <label class="model-toggle">
+        Model
+        <select id="model-select">
+          <option value="claude-haiku-4-5-20251001">Haiku 4.5 (fast)</option>
+          <option value="claude-sonnet-4-6">Sonnet 4.6 (deeper)</option>
+        </select>
+      </label>
+      <button id="reset-key" class="ghost-btn" type="button">Reset key</button>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab active" data-mode="subject-lines" role="tab">Subject lines</button>
+    <button class="tab" data-mode="ig-first-lines" role="tab">IG first-lines</button>
+    <button class="tab" data-mode="post-intros" role="tab">Post intros</button>
+    <button class="tab" data-mode="extract-hook" role="tab">Extract from transcript</button>
+  </nav>
+
+  <main class="layout">
+    <section class="form-pane">
+      <div class="generate-form" data-form="generate">
+        <label class="field">
+          <span>Topic / angle</span>
+          <textarea id="topic" rows="3" placeholder="e.g. post-lunch glucose crash explained by AI coach memory"></textarea>
+        </label>
+
+        <label class="field">
+          <span>Persona</span>
+          <select id="persona-select"></select>
+        </label>
+
+        <label class="field">
+          <span>Creative format</span>
+          <select id="format-select">
+            <option value="any">Any (let model choose)</option>
+            <option value="demo_led">Demo-led</option>
+            <option value="story_led">Story-led</option>
+            <option value="problem_led">Problem-led</option>
+            <option value="persona_led">Persona-led</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Tone modifiers <em>(optional)</em></span>
+          <input id="tone" type="text" placeholder="e.g. dry, founder-voice, no emoji" />
+        </label>
+
+        <label class="field count-field">
+          <span>Count</span>
+          <input id="count" type="number" min="3" max="20" value="10" />
+        </label>
+
+        <button id="generate-btn" class="primary-btn" type="button">Generate</button>
+      </div>
+
+      <div class="extract-form hidden" data-form="extract">
+        <label class="field">
+          <span>Paste transcript</span>
+          <textarea id="transcript" rows="14" placeholder="Paste a video transcript (Reel, TikTok, YouTube short, podcast clip). Up to ~10,000 characters."></textarea>
+          <small class="char-count"><span id="transcript-count">0</span> / 10,000 chars</small>
+        </label>
+        <button id="extract-btn" class="primary-btn" type="button">Extract hook</button>
+      </div>
+    </section>
+
+    <section class="output-pane">
+      <div class="output-header">
+        <span id="output-label">Output</span>
+        <span id="status" class="status"></span>
+      </div>
+      <div id="output" class="output"></div>
+    </section>
+  </main>
+
+  <div id="key-modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-card">
+      <h2>Anthropic API key</h2>
+      <p>Stored in your browser only (localStorage). Never sent anywhere except api.anthropic.com.</p>
+      <input id="key-input" type="password" placeholder="sk-ant-..." autocomplete="off" />
+      <div class="modal-actions">
+        <button id="key-save" class="primary-btn" type="button">Save</button>
+      </div>
+      <p class="modal-foot">Get one at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">console.anthropic.com</a>.</p>
+    </div>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
