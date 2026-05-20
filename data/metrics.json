@@ -48,9 +48,10 @@
           "weeklyDelta": 18,
           "postsThisWeek": 3,
           "history": [180, 205, 230, 248, 265, 282, 298, 312],
-          "_note": "Outcurve company LinkedIn. Update URL if /company/outcurve is wrong."
+          "_note": "Outcurve company LinkedIn — confirmed via Notion + web search."
         }
-      ]
+      ],
+      "_aliases": ["outcurvehealth2 (secondary TikTok, energy & sickness lane)"]
     },
     {
       "id": "rareform",
@@ -69,24 +70,25 @@
         },
         {
           "platform": "instagram",
-          "handle": "rareform030",
-          "url": "https://instagram.com/rareform030",
+          "handle": "rareformhealth",
+          "url": "https://instagram.com/rareformhealth",
           "followers": 1283,
           "weeklyDelta": 64,
           "postsThisWeek": 5,
           "history": [820, 900, 980, 1055, 1120, 1180, 1219, 1283],
-          "latestPost": { "caption": "Sunday slow flow at Vondel — 8am, free, bring water.", "url": "https://instagram.com/rareform030", "date": "2026-05-19" }
+          "latestPost": { "caption": "Sunday slow flow at Vondel — 8am, free, bring water.", "url": "https://instagram.com/rareformhealth", "date": "2026-05-19" },
+          "_note": "Notion accounts DB says @rareformhealth, but the existing site footer links to @rareform030 — please confirm which is correct."
         },
         {
           "platform": "tiktok",
-          "handle": "rareform030",
-          "url": "https://tiktok.com/@rareform030",
+          "handle": "rareformhealth",
+          "url": "https://tiktok.com/@rareformhealth",
           "followers": 412,
           "weeklyDelta": 38,
           "postsThisWeek": 3,
           "viewsLast30d": 24180,
           "history": [180, 215, 245, 280, 312, 348, 374, 412],
-          "latestPost": { "caption": "Run-club origin story in 12 seconds", "url": "https://tiktok.com/@rareform030", "date": "2026-05-17" }
+          "latestPost": { "caption": "Run-club origin story in 12 seconds", "url": "https://tiktok.com/@rareformhealth", "date": "2026-05-17" }
         }
       ]
     },
@@ -134,7 +136,7 @@
       "role": "Cofounder · Growth & User Research",
       "linkedin": "https://www.linkedin.com/in/stoddy-carey/",
       "followers": 4280,
-      "_followersNote": "Same number as the Stoddy LinkedIn channel above — kept here for the team grid."
+      "_followersNote": "Mirrors the Stoddy LinkedIn channel under properties[stoddy]."
     },
     {
       "name": "Sebastian",
@@ -144,26 +146,23 @@
       "followers": 1840
     },
     {
-      "name": "Jurgen",
-      "lastName": "Celmeta",
-      "role": "Founding Engineer · Architecture",
-      "linkedin": "https://www.linkedin.com/in/jurgen-celmeta-91ba1312b/",
-      "followers": 620
-    },
-    {
       "name": "Uma",
       "lastName": "Patel",
       "role": "Founder's Associate · Growth",
       "linkedin": "https://www.linkedin.com/in/uma-patel-89320615b/",
       "followers": 380
-    },
-    {
-      "name": "Louis",
-      "lastName": "Currie",
-      "role": "Founding Designer",
-      "linkedin": "https://www.linkedin.com/in/louiscurrie/",
-      "followers": 1240
     }
+  ],
+  "_extraAccounts": [
+    "outcurvehealth2 · TikTok · secondary brand (Stoddy Carey)",
+    "outcurvehealth3 · TikTok · UGC ghost (Uma)",
+    "patrickdunne030 · TikTok · UGC ghost (Stoddy)",
+    "gracelenior · TikTok · UGC ghost (Stoddy)",
+    "@tomfoolery.1 · TikTok · UGC (Tom Davies)"
+  ],
+  "_otherTeam": [
+    "Jurgen Celmeta · Founding Engineer · linkedin.com/in/jurgen-celmeta-91ba1312b/",
+    "Louis Currie · Founding Designer · linkedin.com/in/louiscurrie/"
   ],
   "shipsByDay": {
     "2026-05-20": 3,
