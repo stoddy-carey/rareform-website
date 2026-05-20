@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Growth · Northstar — Outcurve, Rareform, Stoddy</title>
-<meta name="description" content="The Northstar growth dashboard — every account, every ship, every follower across Outcurve, Rareform, and Stoddy.">
+<title>Outcurve · Growth Northstar</title>
+<meta name="description" content="Outcurve's live growth Northstar — every ship, every follower across the company, Rareform (our Berlin community), and Stoddy's founder presence.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -436,6 +436,29 @@ header.nav {
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text-subtle);
+}
+.property-kind {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 30px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.property-kind.company {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-ring);
+}
+.property-kind.sub-brand,
+.property-kind.founder {
+  color: var(--text-subtle);
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 .property-color-dot {
   width: 10px; height: 10px;
@@ -918,13 +941,12 @@ footer.foot a:hover { color: var(--text); }
 <header class="nav">
   <div class="nav-inner">
     <a href="growth.html" class="brand">
-      <span class="brand-mark">g</span>
-      <span>growth</span>
+      <span class="brand-mark">O</span>
+      <span>Outcurve</span>
       <span class="brand-divider"></span>
-      <span class="brand-label">northstar</span>
+      <span class="brand-label">Growth · Northstar</span>
     </a>
     <div class="nav-right">
-      <a href="index.html" class="nav-link desktop-only">Site</a>
       <span class="live-chip"><span class="live-dot"></span><span>live</span></span>
     </div>
   </div>
@@ -934,9 +956,9 @@ footer.foot a:hover { color: var(--text); }
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="eyebrow">Northstar · v2</div>
-    <h1>Every ship, every follower,<br>every account in one place.</h1>
-    <p class="lede">A live look at how the team is moving across <strong style="color:var(--text)">Outcurve</strong>, <strong style="color:var(--text)">Rareform</strong>, and <strong style="color:var(--text)">Stoddy</strong> — plus every employee's LinkedIn. Shipping cadence is the #1 predictor of startup success. We track it like product velocity.</p>
+    <div class="eyebrow">Outcurve · Northstar</div>
+    <h1>Every ship, every follower,<br>every Outcurve account.</h1>
+    <p class="lede">A live look at how the Outcurve growth team is moving — across the core <strong style="color:var(--text)">Outcurve</strong> brand, our Berlin community newsletter <strong style="color:var(--text)">Rareform</strong>, and <strong style="color:var(--text)">Stoddy's</strong> founder presence. Plus every employee on LinkedIn. Shipping cadence is the #1 predictor of startup success — we treat it like product velocity.</p>
     <div class="hero-meta">
       <span>Last ship <strong id="lastShipText">—</strong></span>
       <span>Updated <strong id="lastUpdatedText">—</strong></span>
@@ -996,8 +1018,8 @@ footer.foot a:hover { color: var(--text); }
   <!-- ─── PROPERTIES ─── -->
   <section class="section">
     <div class="section-head">
-      <h2>By brand</h2>
-      <span class="head-meta">our three Northstars</span>
+      <h2>By property</h2>
+      <span class="head-meta">company · sub-brand · founder</span>
     </div>
     <div class="properties" id="propertiesGrid"></div>
   </section>
@@ -1101,7 +1123,7 @@ footer.foot a:hover { color: var(--text); }
 </main>
 
 <footer class="foot">
-  <span>Northstar · built for the growth team · <a href="index.html">rareform site</a></span>
+  <span>Outcurve · Growth Northstar — built for the growth team</span>
 </footer>
 
 <script>
@@ -1418,10 +1440,13 @@ function renderProperties(metrics) {
          </div>`
       : '';
 
+    const kind = p.kind || 'property';
+    const kindLabel = kind === 'company' ? 'Company' : kind === 'sub-brand' ? 'Sub-brand' : kind === 'founder' ? 'Founder' : kind;
     return `
       <div class="property" style="--property-color:${p.color}">
         <div class="property-head">
           <div>
+            <span class="property-kind ${kind}">${kindLabel}</span>
             <div class="property-name">${escapeHtml(p.name)}</div>
             <div class="property-tagline">${escapeHtml(p.tagline || '')}</div>
           </div>

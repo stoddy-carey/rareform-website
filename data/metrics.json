@@ -12,6 +12,7 @@
     {
       "id": "outcurve",
       "name": "Outcurve",
+      "kind": "company",
       "tagline": "Personalized health · default-alive",
       "color": "#84cc16",
       "channels": [
@@ -66,7 +67,8 @@
     {
       "id": "rareform",
       "name": "Rareform",
-      "tagline": "Berlin's healthy life, weekly",
+      "kind": "sub-brand",
+      "tagline": "Outcurve's Berlin community newsletter",
       "color": "#22d3ee",
       "channels": [
         {
@@ -108,7 +110,8 @@
     {
       "id": "stoddy",
       "name": "Stoddy Carey",
-      "tagline": "Cofounder, in public",
+      "kind": "founder",
+      "tagline": "Outcurve cofounder, in public",
       "color": "#f472b6",
       "channels": [
         {
