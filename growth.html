@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>rareform — Growth · Our Northstar</title>
+<meta name="description" content="The rareform growth team's Northstar page. Building in the open, shipping every week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: #0a57a4;
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+#grain-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+}
+
+/* ─── BG SQUIGGLES ─── */
+.bg-squiggles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-squiggles svg { width: 100%; height: 100%; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 87, 164, 0.8);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-logo { text-decoration: none; display: inline-flex; align-items: center; }
+.nav-logo img { height: 28px; width: auto; filter: brightness(0) invert(1); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.25s;
+}
+.nav-links a:hover, .nav-links a.active { color: #ece70e; }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.hamburger span {
+  width: 26px;
+  height: 2.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+.hamburger.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+/* ─── BASE ─── */
+section { position: relative; z-index: 1; }
+.container { max-width: 1140px; margin: 0 auto; padding: 4.2rem 2rem; }
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ece70e;
+  margin-bottom: 0.8rem;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 1.2rem;
+}
+.section-desc {
+  color: rgba(255,255,255,0.6);
+  max-width: 560px;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* ─── HERO ─── */
+.growth-hero {
+  min-height: 80vh;
+  padding: 7rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+.growth-hero h1 {
+  font-size: clamp(2.6rem, 8vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+}
+.growth-hero h1 .yellow { color: #ece70e; }
+.growth-hero .tagline {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  color: rgba(255,255,255,0.75);
+  max-width: 620px;
+  line-height: 1.55;
+  margin-bottom: 2.5rem;
+}
+.live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(236,231,14,0.1);
+  border: 1px solid rgba(236,231,14,0.3);
+  padding: 0.55rem 1.1rem;
+  border-radius: 60px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ece70e;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ece70e;
+  border-radius: 50%;
+  animation: livePulse 1.5s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(236,231,14,0.6); }
+  50% { box-shadow: 0 0 0 10px rgba(236,231,14,0); }
+}
+.last-ship {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 0.4rem;
+}
+.last-ship strong { color: #fff; font-weight: 600; }
+
+/* ─── KPI STRIP ─── */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.kpi-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 1.6rem 1.4rem;
+  transition: transform 0.2s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(236,231,14,0.4);
+}
+.kpi-card .kpi-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 0.6rem;
+}
+.kpi-card .kpi-value {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #ece70e;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.kpi-card .kpi-delta {
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.kpi-card .kpi-delta.up { color: #7eed8a; }
+.kpi-card .kpi-delta.down { color: #ff8a8a; }
+.kpi-card .kpi-delta svg { width: 12px; height: 12px; }
+
+/* ─── CADENCE HEATMAP ─── */
+.cadence-section { padding-top: 1rem; }
+.cadence-wrap {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 22px;
+  padding: 2.4rem;
+  margin-top: 2rem;
+}
+.cadence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+.cadence-stats {
+  display: flex;
+  gap: 2.4rem;
+  flex-wrap: wrap;
+}
+.cadence-stat .num {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ece70e;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cadence-stat .label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.35rem;
+}
+.heatmap-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+.heatmap-scroll::-webkit-scrollbar { height: 6px; }
+.heatmap-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 6px; }
+.heatmap {
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+  min-width: max-content;
+}
+.heatmap-col { display: flex; flex-direction: column; gap: 4px; }
+.heatmap-cell {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.15s, box-shadow 0.2s;
+  cursor: default;
+  position: relative;
+}
+.heatmap-cell.l1 { background: rgba(236,231,14,0.25); border-color: rgba(236,231,14,0.2); }
+.heatmap-cell.l2 { background: rgba(236,231,14,0.5); border-color: rgba(236,231,14,0.4); }
+.heatmap-cell.l3 { background: rgba(236,231,14,0.75); border-color: rgba(236,231,14,0.6); }
+.heatmap-cell.l4 {
+  background: #ece70e;
+  border-color: #ece70e;
+  box-shadow: 0 0 12px rgba(236,231,14,0.5);
+}
+.heatmap-cell:hover { transform: scale(1.4); z-index: 5; }
+.heatmap-cell[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0a57a4;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid rgba(236,231,14,0.3);
+  z-index: 100;
+}
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.heatmap-legend .swatches { display: flex; gap: 4px; }
+.heatmap-legend .swatches div {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+/* ─── PLATFORM CARDS ─── */
+.platforms-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+.platform-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.platform-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--brand, #ece70e);
+}
+.platform-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(236,231,14,0.4);
+}
+.platform-card .p-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.6rem;
+}
+.platform-card .p-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--brandSoft, rgba(255,255,255,0.08));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand, #ece70e);
+}
+.platform-card .p-icon svg { width: 18px; height: 18px; }
+.platform-card .p-handle {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+.platform-card .p-metric-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 0.6rem;
+}
+.platform-card .p-metric-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.platform-card .p-delta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.55rem;
+  color: #7eed8a;
+}
+.platform-card .p-delta.flat { color: rgba(255,255,255,0.5); }
+.platform-card .p-spark { margin-top: 1.2rem; height: 60px; }
+.platform-card .p-spark svg { width: 100%; height: 100%; overflow: visible; }
+.platform-card .p-footer {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.platform-card .p-footer .arrow { color: #ece70e; font-weight: 700; }
+
+/* ─── SHIPS LOG ─── */
+.ships-log { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.ship-row {
+  display: grid;
+  grid-template-columns: 110px 70px 1fr auto;
+  gap: 1.2rem;
+  align-items: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 1.1rem 1.4rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, border-color 0.2s, background 0.2s;
+}
+.ship-row:hover {
+  transform: translateX(3px);
+  border-color: rgba(236,231,14,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.ship-row .ship-date {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ece70e;
+}
+.ship-row .ship-platform {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: 30px;
+  background: rgba(255,255,255,0.08);
+  text-align: center;
+  white-space: nowrap;
+}
+.ship-row .ship-platform.substack { background: rgba(255,109,79,0.15); color: #ff9a7a; }
+.ship-row .ship-platform.instagram { background: rgba(233,89,177,0.15); color: #f29ad0; }
+.ship-row .ship-platform.tiktok { background: rgba(105,234,222,0.12); color: #8ce8de; }
+.ship-row .ship-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.ship-row .ship-arrow {
+  color: rgba(255,255,255,0.3);
+  font-size: 1.2rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.ship-row:hover .ship-arrow { color: #ece70e; transform: translateX(3px); }
+
+/* ─── MILESTONES ─── */
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.milestone-card {
+  background: rgba(236,231,14,0.06);
+  border: 1px solid rgba(236,231,14,0.15);
+  border-radius: 18px;
+  padding: 1.6rem;
+  transition: transform 0.2s, background 0.2s;
+  position: relative;
+}
+.milestone-card:hover {
+  transform: translateY(-3px);
+  background: rgba(236,231,14,0.1);
+}
+.milestone-card .emoji {
+  font-size: 2.4rem;
+  margin-bottom: 0.8rem;
+  display: block;
+  line-height: 1;
+}
+.milestone-card .m-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.milestone-card .m-date {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(236,231,14,0.7);
+  font-weight: 600;
+}
+
+/* ─── META FOOTER ─── */
+.meta-row {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.45);
+}
+.meta-row .source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.45rem 0.85rem;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.meta-row .source-badge.stub { color: #ffb86c; border-color: rgba(255,184,108,0.25); }
+
+/* ─── CONFETTI ─── */
+.confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 998;
+  overflow: hidden;
+}
+.confetti span {
+  position: absolute;
+  top: -20px;
+  width: 8px;
+  height: 14px;
+  opacity: 0;
+  animation: confettiFall 2.6s cubic-bezier(0.4, 0.2, 0.2, 1) forwards;
+  border-radius: 2px;
+}
+@keyframes confettiFall {
+  0% { opacity: 0; transform: translateY(-40px) rotate(0deg); }
+  10% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  z-index: 1;
+}
+.footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 1.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: #ece70e; }
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .platforms-grid { grid-template-columns: 1fr 1fr; }
+  .container { padding: 3.5rem 1.8rem; }
+}
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-logo img { height: 24px; }
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    background: rgba(10,87,164,0.96);
+    backdrop-filter: blur(12px);
+    padding: 1rem 1.5rem 1.5rem;
+    gap: 0.6rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-links.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  .nav-links a { padding: 0.55rem 0; font-size: 0.95rem; }
+  .hamburger { display: flex; }
+  .growth-hero { padding: 6rem 1.5rem 2.5rem; min-height: 70vh; }
+  .kpi-strip { grid-template-columns: 1fr 1fr; }
+  .platforms-grid { grid-template-columns: 1fr; }
+  .cadence-wrap { padding: 1.6rem 1.2rem; }
+  .ship-row { grid-template-columns: 80px 1fr auto; gap: 0.8rem; padding: 0.9rem 1rem; }
+  .ship-row .ship-platform { display: none; }
+}
+@media (max-width: 480px) {
+  .kpi-card .kpi-value { font-size: 2rem; }
+  .platform-card .p-metric-value { font-size: 2.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── GRAIN OVERLAY ─── -->
+<canvas id="grain-canvas"></canvas>
+
+<!-- ─── BG SQUIGGLES ─── -->
+<div class="bg-squiggles">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+    <path d="M -50 200 Q 200 100 400 200 T 800 200 T 1200 200 T 1600 200" stroke="rgba(255,255,255,0.05)" stroke-width="1.5" fill="none"/>
+    <path d="M -50 500 Q 200 400 400 500 T 800 500 T 1200 500 T 1600 500" stroke="rgba(236,231,14,0.04)" stroke-width="1.5" fill="none"/>
+    <path d="M -50 800 Q 200 700 400 800 T 800 800 T 1200 800 T 1600 800" stroke="rgba(255,255,255,0.05)" stroke-width="1.5" fill="none"/>
+  </svg>
+</div>
+
+<!-- ─── CONFETTI ─── -->
+<div class="confetti" id="confetti"></div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="rareform-logo.png" alt="rareform"></a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html#posts">Posts</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#events">Events</a>
+    <a href="index.html#walks">Walks</a>
+    <a href="growth.html" class="active">Growth</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="growth-hero">
+  <div class="live-pill">
+    <span class="live-dot"></span>
+    <span>Live · Building in the open</span>
+  </div>
+  <h1>Our <span class="yellow">Northstar</span></h1>
+  <p class="tagline">Every post, every follower, every ship. This is how the rareform growth team is moving — updated in real time.</p>
+  <p class="last-ship">Last shipped <strong id="lastShipText">—</strong></p>
+</section>
+
+<!-- ─── KPI STRIP ─── -->
+<section class="reveal">
+  <div class="container">
+    <span class="section-label">This week</span>
+    <h2 class="section-title">The momentum</h2>
+    <p class="section-desc">Six numbers we celebrate every Monday standup. If these are moving, we're winning.</p>
+    <div class="kpi-strip" id="kpiStrip">
+      <div class="kpi-card">
+        <div class="kpi-label">Total reach</div>
+        <div class="kpi-value" data-count="0" id="kpiReach">—</div>
+        <div class="kpi-delta up" id="kpiReachDelta">&nbsp;</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Posts this week</div>
+        <div class="kpi-value" data-count="0" id="kpiPosts">—</div>
+        <div class="kpi-delta" id="kpiPostsDelta">across all channels</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Substack subs</div>
+        <div class="kpi-value" data-count="0" id="kpiSubs">—</div>
+        <div class="kpi-delta up" id="kpiSubsDelta">&nbsp;</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">IG followers</div>
+        <div class="kpi-value" data-count="0" id="kpiIg">—</div>
+        <div class="kpi-delta up" id="kpiIgDelta">&nbsp;</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">TikTok followers</div>
+        <div class="kpi-value" data-count="0" id="kpiTt">—</div>
+        <div class="kpi-delta up" id="kpiTtDelta">&nbsp;</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Shipping streak</div>
+        <div class="kpi-value" data-count="0" id="kpiStreak">—</div>
+        <div class="kpi-delta" id="kpiStreakDelta">weeks in a row 🔥</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CADENCE HEATMAP ─── -->
+<section class="cadence-section">
+  <div class="container">
+    <span class="section-label">Shipping cadence</span>
+    <h2 class="section-title">The drumbeat</h2>
+    <p class="section-desc">Naval Ravikant says the #1 predictor of a startup's success is shipping cadence. Here's ours — 12 weeks of posts across every channel.</p>
+    <div class="cadence-wrap">
+      <div class="cadence-header">
+        <div class="cadence-stats">
+          <div class="cadence-stat">
+            <div class="num" id="statTotalShips">—</div>
+            <div class="label">Ships · 12 weeks</div>
+          </div>
+          <div class="cadence-stat">
+            <div class="num" id="statAvgPerWeek">—</div>
+            <div class="label">Avg per week</div>
+          </div>
+          <div class="cadence-stat">
+            <div class="num" id="statActiveDays">—</div>
+            <div class="label">Active days</div>
+          </div>
+          <div class="cadence-stat">
+            <div class="num" id="statBestDay">—</div>
+            <div class="label">Best day</div>
+          </div>
+        </div>
+      </div>
+      <div class="heatmap-scroll">
+        <div class="heatmap" id="heatmap"></div>
+      </div>
+      <div class="heatmap-legend">
+        <span>Less</span>
+        <div class="swatches">
+          <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05);"></div>
+          <div style="background: rgba(236,231,14,0.25);"></div>
+          <div style="background: rgba(236,231,14,0.5);"></div>
+          <div style="background: rgba(236,231,14,0.75);"></div>
+          <div style="background: #ece70e;"></div>
+        </div>
+        <span>More</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PLATFORM BREAKDOWN ─── -->
+<section class="reveal">
+  <div class="container">
+    <span class="section-label">Channels</span>
+    <h2 class="section-title">By platform</h2>
+    <p class="section-desc">Where the audience lives, how fast each channel is compounding, and what we last shipped there.</p>
+    <div class="platforms-grid" id="platformsGrid"></div>
+  </div>
+</section>
+
+<!-- ─── RECENT SHIPS ─── -->
+<section class="reveal">
+  <div class="container">
+    <span class="section-label">The log</span>
+    <h2 class="section-title">Recently shipped</h2>
+    <p class="section-desc">The freshest 10 things we've put into the world. Click through to see them live.</p>
+    <div class="ships-log" id="shipsLog">
+      <div class="ship-row" style="opacity: 0.5;"><div class="ship-date">Loading…</div><div></div><div class="ship-title">Pulling latest content from every channel</div><div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MILESTONES ─── -->
+<section class="reveal">
+  <div class="container">
+    <span class="section-label">The wins</span>
+    <h2 class="section-title">Milestones</h2>
+    <p class="section-desc">Every meaningful number we've crossed. Add new ones to <code style="background:rgba(255,255,255,0.07);padding:0.15rem 0.4rem;border-radius:4px;font-size:0.85em;">data/metrics.json</code> the moment they happen — celebrating live is half the point.</p>
+    <div class="milestones-grid" id="milestonesGrid"></div>
+
+    <div class="meta-row">
+      <span>Updated <span id="lastUpdatedText">—</span></span>
+      <span class="source-badge" id="sourceBadge">Loading data source…</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="nav-logo"><img src="rareform-logo.png" alt="rareform" style="height:22px"></a>
+    <div class="footer-links">
+      <a href="https://rareform030.substack.com" target="_blank">Substack</a>
+      <a href="https://instagram.com/rareform030" target="_blank">Instagram</a>
+      <a href="https://tiktok.com/@rareform030" target="_blank">TikTok</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <span class="footer-copy">&copy; 2026 Rareform 030. Berlin.</span>
+  </div>
+</footer>
+
+<script>
+// ─── MOBILE MENU ───
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+  hamburger.classList.toggle('active');
+});
+
+// ─── GRAIN OVERLAY ───
+(function makeGrain() {
+  const c = document.getElementById('grain-canvas');
+  const ctx = c.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  function size() {
+    c.width = window.innerWidth * dpr;
+    c.height = window.innerHeight * dpr;
+    const img = ctx.createImageData(c.width, c.height);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = Math.random() * 255;
+      img.data[i] = v; img.data[i+1] = v; img.data[i+2] = v; img.data[i+3] = 30;
+    }
+    ctx.putImageData(img, 0, 0);
+  }
+  size();
+  window.addEventListener('resize', size);
+})();
+
+// ─── CONFETTI BURST ON LOAD ───
+(function confettiBurst() {
+  const wrap = document.getElementById('confetti');
+  const colors = ['#ece70e', '#ffffff', '#7eed8a', '#f29ad0', '#8ce8de'];
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('span');
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.background = colors[Math.floor(Math.random() * colors.length)];
+    s.style.animationDelay = (Math.random() * 0.6) + 's';
+    s.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+    s.style.transform = `rotate(${Math.random() * 360}deg)`;
+    wrap.appendChild(s);
+  }
+  setTimeout(() => wrap.remove(), 4500);
+})();
+
+// ─── SCROLL REVEAL ───
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ─── COUNT-UP ANIMATION ───
+function animateCount(el, target, duration = 1400) {
+  if (target == null || isNaN(target)) { el.textContent = '—'; return; }
+  const start = performance.now();
+  const from = 0;
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const val = Math.round(from + (target - from) * eased);
+    el.textContent = val.toLocaleString();
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+// ─── TIME-AGO HELPER ───
+function timeAgo(date) {
+  const seconds = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+  if (seconds < 60) return `${seconds}s ago`;
+  const m = Math.floor(seconds / 60); if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60); if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24); if (d < 7) return `${d}d ago`;
+  const w = Math.floor(d / 7); if (w < 5) return `${w}w ago`;
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+// ─── SPARKLINE SVG GENERATOR ───
+function sparkline(values, color) {
+  if (!values || values.length < 2) return '';
+  const w = 100, h = 60, pad = 4;
+  const max = Math.max(...values), min = Math.min(...values);
+  const range = max - min || 1;
+  const stepX = (w - pad * 2) / (values.length - 1);
+  const pts = values.map((v, i) => {
+    const x = pad + i * stepX;
+    const y = pad + (1 - (v - min) / range) * (h - pad * 2);
+    return [x, y];
+  });
+  const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`).join(' ');
+  const area = `${line} L${pts[pts.length-1][0]},${h} L${pts[0][0]},${h} Z`;
+  return `
+    <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="grad-${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="${area}" fill="url(#grad-${color.replace('#','')})" />
+      <path d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="3" fill="${color}"/>
+    </svg>
+  `;
+}
+
+// ─── PLATFORM ICONS ───
+const ICONS = {
+  substack: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 6.5H2V9h20V6.5zM2 11v11l10-5.5L22 22V11H2zM2 2v2.5h20V2H2z"/></svg>',
+  instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+  tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V9.01a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.44z"/></svg>'
+};
+
+const BRAND = {
+  substack: { color: '#ff6d4f', soft: 'rgba(255,109,79,0.12)', name: 'Substack' },
+  instagram: { color: '#e959b1', soft: 'rgba(233,89,177,0.12)', name: 'Instagram' },
+  tiktok: { color: '#69eade', soft: 'rgba(105,234,222,0.12)', name: 'TikTok' }
+};
+
+// ─── DATA SOURCES ───
+const METRICS_URL = 'data/metrics.json';
+const SUBSTACK_RSS = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frareform030.substack.com%2Ffeed';
+
+async function loadAll() {
+  const [metricsRes, rssRes] = await Promise.allSettled([
+    fetch(METRICS_URL, { cache: 'no-store' }).then(r => r.json()),
+    fetch(SUBSTACK_RSS).then(r => r.json())
+  ]);
+
+  const metrics = metricsRes.status === 'fulfilled' ? metricsRes.value : null;
+  const rss = rssRes.status === 'fulfilled' ? rssRes.value : null;
+
+  if (!metrics) {
+    console.warn('metrics.json failed to load');
+    return;
+  }
+
+  const substackPosts = (rss && rss.items) ? rss.items : [];
+
+  // Merge: enrich shipsByDay with live Substack post dates
+  const shipsByDay = Object.assign({}, metrics.shipsByDay || {});
+  substackPosts.forEach(p => {
+    const d = new Date(p.pubDate).toISOString().slice(0, 10);
+    shipsByDay[d] = (shipsByDay[d] || 0) + 1;
+  });
+
+  renderKPIs(metrics, substackPosts, shipsByDay);
+  renderHeatmap(shipsByDay);
+  renderPlatforms(metrics, substackPosts);
+  renderShipsLog(metrics, substackPosts);
+  renderMilestones(metrics.milestones || []);
+  renderMeta(metrics);
+  renderLastShip(metrics, substackPosts);
+}
+
+// ─── KPIs ───
+function renderKPIs(metrics, substackPosts, shipsByDay) {
+  const p = metrics.platforms || {};
+  const sub = p.substack || {}, ig = p.instagram || {}, tt = p.tiktok || {};
+
+  const totalReach = (sub.subscribers || 0) + (ig.followers || 0) + (tt.followers || 0);
+  const oneWeekAgo = Date.now() - 7 * 86400e3;
+  const recentSubstack = substackPosts.filter(p => new Date(p.pubDate).getTime() > oneWeekAgo).length;
+  const postsThisWeek = recentSubstack + (ig.postsThisWeek || 0) + (tt.postsThisWeek || 0);
+
+  animateCount(document.getElementById('kpiReach'), totalReach);
+  animateCount(document.getElementById('kpiPosts'), postsThisWeek);
+  animateCount(document.getElementById('kpiSubs'), sub.subscribers);
+  animateCount(document.getElementById('kpiIg'), ig.followers);
+  animateCount(document.getElementById('kpiTt'), tt.followers);
+
+  const totalDelta = (sub.weeklyDelta || 0) + (ig.weeklyDelta || 0) + (tt.weeklyDelta || 0);
+  document.getElementById('kpiReachDelta').innerHTML = totalDelta > 0
+    ? `▲ +${totalDelta.toLocaleString()} this week`
+    : '—';
+  document.getElementById('kpiSubsDelta').innerHTML = sub.weeklyDelta > 0
+    ? `▲ +${sub.weeklyDelta} this week` : '—';
+  document.getElementById('kpiIgDelta').innerHTML = ig.weeklyDelta > 0
+    ? `▲ +${ig.weeklyDelta} this week` : '—';
+  document.getElementById('kpiTtDelta').innerHTML = tt.weeklyDelta > 0
+    ? `▲ +${tt.weeklyDelta} this week` : '—';
+
+  // Streak: count consecutive weeks (ending this week) with at least one ship
+  const streak = computeWeekStreak(shipsByDay);
+  animateCount(document.getElementById('kpiStreak'), streak);
+}
+
+function computeWeekStreak(shipsByDay) {
+  const now = new Date();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  monday.setHours(0, 0, 0, 0);
+  let streak = 0;
+  for (let w = 0; w < 200; w++) {
+    const start = new Date(monday.getTime() - w * 7 * 86400e3);
+    const end = new Date(start.getTime() + 7 * 86400e3);
+    let hasShip = false;
+    for (const d in shipsByDay) {
+      const dt = new Date(d).getTime();
+      if (dt >= start.getTime() && dt < end.getTime() && shipsByDay[d] > 0) { hasShip = true; break; }
+    }
+    if (hasShip) streak++;
+    else break;
+  }
+  return streak;
+}
+
+// ─── HEATMAP (12 weeks, GitHub-style) ───
+function renderHeatmap(shipsByDay) {
+  const heatmap = document.getElementById('heatmap');
+  const WEEKS = 12;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const startOffset = (today.getDay() + 6) % 7;
+  const sunday = new Date(today);
+  sunday.setDate(today.getDate() - startOffset - (WEEKS - 1) * 7);
+  // Walk forward week by week, Mon -> Sun
+  let html = '';
+  let total = 0, activeDays = 0;
+  let bestDay = { date: null, count: 0 };
+  for (let w = 0; w < WEEKS; w++) {
+    let col = '<div class="heatmap-col">';
+    for (let d = 0; d < 7; d++) {
+      const cellDate = new Date(sunday.getTime() + (w * 7 + d) * 86400e3);
+      if (cellDate > today) {
+        col += `<div class="heatmap-cell" style="opacity:0.2"></div>`;
+        continue;
+      }
+      const key = cellDate.toISOString().slice(0, 10);
+      const count = shipsByDay[key] || 0;
+      total += count;
+      if (count > 0) activeDays++;
+      if (count > bestDay.count) bestDay = { date: cellDate, count };
+      const lvl = count === 0 ? '' : count === 1 ? 'l1' : count === 2 ? 'l2' : count <= 4 ? 'l3' : 'l4';
+      const tip = count === 0
+        ? `No ships · ${cellDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+        : `${count} ship${count > 1 ? 's' : ''} · ${cellDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+      col += `<div class="heatmap-cell ${lvl}" data-tip="${tip}"></div>`;
+    }
+    col += '</div>';
+    html += col;
+  }
+  heatmap.innerHTML = html;
+
+  document.getElementById('statTotalShips').textContent = total;
+  document.getElementById('statAvgPerWeek').textContent = (total / WEEKS).toFixed(1);
+  document.getElementById('statActiveDays').textContent = activeDays;
+  document.getElementById('statBestDay').textContent = bestDay.date
+    ? bestDay.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    : '—';
+}
+
+// ─── PLATFORM CARDS ───
+function renderPlatforms(metrics, substackPosts) {
+  const grid = document.getElementById('platformsGrid');
+  const p = metrics.platforms || {};
+
+  const cards = [];
+
+  // Substack — enrich with RSS
+  const sub = p.substack || {};
+  const latestSubstack = substackPosts[0];
+  cards.push({
+    key: 'substack',
+    metric: sub.subscribers,
+    metricLabel: 'Subscribers',
+    delta: sub.weeklyDelta,
+    history: sub.history || [],
+    url: sub.url || 'https://rareform030.substack.com',
+    handle: '@' + (sub.handle || 'rareform030'),
+    latest: latestSubstack ? {
+      title: latestSubstack.title,
+      date: latestSubstack.pubDate
+    } : null
+  });
+
+  const ig = p.instagram || {};
+  cards.push({
+    key: 'instagram',
+    metric: ig.followers,
+    metricLabel: 'Followers',
+    delta: ig.weeklyDelta,
+    history: ig.history || [],
+    url: ig.url || 'https://instagram.com/rareform030',
+    handle: '@' + (ig.handle || 'rareform030'),
+    latest: ig.latestPost ? {
+      title: ig.latestPost.caption,
+      date: ig.latestPost.date
+    } : null
+  });
+
+  const tt = p.tiktok || {};
+  cards.push({
+    key: 'tiktok',
+    metric: tt.followers,
+    metricLabel: 'Followers',
+    delta: tt.weeklyDelta,
+    history: tt.history || [],
+    url: tt.url || 'https://tiktok.com/@rareform030',
+    handle: '@' + (tt.handle || 'rareform030'),
+    latest: tt.latestPost ? {
+      title: tt.latestPost.caption,
+      date: tt.latestPost.date
+    } : null
+  });
+
+  grid.innerHTML = cards.map(c => {
+    const brand = BRAND[c.key];
+    const deltaClass = c.delta > 0 ? '' : 'flat';
+    const deltaText = c.delta > 0 ? `▲ +${c.delta} this week` : '—';
+    return `
+      <a class="platform-card" href="${c.url}" target="_blank" rel="noopener" style="--brand:${brand.color};--brandSoft:${brand.soft}">
+        <div class="p-head">
+          <div class="p-icon">${ICONS[c.key]}</div>
+          <div class="p-handle">${c.handle}</div>
+        </div>
+        <div class="p-metric-label">${c.metricLabel}</div>
+        <div class="p-metric-value">${(c.metric || 0).toLocaleString()}</div>
+        <div class="p-delta ${deltaClass}">${deltaText}</div>
+        <div class="p-spark">${sparkline(c.history, brand.color)}</div>
+        <div class="p-footer">
+          <span>${c.latest ? 'Last: ' + timeAgo(c.latest.date) : 'No recent ships'}</span>
+          <span class="arrow">View →</span>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+// ─── SHIPS LOG ───
+function renderShipsLog(metrics, substackPosts) {
+  const ships = [];
+
+  substackPosts.slice(0, 6).forEach(p => {
+    ships.push({
+      platform: 'substack',
+      title: p.title,
+      url: p.link,
+      date: new Date(p.pubDate)
+    });
+  });
+
+  const ig = (metrics.platforms || {}).instagram || {};
+  if (ig.latestPost) {
+    ships.push({
+      platform: 'instagram',
+      title: ig.latestPost.caption,
+      url: ig.latestPost.url,
+      date: new Date(ig.latestPost.date)
+    });
+  }
+
+  const tt = (metrics.platforms || {}).tiktok || {};
+  if (tt.latestPost) {
+    ships.push({
+      platform: 'tiktok',
+      title: tt.latestPost.caption,
+      url: tt.latestPost.url,
+      date: new Date(tt.latestPost.date)
+    });
+  }
+
+  ships.sort((a, b) => b.date - a.date);
+
+  const log = document.getElementById('shipsLog');
+  if (!ships.length) {
+    log.innerHTML = '<div class="ship-row" style="opacity:0.5"><div class="ship-date">—</div><div></div><div class="ship-title">No ships logged yet.</div><div></div></div>';
+    return;
+  }
+
+  log.innerHTML = ships.slice(0, 10).map(s => `
+    <a class="ship-row" href="${s.url}" target="_blank" rel="noopener">
+      <div class="ship-date">${timeAgo(s.date)}</div>
+      <div class="ship-platform ${s.platform}">${BRAND[s.platform].name}</div>
+      <div class="ship-title">${escapeHtml(s.title)}</div>
+      <div class="ship-arrow">→</div>
+    </a>
+  `).join('');
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ─── MILESTONES ───
+function renderMilestones(milestones) {
+  const grid = document.getElementById('milestonesGrid');
+  if (!milestones.length) {
+    grid.innerHTML = '<div class="milestone-card"><span class="emoji">🎯</span><div class="m-title">Add your first milestone</div><div class="m-date">Edit data/metrics.json</div></div>';
+    return;
+  }
+  grid.innerHTML = milestones
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .map(m => `
+      <div class="milestone-card">
+        <span class="emoji">${m.emoji || '🎉'}</span>
+        <div class="m-title">${escapeHtml(m.title)}</div>
+        <div class="m-date">${new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+      </div>
+    `).join('');
+}
+
+// ─── META ───
+function renderMeta(metrics) {
+  document.getElementById('lastUpdatedText').textContent = metrics.lastUpdated
+    ? timeAgo(metrics.lastUpdated)
+    : 'unknown';
+  const badge = document.getElementById('sourceBadge');
+  if (metrics.source === 'stub') {
+    badge.textContent = '⚠ Stub data — wire up API tokens';
+    badge.classList.add('stub');
+  } else if (metrics.source === 'api') {
+    badge.textContent = '✓ Live from APIs';
+  } else {
+    badge.textContent = 'Source: ' + (metrics.source || 'manual');
+  }
+}
+
+// ─── LAST SHIP IN HERO ───
+function renderLastShip(metrics, substackPosts) {
+  const candidates = [];
+  if (substackPosts[0]) candidates.push(new Date(substackPosts[0].pubDate));
+  const ig = (metrics.platforms || {}).instagram || {};
+  if (ig.latestPost) candidates.push(new Date(ig.latestPost.date));
+  const tt = (metrics.platforms || {}).tiktok || {};
+  if (tt.latestPost) candidates.push(new Date(tt.latestPost.date));
+  if (!candidates.length) return;
+  const latest = new Date(Math.max(...candidates.map(d => d.getTime())));
+  document.getElementById('lastShipText').textContent = timeAgo(latest);
+}
+
+loadAll().catch(err => {
+  console.error('Dashboard load failed', err);
+  document.getElementById('sourceBadge').textContent = '⚠ Data fetch failed';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+name: Refresh growth metrics
+
+on:
+  schedule:
+    # Every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Refresh metrics.json
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          TT_ACCESS_TOKEN: ${{ secrets.TT_ACCESS_TOKEN }}
+        run: node scripts/refresh-metrics.mjs
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain data/metrics.json)" ]; then
+            git config user.name "rareform-bot"
+            git config user.email "bot@rareform.local"
+            git add data/metrics.json
+            git commit -m "chore: refresh growth metrics"
+            git push
+          else
+            echo "No metric changes to commit"
+          fi
