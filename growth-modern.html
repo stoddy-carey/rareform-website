@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth · Northstar — preview</title>
+<meta name="description" content="Northstar growth dashboard — modern style preview.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS ──────────────────────────────────────────
+   Inspired by Linear / Vercel / Posthog dashboards.
+   Dark surface, ample whitespace, tabular numerals, single accent.
+*/
+:root {
+  --bg:            #0a0a0b;
+  --bg-elevated:   #111113;
+  --surface:       rgba(255, 255, 255, 0.025);
+  --surface-hover: rgba(255, 255, 255, 0.045);
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --text:          #f4f4f5;
+  --text-muted:    rgba(244, 244, 245, 0.62);
+  --text-subtle:   rgba(244, 244, 245, 0.38);
+
+  --accent:        #84cc16;   /* lime — "growth" */
+  --accent-soft:   rgba(132, 204, 22, 0.12);
+  --accent-ring:   rgba(132, 204, 22, 0.35);
+
+  --pos:           #4ade80;
+  --neg:           #f87171;
+
+  /* Brand colors for platform chips */
+  --c-substack:    #ff6b35;
+  --c-instagram:   #e1306c;
+  --c-tiktok:      #25f4ee;
+
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 16px;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+
+/* Subtle dot-grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+}
+
+/* Soft glow from the top */
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse, rgba(132, 204, 22, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+/* ─── NAV ─────────────────────────────────────────── */
+header.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(10, 10, 11, 0.7);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+}
+.brand-mark {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--accent), #65a30d);
+  display: grid;
+  place-items: center;
+  color: #0a0a0b;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.brand-divider {
+  width: 1px; height: 18px;
+  background: var(--border-strong);
+  margin: 0 0.2rem;
+}
+.brand-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.nav-right { display: flex; align-items: center; gap: 0.4rem; }
+.live-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-ring);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent);
+  animation: liveDot 1.6s ease-in-out infinite;
+}
+@keyframes liveDot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-ring); }
+  50%      { box-shadow: 0 0 0 6px transparent; }
+}
+.nav-link {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover { color: var(--text); background: var(--surface); }
+
+/* ─── LAYOUT ─────────────────────────────────────── */
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* ─── HERO ─────────────────────────────────────── */
+.hero { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: var(--accent);
+}
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(244,244,245,0.7) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero p.lede {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.55;
+}
+.hero-meta {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.hero-meta strong { color: var(--text); font-weight: 500; }
+
+/* ─── SECTION HEADING ─────────────────────────── */
+.section { margin-bottom: 3.5rem; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.section-head h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.section-head .head-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+
+/* ─── KPI GRID ─────────────────────────────────── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.kpi {
+  padding: 1.4rem 1.3rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.18s;
+}
+.kpi:last-child { border-right: none; }
+.kpi:hover { background: var(--surface-hover); }
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+.kpi-value {
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.kpi-delta {
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.kpi-delta.up { color: var(--pos); }
+.kpi-delta.down { color: var(--neg); }
+
+/* ─── CARD (used by heatmap, ships, milestones) ──── */
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+}
+
+/* ─── HEATMAP ─────────────────────────────────── */
+.cadence-body { display: grid; grid-template-columns: 1fr; gap: 1.4rem; }
+.cadence-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.stat .num {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1;
+}
+.stat .label {
+  margin-top: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+}
+.heatmap-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.heatmap-scroll::-webkit-scrollbar { height: 6px; }
+.heatmap-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 6px; }
+.heatmap {
+  display: flex;
+  gap: 3px;
+  align-items: flex-start;
+  min-width: max-content;
+  padding: 4px 0;
+}
+.heatmap-col { display: flex; flex-direction: column; gap: 3px; }
+.heatmap-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform 0.12s;
+  position: relative;
+  cursor: default;
+}
+.heatmap-cell.l1 { background: rgba(132, 204, 22, 0.22); border-color: rgba(132, 204, 22, 0.18); }
+.heatmap-cell.l2 { background: rgba(132, 204, 22, 0.45); border-color: rgba(132, 204, 22, 0.35); }
+.heatmap-cell.l3 { background: rgba(132, 204, 22, 0.7); border-color: rgba(132, 204, 22, 0.6); }
+.heatmap-cell.l4 { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px rgba(132,204,22,0.5); }
+.heatmap-cell:hover { transform: scale(1.45); z-index: 5; }
+.heatmap-cell[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1c1f;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  border: 1px solid var(--border-strong);
+  pointer-events: none;
+  z-index: 100;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  margin-top: 0.5rem;
+}
+.legend-swatches { display: flex; gap: 3px; }
+.legend-swatches div { width: 12px; height: 12px; border-radius: 3px; }
+
+/* ─── PLATFORM CARDS ──────────────────────────── */
+.platforms {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.platform {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.platform:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.platform-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+}
+.platform-name {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.platform-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--platform-color);
+}
+.platform-handle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+.platform-metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+}
+.platform-metric {
+  font-size: 2.3rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.platform-delta {
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--pos);
+}
+.platform-delta.flat { color: var(--text-subtle); }
+.platform-spark {
+  margin-top: 1.2rem;
+  height: 56px;
+}
+.platform-spark svg { width: 100%; height: 100%; overflow: visible; }
+.platform-foot {
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.platform-foot .arrow { color: var(--text-muted); transition: transform 0.2s, color 0.2s; }
+.platform:hover .platform-foot .arrow { color: var(--accent); transform: translateX(3px); }
+
+/* ─── SHIPS TABLE ─────────────────────────────── */
+.ships {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.ship {
+  display: grid;
+  grid-template-columns: 100px 90px 1fr 24px;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1.3rem;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+.ship:last-child { border-bottom: none; }
+.ship:hover { background: var(--surface-hover); }
+.ship-when {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-subtle);
+}
+.ship-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+.ship-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tag-color);
+}
+.ship-title {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ship-arrow {
+  color: var(--text-subtle);
+  font-size: 1rem;
+  transition: color 0.15s, transform 0.15s;
+}
+.ship:hover .ship-arrow { color: var(--accent); transform: translateX(2px); }
+
+/* ─── MILESTONES ──────────────────────────────── */
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+.milestone {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem;
+  transition: border-color 0.18s, background 0.18s;
+  position: relative;
+}
+.milestone:hover {
+  border-color: var(--accent-ring);
+  background: var(--surface-hover);
+}
+.milestone-emoji {
+  font-size: 1.7rem;
+  display: block;
+  margin-bottom: 0.8rem;
+  line-height: 1;
+}
+.milestone-title {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.45rem;
+  line-height: 1.35;
+}
+.milestone-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+
+/* ─── META FOOTER ─────────────────────────────── */
+.meta-row {
+  margin-top: 2.5rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+.source-badge.stub { color: #fbbf24; border-color: rgba(251, 191, 36, 0.3); }
+.source-badge.live { color: var(--pos); border-color: rgba(74, 222, 128, 0.3); }
+
+/* ─── STYLE GUIDE STRIP ───────────────────────── */
+.styleguide-strip {
+  background: linear-gradient(180deg, var(--bg-elevated), rgba(17,17,19,0.4));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 4rem;
+}
+.styleguide-head {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.2rem;
+}
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.8rem;
+}
+.swatch {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.swatch-color {
+  height: 56px;
+}
+.swatch-meta {
+  padding: 0.65rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.swatch-meta .name { color: var(--text); font-weight: 500; }
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer.foot {
+  border-top: 1px solid var(--border);
+  padding: 1.6rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+footer.foot a { color: var(--text-muted); text-decoration: none; }
+footer.foot a:hover { color: var(--text); }
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 1024px) {
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  .kpi:nth-child(3) { border-right: none; }
+  .kpi:nth-child(1), .kpi:nth-child(2), .kpi:nth-child(3) {
+    border-bottom: 1px solid var(--border);
+  }
+  .platforms { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .shell { padding: 2rem 1rem 4rem; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kpi:nth-child(2n) { border-right: none; }
+  .cadence-stats { grid-template-columns: 1fr 1fr; gap: 0.8rem 1.2rem; }
+  .platforms { grid-template-columns: 1fr; }
+  .ship { grid-template-columns: 80px 1fr 24px; gap: 0.8rem; padding: 0.8rem 1rem; }
+  .ship-tag { display: none; }
+  .nav-link.desktop-only { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="growth-modern.html" class="brand">
+      <span class="brand-mark">r</span>
+      <span>rareform</span>
+      <span class="brand-divider"></span>
+      <span class="brand-label">growth</span>
+    </a>
+    <div class="nav-right">
+      <a href="growth.html" class="nav-link desktop-only">Brand version</a>
+      <a href="index.html" class="nav-link desktop-only">Site</a>
+      <span class="live-chip"><span class="live-dot"></span><span>live</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="eyebrow">Northstar · v1</div>
+    <h1>Every ship, every follower, in one place.</h1>
+    <p class="lede">A live look at how the growth team is moving across Substack, Instagram, and TikTok — the same way product teams track velocity. Shipping cadence is the #1 predictor of startup success.</p>
+    <div class="hero-meta">
+      <span>Last ship <strong id="lastShipText">—</strong></span>
+      <span>Updated <strong id="lastUpdatedText">—</strong></span>
+      <span>Streak <strong id="streakInline">—</strong></span>
+    </div>
+  </section>
+
+  <!-- ─── KPI GRID ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>This week</h2>
+      <span class="head-meta">vs. last 7 days</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Total reach</div>
+        <div class="kpi-value" id="kpiReach">—</div>
+        <div class="kpi-delta up" id="kpiReachDelta">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Ships this week</div>
+        <div class="kpi-value" id="kpiPosts">—</div>
+        <div class="kpi-delta" id="kpiPostsDelta">all channels</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Substack subs</div>
+        <div class="kpi-value" id="kpiSubs">—</div>
+        <div class="kpi-delta up" id="kpiSubsDelta">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Instagram</div>
+        <div class="kpi-value" id="kpiIg">—</div>
+        <div class="kpi-delta up" id="kpiIgDelta">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">TikTok</div>
+        <div class="kpi-value" id="kpiTt">—</div>
+        <div class="kpi-delta up" id="kpiTtDelta">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Week streak</div>
+        <div class="kpi-value" id="kpiStreak">—</div>
+        <div class="kpi-delta" id="kpiStreakDelta">consecutive</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CADENCE ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Shipping cadence</h2>
+      <span class="head-meta">last 12 weeks</span>
+    </div>
+    <div class="card">
+      <div class="cadence-body">
+        <div class="cadence-stats">
+          <div class="stat">
+            <div class="num" id="statTotalShips">—</div>
+            <div class="label">Total ships</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statAvgPerWeek">—</div>
+            <div class="label">Per week</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statActiveDays">—</div>
+            <div class="label">Active days</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statBestDay">—</div>
+            <div class="label">Best day</div>
+          </div>
+        </div>
+        <div class="heatmap-scroll">
+          <div class="heatmap" id="heatmap"></div>
+        </div>
+        <div class="legend">
+          <span>less</span>
+          <div class="legend-swatches">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);"></div>
+            <div style="background:rgba(132, 204, 22, 0.22);"></div>
+            <div style="background:rgba(132, 204, 22, 0.45);"></div>
+            <div style="background:rgba(132, 204, 22, 0.7);"></div>
+            <div style="background:#84cc16;"></div>
+          </div>
+          <span>more</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PLATFORMS ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>By channel</h2>
+      <span class="head-meta">3 platforms</span>
+    </div>
+    <div class="platforms" id="platforms"></div>
+  </section>
+
+  <!-- ─── SHIPS LOG ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Recently shipped</h2>
+      <span class="head-meta">latest 10</span>
+    </div>
+    <div class="ships" id="shipsLog">
+      <div class="ship" style="opacity:0.5;"><div class="ship-when">…</div><div></div><div class="ship-title">Loading latest content</div><div></div></div>
+    </div>
+  </section>
+
+  <!-- ─── MILESTONES ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Milestones</h2>
+      <span class="head-meta">add to data/metrics.json</span>
+    </div>
+    <div class="milestones" id="milestones"></div>
+  </section>
+
+  <div class="meta-row">
+    <span>Data refreshes every 6h via GitHub Action</span>
+    <span class="source-badge" id="sourceBadge">loading…</span>
+  </div>
+
+  <!-- ─── STYLE GUIDE STRIP (preview only) ─── -->
+  <div class="styleguide-strip">
+    <div class="styleguide-head">Style guide · preview</div>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#0a0a0b"></div><div class="swatch-meta"><div class="name">Background</div>#0a0a0b</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#111113"></div><div class="swatch-meta"><div class="name">Surface</div>#111113</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#84cc16"></div><div class="swatch-meta"><div class="name">Accent</div>#84cc16</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#4ade80"></div><div class="swatch-meta"><div class="name">Positive</div>#4ade80</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#f87171"></div><div class="swatch-meta"><div class="name">Negative</div>#f87171</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#f4f4f5"></div><div class="swatch-meta"><div class="name">Text</div>#f4f4f5</div></div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <span>Preview — modern style guide. Brand version at <a href="growth.html">growth.html</a></span>
+</footer>
+
+<script>
+// ─── DATA SOURCES ───
+const METRICS_URL = 'data/metrics.json';
+const SUBSTACK_RSS = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frareform030.substack.com%2Ffeed';
+
+const BRAND = {
+  substack:  { color: '#ff6b35', name: 'Substack' },
+  instagram: { color: '#e1306c', name: 'Instagram' },
+  tiktok:    { color: '#25f4ee', name: 'TikTok' }
+};
+
+function fmt(n) { return n == null ? '—' : Number(n).toLocaleString(); }
+
+function timeAgo(date) {
+  const sec = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+  if (sec < 60) return `${sec}s ago`;
+  const m = Math.floor(sec / 60); if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60); if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24); if (d < 7) return `${d}d ago`;
+  const w = Math.floor(d / 7); if (w < 5) return `${w}w ago`;
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function animateCount(el, target, duration = 1200) {
+  if (target == null || isNaN(target)) { el.textContent = '—'; return; }
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased).toLocaleString();
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function sparkline(values, color) {
+  if (!values || values.length < 2) return '';
+  const w = 100, h = 56, pad = 4;
+  const max = Math.max(...values), min = Math.min(...values);
+  const range = max - min || 1;
+  const stepX = (w - pad * 2) / (values.length - 1);
+  const pts = values.map((v, i) => [pad + i * stepX, pad + (1 - (v - min) / range) * (h - pad * 2)]);
+  const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`).join(' ');
+  const area = `${line} L${pts[pts.length-1][0]},${h} L${pts[0][0]},${h} Z`;
+  const id = 'sg-' + color.replace('#','');
+  return `
+    <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="${area}" fill="url(#${id})"/>
+      <path d="${line}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="2.5" fill="${color}"/>
+    </svg>
+  `;
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function load() {
+  const [mRes, rssRes] = await Promise.allSettled([
+    fetch(METRICS_URL, { cache: 'no-store' }).then(r => r.json()),
+    fetch(SUBSTACK_RSS).then(r => r.json())
+  ]);
+  const metrics = mRes.status === 'fulfilled' ? mRes.value : null;
+  const rss = rssRes.status === 'fulfilled' ? rssRes.value : null;
+  if (!metrics) return;
+
+  const substackPosts = (rss && rss.items) || [];
+
+  const shipsByDay = Object.assign({}, metrics.shipsByDay || {});
+  substackPosts.forEach(p => {
+    const d = new Date(p.pubDate).toISOString().slice(0, 10);
+    shipsByDay[d] = (shipsByDay[d] || 0) + 1;
+  });
+
+  renderKPIs(metrics, substackPosts, shipsByDay);
+  renderHeatmap(shipsByDay);
+  renderPlatforms(metrics, substackPosts);
+  renderShips(metrics, substackPosts);
+  renderMilestones(metrics.milestones || []);
+  renderMeta(metrics);
+  renderLastShip(metrics, substackPosts);
+}
+
+function renderKPIs(metrics, substackPosts, shipsByDay) {
+  const p = metrics.platforms || {};
+  const sub = p.substack || {}, ig = p.instagram || {}, tt = p.tiktok || {};
+
+  const totalReach = (sub.subscribers || 0) + (ig.followers || 0) + (tt.followers || 0);
+  const weekAgo = Date.now() - 7 * 86400e3;
+  const recentSubstack = substackPosts.filter(p => new Date(p.pubDate).getTime() > weekAgo).length;
+  const postsThisWeek = recentSubstack + (ig.postsThisWeek || 0) + (tt.postsThisWeek || 0);
+
+  animateCount(document.getElementById('kpiReach'), totalReach);
+  animateCount(document.getElementById('kpiPosts'), postsThisWeek);
+  animateCount(document.getElementById('kpiSubs'), sub.subscribers);
+  animateCount(document.getElementById('kpiIg'), ig.followers);
+  animateCount(document.getElementById('kpiTt'), tt.followers);
+
+  const totalDelta = (sub.weeklyDelta || 0) + (ig.weeklyDelta || 0) + (tt.weeklyDelta || 0);
+  const deltaText = (n) => n > 0 ? `↑ +${n.toLocaleString()}` : n < 0 ? `↓ ${n.toLocaleString()}` : '—';
+  document.getElementById('kpiReachDelta').textContent = deltaText(totalDelta);
+  document.getElementById('kpiSubsDelta').textContent = deltaText(sub.weeklyDelta || 0);
+  document.getElementById('kpiIgDelta').textContent = deltaText(ig.weeklyDelta || 0);
+  document.getElementById('kpiTtDelta').textContent = deltaText(tt.weeklyDelta || 0);
+
+  const streak = computeWeekStreak(shipsByDay);
+  animateCount(document.getElementById('kpiStreak'), streak);
+  document.getElementById('streakInline').textContent = streak + 'w';
+}
+
+function computeWeekStreak(shipsByDay) {
+  const now = new Date();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  monday.setHours(0,0,0,0);
+  let streak = 0;
+  for (let w = 0; w < 200; w++) {
+    const start = new Date(monday.getTime() - w * 7 * 86400e3);
+    const end = new Date(start.getTime() + 7 * 86400e3);
+    let has = false;
+    for (const d in shipsByDay) {
+      const t = new Date(d).getTime();
+      if (t >= start.getTime() && t < end.getTime() && shipsByDay[d] > 0) { has = true; break; }
+    }
+    if (has) streak++; else break;
+  }
+  return streak;
+}
+
+function renderHeatmap(shipsByDay) {
+  const el = document.getElementById('heatmap');
+  const WEEKS = 12;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const offset = (today.getDay() + 6) % 7;
+  const start = new Date(today);
+  start.setDate(today.getDate() - offset - (WEEKS - 1) * 7);
+
+  let html = '';
+  let total = 0, active = 0, best = { date: null, count: 0 };
+  for (let w = 0; w < WEEKS; w++) {
+    let col = '<div class="heatmap-col">';
+    for (let d = 0; d < 7; d++) {
+      const cellDate = new Date(start.getTime() + (w * 7 + d) * 86400e3);
+      if (cellDate > today) { col += `<div class="heatmap-cell" style="opacity:0.2"></div>`; continue; }
+      const key = cellDate.toISOString().slice(0, 10);
+      const c = shipsByDay[key] || 0;
+      total += c; if (c > 0) active++;
+      if (c > best.count) best = { date: cellDate, count: c };
+      const lvl = c === 0 ? '' : c === 1 ? 'l1' : c === 2 ? 'l2' : c <= 4 ? 'l3' : 'l4';
+      const tip = c === 0
+        ? `0 ships · ${cellDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+        : `${c} ship${c > 1 ? 's' : ''} · ${cellDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+      col += `<div class="heatmap-cell ${lvl}" data-tip="${tip}"></div>`;
+    }
+    col += '</div>';
+    html += col;
+  }
+  el.innerHTML = html;
+
+  document.getElementById('statTotalShips').textContent = total;
+  document.getElementById('statAvgPerWeek').textContent = (total / WEEKS).toFixed(1);
+  document.getElementById('statActiveDays').textContent = active;
+  document.getElementById('statBestDay').textContent = best.date
+    ? best.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    : '—';
+}
+
+function renderPlatforms(metrics, substackPosts) {
+  const grid = document.getElementById('platforms');
+  const p = metrics.platforms || {};
+  const cards = [
+    { key: 'substack', d: p.substack || {}, label: 'Subscribers', metric: (p.substack||{}).subscribers, latestRss: substackPosts[0] },
+    { key: 'instagram', d: p.instagram || {}, label: 'Followers', metric: (p.instagram||{}).followers },
+    { key: 'tiktok', d: p.tiktok || {}, label: 'Followers', metric: (p.tiktok||{}).followers }
+  ];
+
+  grid.innerHTML = cards.map(c => {
+    const brand = BRAND[c.key];
+    const delta = c.d.weeklyDelta || 0;
+    const deltaText = delta > 0 ? `↑ +${delta}` : delta < 0 ? `↓ ${delta}` : '—';
+    const deltaClass = delta > 0 ? '' : 'flat';
+    let latestDate = null;
+    if (c.key === 'substack' && c.latestRss) latestDate = c.latestRss.pubDate;
+    else if (c.d.latestPost) latestDate = c.d.latestPost.date;
+    return `
+      <a class="platform" href="${c.d.url || '#'}" target="_blank" rel="noopener" style="--platform-color:${brand.color}">
+        <div class="platform-head">
+          <div class="platform-name">
+            <span class="platform-dot"></span>
+            <span>${brand.name}</span>
+          </div>
+          <span class="platform-handle">@${c.d.handle || 'rareform030'}</span>
+        </div>
+        <div class="platform-metric-label">${c.label}</div>
+        <div class="platform-metric">${fmt(c.metric)}</div>
+        <div class="platform-delta ${deltaClass}">${deltaText} this week</div>
+        <div class="platform-spark">${sparkline(c.d.history, brand.color)}</div>
+        <div class="platform-foot">
+          <span>${latestDate ? 'Last ' + timeAgo(latestDate) : 'No ships'}</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+function renderShips(metrics, substackPosts) {
+  const ships = [];
+  substackPosts.slice(0, 6).forEach(p => ships.push({
+    platform: 'substack', title: p.title, url: p.link, date: new Date(p.pubDate)
+  }));
+  const ig = (metrics.platforms || {}).instagram || {};
+  if (ig.latestPost) ships.push({
+    platform: 'instagram', title: ig.latestPost.caption, url: ig.latestPost.url, date: new Date(ig.latestPost.date)
+  });
+  const tt = (metrics.platforms || {}).tiktok || {};
+  if (tt.latestPost) ships.push({
+    platform: 'tiktok', title: tt.latestPost.caption, url: tt.latestPost.url, date: new Date(tt.latestPost.date)
+  });
+  ships.sort((a, b) => b.date - a.date);
+
+  const log = document.getElementById('shipsLog');
+  if (!ships.length) { log.innerHTML = '<div class="ship" style="opacity:0.5"><div class="ship-when">—</div><div></div><div class="ship-title">Nothing shipped yet.</div><div></div></div>'; return; }
+
+  log.innerHTML = ships.slice(0, 10).map(s => `
+    <a class="ship" href="${s.url}" target="_blank" rel="noopener" style="--tag-color:${BRAND[s.platform].color}">
+      <div class="ship-when">${timeAgo(s.date)}</div>
+      <div class="ship-tag"><span class="ship-tag-dot"></span>${BRAND[s.platform].name}</div>
+      <div class="ship-title">${escapeHtml(s.title)}</div>
+      <div class="ship-arrow">→</div>
+    </a>
+  `).join('');
+}
+
+function renderMilestones(milestones) {
+  const grid = document.getElementById('milestones');
+  if (!milestones.length) {
+    grid.innerHTML = '<div class="milestone"><span class="milestone-emoji">🎯</span><div class="milestone-title">Add your first milestone</div><div class="milestone-date">Edit data/metrics.json</div></div>';
+    return;
+  }
+  grid.innerHTML = milestones
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .map(m => `
+      <div class="milestone">
+        <span class="milestone-emoji">${m.emoji || '🎉'}</span>
+        <div class="milestone-title">${escapeHtml(m.title)}</div>
+        <div class="milestone-date">${new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+      </div>
+    `).join('');
+}
+
+function renderMeta(metrics) {
+  document.getElementById('lastUpdatedText').textContent = metrics.lastUpdated ? timeAgo(metrics.lastUpdated) : '—';
+  const badge = document.getElementById('sourceBadge');
+  if (metrics.source === 'stub') { badge.textContent = '⚠ stub data'; badge.classList.add('stub'); }
+  else if (metrics.source === 'api') { badge.textContent = '✓ live from APIs'; badge.classList.add('live'); }
+  else { badge.textContent = metrics.source || 'manual'; }
+}
+
+function renderLastShip(metrics, substackPosts) {
+  const candidates = [];
+  if (substackPosts[0]) candidates.push(new Date(substackPosts[0].pubDate));
+  const ig = (metrics.platforms || {}).instagram || {};
+  if (ig.latestPost) candidates.push(new Date(ig.latestPost.date));
+  const tt = (metrics.platforms || {}).tiktok || {};
+  if (tt.latestPost) candidates.push(new Date(tt.latestPost.date));
+  if (!candidates.length) return;
+  const latest = new Date(Math.max(...candidates.map(d => d.getTime())));
+  document.getElementById('lastShipText').textContent = timeAgo(latest);
+}
+
+load().catch(e => {
+  console.error(e);
+  document.getElementById('sourceBadge').textContent = '⚠ fetch failed';
+});
+</script>
+</body>
+</html>
