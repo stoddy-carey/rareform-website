@@ -1,0 +1,49 @@
+name: Refresh growth metrics
+
+on:
+  schedule:
+    # Daily at 07:00 UTC (= 09:00 Berlin in summer, 08:00 in winter).
+    # GitHub cron is best-effort and can be delayed up to ~30 min at peak times.
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Refresh metrics.json
+        env:
+          # The only required secret. Single Apify token covers every actor below.
+          APIFY_TOKEN:                       ${{ secrets.APIFY_TOKEN }}
+
+          # Optional: override the default scrapers if you want to swap actors.
+          # Defined as repo *variables* (not secrets) since the IDs aren't sensitive.
+          APIFY_IG_ACTOR:                    ${{ vars.APIFY_IG_ACTOR }}
+          APIFY_TIKTOK_ACTOR:                ${{ vars.APIFY_TIKTOK_ACTOR }}
+          APIFY_LINKEDIN_PROFILE_ACTOR:      ${{ vars.APIFY_LINKEDIN_PROFILE_ACTOR }}
+          APIFY_LINKEDIN_COMPANY_ACTOR:      ${{ vars.APIFY_LINKEDIN_COMPANY_ACTOR }}
+
+          # Optional: some LinkedIn actors require a li_at cookie. The defaults
+          # don't, but set this if you swap to an actor that needs it.
+          LINKEDIN_SESSION_COOKIE:           ${{ secrets.LINKEDIN_SESSION_COOKIE }}
+        run: node scripts/refresh-metrics.mjs
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain data/metrics.json)" ]; then
+            git config user.name "rareform-bot"
+            git config user.email "bot@rareform.local"
+            git add data/metrics.json
+            git commit -m "chore: refresh growth metrics"
+            git push
+          else
+            echo "No metric changes to commit"
+          fi

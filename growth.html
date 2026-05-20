@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outcurve · Growth Northstar</title>
+<meta name="description" content="Outcurve's live growth Northstar — every ship, every follower across the company, Rareform (our Berlin community), and Stoddy's founder presence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── DESIGN TOKENS ──────────────────────────────────────────
+   Modern startup style: near-black surfaces, lime growth accent,
+   Inter + mono, tabular numerals, generous whitespace.
+*/
+:root {
+  --bg:            #0a0a0b;
+  --bg-elevated:   #111113;
+  --bg-raised:     #16161a;
+  --surface:       rgba(255, 255, 255, 0.025);
+  --surface-hover: rgba(255, 255, 255, 0.045);
+  --border:        rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --text:          #f4f4f5;
+  --text-muted:    rgba(244, 244, 245, 0.62);
+  --text-subtle:   rgba(244, 244, 245, 0.38);
+
+  --accent:        #84cc16;
+  --accent-soft:   rgba(132, 204, 22, 0.12);
+  --accent-ring:   rgba(132, 204, 22, 0.35);
+
+  --pos:           #4ade80;
+  --neg:           #f87171;
+
+  /* Platform colors */
+  --c-substack:    #ff6b35;
+  --c-instagram:   #e1306c;
+  --c-tiktok:      #25f4ee;
+  --c-linkedin:    #60a5fa;
+
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 16px;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%);
+}
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse, rgba(132, 204, 22, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+main, header, footer { position: relative; z-index: 1; }
+
+/* ─── NAV ─── */
+header.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(10, 10, 11, 0.7);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-decoration: none;
+}
+.brand-mark {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--accent), #65a30d);
+  display: grid;
+  place-items: center;
+  color: #0a0a0b;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.brand-divider {
+  width: 1px; height: 18px;
+  background: var(--border-strong);
+  margin: 0 0.2rem;
+}
+.brand-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.nav-right { display: flex; align-items: center; gap: 0.4rem; }
+.live-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-ring);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: liveDot 1.6s ease-in-out infinite;
+}
+@keyframes liveDot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-ring); }
+  50%      { box-shadow: 0 0 0 6px transparent; }
+}
+.nav-link {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover { color: var(--text); background: var(--surface); }
+
+/* ─── LAYOUT ─── */
+.shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+}
+
+/* ─── HERO ─── */
+.hero { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: var(--accent);
+}
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(244,244,245,0.7) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero p.lede {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 640px;
+  line-height: 1.55;
+}
+.hero-meta {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+.hero-meta strong { color: var(--text); font-weight: 500; }
+
+/* ─── SECTION ─── */
+.section { margin-bottom: 3.5rem; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.section-head h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.section-head .head-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+
+/* ─── KPI STRIP ─── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.kpi {
+  padding: 1.4rem 1.3rem;
+  border-right: 1px solid var(--border);
+  transition: background 0.18s;
+}
+.kpi:last-child { border-right: none; }
+.kpi:hover { background: var(--surface-hover); }
+.kpi-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+.kpi-value {
+  font-size: 1.85rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.kpi-delta {
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.kpi-delta.up { color: var(--pos); }
+.kpi-delta.down { color: var(--neg); }
+
+/* ─── STATUS BADGES ─── */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 30px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.status-badge.active {
+  color: var(--pos);
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+}
+.status-badge.passive {
+  color: var(--text-subtle);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ─── PLATFORMS GRID (new) ─── */
+.platforms-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+}
+.platform-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.platform-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.platform-card.passive { opacity: 0.7; }
+.platform-card.passive:hover { opacity: 1; }
+.platform-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--platform-color);
+}
+.platform-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+.platform-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.platform-card-icon {
+  width: 22px; height: 22px;
+  display: grid;
+  place-items: center;
+  color: var(--platform-color);
+}
+.platform-card-icon svg { width: 18px; height: 18px; }
+.platform-card-metric {
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.platform-card-sublabel {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.55rem;
+}
+.platform-card-delta {
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--pos);
+}
+.platform-card-delta.flat { color: var(--text-subtle); }
+.platform-card-spark { margin-top: 0.9rem; height: 36px; }
+.platform-card-spark svg { width: 100%; height: 100%; overflow: visible; }
+.platform-card-foot {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ─── CARD ─── */
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+}
+
+/* ─── PROPERTIES GRID ─── */
+.properties {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.property {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.property::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--property-color);
+}
+.property-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.4rem;
+}
+.property-name {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+.property-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+.property-kind {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 30px;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.property-kind.company {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-ring);
+}
+.property-kind.sub-brand,
+.property-kind.founder {
+  color: var(--text-subtle);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.property-color-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--property-color);
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+.property-total {
+  margin-bottom: 0.4rem;
+}
+.property-total-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.property-total-value {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.property-delta {
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--pos);
+}
+.property-passive {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.property-passive-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+.property-spark {
+  margin-top: 1rem;
+  height: 44px;
+}
+.property-spark svg { width: 100%; height: 100%; overflow: visible; }
+.property-channels {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.channel-row {
+  display: grid;
+  grid-template-columns: 18px 1fr auto auto;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.45rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.82rem;
+  transition: background 0.15s, opacity 0.15s;
+}
+.channel-row:hover { background: var(--surface); }
+.channel-row.passive { opacity: 0.5; }
+.channel-row.passive:hover { opacity: 0.95; }
+.channel-row.passive .channel-handle { color: var(--text-muted); }
+.channel-status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.35rem;
+}
+.channel-status-dot.active { background: var(--pos); }
+.channel-status-dot.passive { background: var(--text-subtle); }
+.channel-icon {
+  width: 16px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--channel-color);
+}
+.channel-icon svg { width: 14px; height: 14px; }
+.channel-handle {
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.82rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.channel-handle .at { color: var(--text-subtle); }
+.channel-followers {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+.channel-delta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--pos);
+  min-width: 40px;
+  text-align: right;
+}
+.channel-delta.flat { color: var(--text-subtle); }
+
+/* ─── HEATMAP ─── */
+.cadence-body { display: grid; gap: 1.4rem; }
+.cadence-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.stat .num {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.stat .label {
+  margin-top: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+}
+.heatmap-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.heatmap-scroll::-webkit-scrollbar { height: 6px; }
+.heatmap-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 6px; }
+.heatmap {
+  display: flex;
+  gap: 3px;
+  min-width: max-content;
+  padding: 4px 0;
+}
+.heatmap-col { display: flex; flex-direction: column; gap: 3px; }
+.heatmap-cell {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform 0.12s;
+  position: relative;
+}
+.heatmap-cell.l1 { background: rgba(132, 204, 22, 0.22); border-color: rgba(132, 204, 22, 0.18); }
+.heatmap-cell.l2 { background: rgba(132, 204, 22, 0.45); border-color: rgba(132, 204, 22, 0.35); }
+.heatmap-cell.l3 { background: rgba(132, 204, 22, 0.7); border-color: rgba(132, 204, 22, 0.6); }
+.heatmap-cell.l4 { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px rgba(132,204,22,0.5); }
+.heatmap-cell:hover { transform: scale(1.45); z-index: 5; }
+.heatmap-cell[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1c1c1f;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  border: 1px solid var(--border-strong);
+  pointer-events: none;
+  z-index: 100;
+}
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+.legend-swatches { display: flex; gap: 3px; }
+.legend-swatches div { width: 12px; height: 12px; border-radius: 3px; }
+
+/* ─── ALL ACCOUNTS TABLE ─── */
+.accounts-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.accounts-row {
+  display: grid;
+  grid-template-columns: 28px 130px 110px 1fr 100px 80px 24px;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.85rem;
+  transition: background 0.15s;
+}
+.accounts-row:last-child { border-bottom: none; }
+.accounts-row:hover { background: var(--surface-hover); }
+.accounts-row.head {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  background: var(--bg-raised);
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  cursor: default;
+}
+.accounts-row.head:hover { background: var(--bg-raised); }
+.accounts-icon { color: var(--channel-color); display: grid; place-items: center; }
+.accounts-icon svg { width: 16px; height: 16px; }
+.accounts-property { font-weight: 500; }
+.accounts-platform {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.18rem 0.5rem;
+  background: var(--surface);
+  border-radius: 30px;
+  color: var(--text-muted);
+  display: inline-block;
+  text-align: center;
+  width: fit-content;
+}
+.accounts-handle {
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.accounts-handle .at { color: var(--text-subtle); }
+.accounts-followers {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.accounts-delta {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--pos);
+  text-align: right;
+}
+.accounts-delta.flat { color: var(--text-subtle); }
+.accounts-arrow { color: var(--text-subtle); transition: color 0.15s, transform 0.15s; }
+.accounts-row:hover .accounts-arrow { color: var(--accent); transform: translateX(2px); }
+
+/* ─── TEAM ─── */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+.team-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.team-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.team-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-linkedin), #3b82f6);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+}
+.team-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+.team-role {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+.team-stats {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+.team-followers { color: var(--text); font-variant-numeric: tabular-nums; }
+.team-followers-label { color: var(--text-subtle); margin-left: 0.3rem; }
+.team-link { color: var(--c-linkedin); display: inline-flex; align-items: center; gap: 0.3rem; }
+
+/* ─── SHIPS TABLE ─── */
+.ships {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+.ship {
+  display: grid;
+  grid-template-columns: 100px 90px 1fr 24px;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 1.3rem;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+.ship:last-child { border-bottom: none; }
+.ship:hover { background: var(--surface-hover); }
+.ship-when {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--text-subtle);
+}
+.ship-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.ship-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tag-color);
+}
+.ship-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ship-arrow { color: var(--text-subtle); font-size: 1rem; transition: color 0.15s, transform 0.15s; }
+.ship:hover .ship-arrow { color: var(--accent); transform: translateX(2px); }
+
+/* ─── MILESTONES ─── */
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.8rem;
+}
+.milestone {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem;
+  transition: border-color 0.18s, background 0.18s;
+}
+.milestone:hover {
+  border-color: var(--accent-ring);
+  background: var(--surface-hover);
+}
+.milestone-emoji {
+  font-size: 1.7rem;
+  display: block;
+  margin-bottom: 0.8rem;
+  line-height: 1;
+}
+.milestone-title {
+  font-size: 0.92rem;
+  font-weight: 500;
+  margin-bottom: 0.45rem;
+  line-height: 1.35;
+}
+.milestone-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+
+/* ─── META FOOTER ─── */
+.meta-row {
+  margin-top: 2.5rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+.source-badge.stub { color: #fbbf24; border-color: rgba(251, 191, 36, 0.3); }
+.source-badge.live { color: var(--pos); border-color: rgba(74, 222, 128, 0.3); }
+
+/* ─── FOOTER ─── */
+footer.foot {
+  border-top: 1px solid var(--border);
+  padding: 1.6rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-subtle);
+}
+footer.foot a { color: var(--text-muted); text-decoration: none; }
+footer.foot a:hover { color: var(--text); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  .kpi:nth-child(3) { border-right: none; }
+  .kpi:nth-child(1), .kpi:nth-child(2), .kpi:nth-child(3) { border-bottom: 1px solid var(--border); }
+  .properties { grid-template-columns: 1fr 1fr; }
+  .platforms-grid { grid-template-columns: 1fr 1fr; }
+  .accounts-row { grid-template-columns: 24px 110px 90px 1fr 90px 70px 20px; }
+}
+@media (max-width: 768px) {
+  .shell { padding: 2rem 1rem 4rem; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+  .kpi { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kpi:nth-child(2n) { border-right: none; }
+  .cadence-stats { grid-template-columns: 1fr 1fr; gap: 0.8rem 1.2rem; }
+  .properties { grid-template-columns: 1fr; }
+  .platforms-grid { grid-template-columns: 1fr 1fr; }
+  .accounts-row { grid-template-columns: 24px 1fr auto 20px; gap: 0.6rem; padding: 0.7rem 1rem; }
+  .accounts-row.head { display: none; }
+  .accounts-platform, .accounts-delta { display: none; }
+  .accounts-property { font-size: 0.78rem; color: var(--text-subtle); }
+  .accounts-handle { font-size: 0.85rem; }
+  .ship { grid-template-columns: 80px 1fr 24px; gap: 0.8rem; padding: 0.8rem 1rem; }
+  .ship-tag { display: none; }
+  .nav-link.desktop-only { display: none; }
+}
+@media (max-width: 480px) {
+  .platforms-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="growth.html" class="brand">
+      <span class="brand-mark">O</span>
+      <span>Outcurve</span>
+      <span class="brand-divider"></span>
+      <span class="brand-label">Growth · Northstar</span>
+    </a>
+    <div class="nav-right">
+      <span class="live-chip"><span class="live-dot"></span><span>live</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="eyebrow">Outcurve · Northstar</div>
+    <h1>Every ship, every follower,<br>every Outcurve account.</h1>
+    <p class="lede">A live look at how the Outcurve growth team is moving — across the core <strong style="color:var(--text)">Outcurve</strong> brand, our Berlin community newsletter <strong style="color:var(--text)">Rareform</strong>, and <strong style="color:var(--text)">Stoddy's</strong> founder presence. Plus every employee on LinkedIn. Shipping cadence is the #1 predictor of startup success — we treat it like product velocity.</p>
+    <div class="hero-meta">
+      <span>Last ship <strong id="lastShipText">—</strong></span>
+      <span>Updated <strong id="lastUpdatedText">—</strong></span>
+      <span>Streak <strong id="streakInline">—</strong></span>
+    </div>
+  </section>
+
+  <!-- ─── KPI STRIP ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>This week</h2>
+      <span class="head-meta">across all properties</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Active reach</div>
+        <div class="kpi-value" id="kpiReach">—</div>
+        <div class="kpi-delta up" id="kpiReachDelta">—</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Ships this week</div>
+        <div class="kpi-value" id="kpiPosts">—</div>
+        <div class="kpi-delta" id="kpiPostsDelta">active channels</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Active accounts</div>
+        <div class="kpi-value" id="kpiChannels">—</div>
+        <div class="kpi-delta" id="kpiChannelsDelta">live</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Passive reach</div>
+        <div class="kpi-value" id="kpiPassive">—</div>
+        <div class="kpi-delta" id="kpiPassiveDelta">not focused</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Team on LinkedIn</div>
+        <div class="kpi-value" id="kpiTeam">—</div>
+        <div class="kpi-delta" id="kpiTeamDelta">in public</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Week streak</div>
+        <div class="kpi-value" id="kpiStreak">—</div>
+        <div class="kpi-delta" id="kpiStreakDelta">consecutive</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BY PLATFORM (new) ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>By platform</h2>
+      <span class="head-meta" id="platformsHead">where the team is investing</span>
+    </div>
+    <div class="platforms-grid" id="platformsGrid"></div>
+  </section>
+
+  <!-- ─── PROPERTIES ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>By property</h2>
+      <span class="head-meta">company · sub-brand · founder</span>
+    </div>
+    <div class="properties" id="propertiesGrid"></div>
+  </section>
+
+  <!-- ─── CADENCE HEATMAP ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Shipping cadence</h2>
+      <span class="head-meta">last 12 weeks · all channels</span>
+    </div>
+    <div class="card">
+      <div class="cadence-body">
+        <div class="cadence-stats">
+          <div class="stat">
+            <div class="num" id="statTotalShips">—</div>
+            <div class="label">Total ships</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statAvgPerWeek">—</div>
+            <div class="label">Per week</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statActiveDays">—</div>
+            <div class="label">Active days</div>
+          </div>
+          <div class="stat">
+            <div class="num" id="statBestDay">—</div>
+            <div class="label">Best day</div>
+          </div>
+        </div>
+        <div class="heatmap-scroll"><div class="heatmap" id="heatmap"></div></div>
+        <div class="legend">
+          <span>less</span>
+          <div class="legend-swatches">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.03);"></div>
+            <div style="background:rgba(132,204,22,0.22);"></div>
+            <div style="background:rgba(132,204,22,0.45);"></div>
+            <div style="background:rgba(132,204,22,0.7);"></div>
+            <div style="background:#84cc16;"></div>
+          </div>
+          <span>more</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ALL ACCOUNTS TABLE ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>All accounts</h2>
+      <span class="head-meta" id="accountsCount">— live</span>
+    </div>
+    <div class="accounts-table">
+      <div class="accounts-row head">
+        <div></div>
+        <div>Property</div>
+        <div>Platform</div>
+        <div>Handle</div>
+        <div style="text-align:right">Followers</div>
+        <div style="text-align:right">Δ Week</div>
+        <div></div>
+      </div>
+      <div id="accountsBody"></div>
+    </div>
+  </section>
+
+  <!-- ─── TEAM ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Team on LinkedIn</h2>
+      <span class="head-meta">building in public</span>
+    </div>
+    <div class="team-grid" id="teamGrid"></div>
+  </section>
+
+  <!-- ─── RECENT SHIPS ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Recently shipped</h2>
+      <span class="head-meta">latest 10</span>
+    </div>
+    <div class="ships" id="shipsLog">
+      <div class="ship" style="opacity:0.5;"><div class="ship-when">…</div><div></div><div class="ship-title">Loading</div><div></div></div>
+    </div>
+  </section>
+
+  <!-- ─── MILESTONES ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Milestones</h2>
+      <span class="head-meta">add to data/metrics.json</span>
+    </div>
+    <div class="milestones" id="milestonesGrid"></div>
+  </section>
+
+  <div class="meta-row">
+    <span>Data refreshes every 6h via GitHub Action · Substack lives via RSS · LinkedIn = manual</span>
+    <span class="source-badge" id="sourceBadge">loading…</span>
+  </div>
+
+</main>
+
+<footer class="foot">
+  <span>Outcurve · Growth Northstar — built for the growth team</span>
+</footer>
+
+<script>
+const METRICS_URL = 'data/metrics.json';
+const SUBSTACK_RSS = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Frareform030.substack.com%2Ffeed';
+
+const PLATFORM = {
+  substack:  { color: '#ff6b35', name: 'Substack' },
+  instagram: { color: '#e1306c', name: 'Instagram' },
+  tiktok:    { color: '#25f4ee', name: 'TikTok' },
+  linkedin:  { color: '#60a5fa', name: 'LinkedIn' }
+};
+
+const ICONS = {
+  substack:  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 6.5H2V9h20V6.5zM2 11v11l10-5.5L22 22V11H2zM2 2v2.5h20V2H2z"/></svg>',
+  instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+  tiktok:    '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V9.01a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.44z"/></svg>',
+  linkedin:  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>'
+};
+
+function fmt(n) { return n == null ? '—' : Number(n).toLocaleString(); }
+
+function timeAgo(date) {
+  const sec = Math.floor((Date.now() - new Date(date).getTime()) / 1000);
+  if (sec < 60) return `${sec}s ago`;
+  const m = Math.floor(sec / 60); if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60); if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24); if (d < 7) return `${d}d ago`;
+  const w = Math.floor(d / 7); if (w < 5) return `${w}w ago`;
+  return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function animateCount(el, target, duration = 1200) {
+  if (target == null || isNaN(target)) { el.textContent = '—'; return; }
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased).toLocaleString();
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function sparkline(values, color) {
+  if (!values || values.length < 2) return '';
+  const w = 100, h = 44, pad = 3;
+  const max = Math.max(...values), min = Math.min(...values);
+  const range = max - min || 1;
+  const stepX = (w - pad * 2) / (values.length - 1);
+  const pts = values.map((v, i) => [pad + i * stepX, pad + (1 - (v - min) / range) * (h - pad * 2)]);
+  const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`).join(' ');
+  const area = `${line} L${pts[pts.length-1][0]},${h} L${pts[0][0]},${h} Z`;
+  const id = 'sg-' + color.replace('#','') + '-' + Math.random().toString(36).slice(2, 7);
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${color}" stop-opacity="0.4"/><stop offset="100%" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#${id})"/>
+    <path d="${line}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="2.5" fill="${color}"/>
+  </svg>`;
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function followersOf(channel) {
+  return channel.followers ?? channel.subscribers ?? 0;
+}
+
+function isActive(channel) {
+  return (channel.status || 'active') === 'active';
+}
+
+function deltaText(n) {
+  if (!n || n === 0) return '—';
+  return n > 0 ? `↑ +${n.toLocaleString()}` : `↓ ${n.toLocaleString()}`;
+}
+
+function allChannels(metrics) {
+  const out = [];
+  (metrics.properties || []).forEach(p => {
+    (p.channels || []).forEach(c => out.push({ property: p, channel: c }));
+  });
+  return out;
+}
+
+async function load() {
+  const [mRes, rssRes] = await Promise.allSettled([
+    fetch(METRICS_URL, { cache: 'no-store' }).then(r => r.json()),
+    fetch(SUBSTACK_RSS).then(r => r.json())
+  ]);
+  const metrics = mRes.status === 'fulfilled' ? mRes.value : null;
+  const rss = rssRes.status === 'fulfilled' ? rssRes.value : null;
+  if (!metrics) return;
+
+  const substackPosts = (rss && rss.items) || [];
+
+  const shipsByDay = Object.assign({}, metrics.shipsByDay || {});
+  substackPosts.forEach(p => {
+    const d = new Date(p.pubDate).toISOString().slice(0, 10);
+    shipsByDay[d] = (shipsByDay[d] || 0) + 1;
+  });
+
+  // Patch the rareform.substack channel with the latest RSS post
+  if (substackPosts[0]) {
+    metrics.properties.forEach(prop => {
+      prop.channels.forEach(ch => {
+        if (ch.platform === 'substack' && ch.handle === 'rareform030') {
+          ch.latestPost = {
+            caption: substackPosts[0].title,
+            url: substackPosts[0].link,
+            date: substackPosts[0].pubDate.slice(0, 10)
+          };
+        }
+      });
+    });
+  }
+
+  renderKPIs(metrics, substackPosts, shipsByDay);
+  renderPlatforms(metrics);
+  renderProperties(metrics);
+  renderHeatmap(shipsByDay);
+  renderAccounts(metrics);
+  renderTeam(metrics.team || []);
+  renderShips(metrics, substackPosts);
+  renderMilestones(metrics.milestones || []);
+  renderMeta(metrics);
+  renderLastShip(metrics, substackPosts);
+}
+
+function renderKPIs(metrics, substackPosts, shipsByDay) {
+  let activeReach = 0, passiveReach = 0;
+  let activeDelta = 0, passiveDelta = 0;
+  let activePosts = 0;
+  let activeCount = 0;
+  metrics.properties.forEach(p => {
+    p.channels.forEach(c => {
+      const reach = followersOf(c);
+      const delta = c.weeklyDelta || 0;
+      if (isActive(c)) {
+        activeReach += reach;
+        activeDelta += delta;
+        activePosts += (c.postsThisWeek || 0);
+        activeCount += 1;
+      } else {
+        passiveReach += reach;
+        passiveDelta += delta;
+      }
+    });
+  });
+  const weekAgo = Date.now() - 7 * 86400e3;
+  activePosts += substackPosts.filter(p => new Date(p.pubDate).getTime() > weekAgo).length;
+
+  animateCount(document.getElementById('kpiReach'), activeReach);
+  animateCount(document.getElementById('kpiPosts'), activePosts);
+  animateCount(document.getElementById('kpiChannels'), activeCount);
+  animateCount(document.getElementById('kpiPassive'), passiveReach);
+  animateCount(document.getElementById('kpiTeam'), (metrics.team || []).length);
+
+  document.getElementById('kpiReachDelta').textContent = deltaText(activeDelta);
+  document.getElementById('kpiReachDelta').className = 'kpi-delta ' + (activeDelta > 0 ? 'up' : '');
+  document.getElementById('kpiPassiveDelta').textContent = passiveDelta > 0 ? `+${passiveDelta} · not focused` : 'not focused';
+
+  const streak = computeWeekStreak(shipsByDay);
+  animateCount(document.getElementById('kpiStreak'), streak);
+  document.getElementById('streakInline').textContent = streak + 'w';
+}
+
+function aggregateByPlatform(metrics) {
+  const map = new Map();
+  metrics.properties.forEach(p => {
+    p.channels.forEach(c => {
+      const cur = map.get(c.platform) || {
+        platform: c.platform,
+        accounts: [],
+        followers: 0,
+        delta: 0,
+        history: [],
+        activeAccounts: 0,
+        passiveAccounts: 0
+      };
+      cur.accounts.push({ property: p.name, handle: c.handle, status: c.status || 'active', followers: followersOf(c) });
+      cur.followers += followersOf(c);
+      cur.delta += (c.weeklyDelta || 0);
+      if (isActive(c)) cur.activeAccounts++; else cur.passiveAccounts++;
+      // Sum histories element-wise (right-aligned)
+      if (c.history && c.history.length) {
+        const len = Math.max(cur.history.length, c.history.length);
+        const summed = new Array(len).fill(0);
+        const padOld = len - cur.history.length;
+        const padNew = len - c.history.length;
+        for (let i = 0; i < len; i++) {
+          summed[i] += i >= padOld ? cur.history[i - padOld] : (cur.history[0] || 0);
+          summed[i] += i >= padNew ? c.history[i - padNew] : (c.history[0] || 0);
+        }
+        cur.history = summed;
+      }
+      map.set(c.platform, cur);
+    });
+  });
+  return Array.from(map.values()).sort((a, b) => b.followers - a.followers);
+}
+
+function platformIsActive(metrics, platform) {
+  const focus = metrics.platformFocus || {};
+  if (focus.active && focus.active.includes(platform)) return true;
+  if (focus.passive && focus.passive.includes(platform)) return false;
+  // Fallback: active if any channel on this platform is active
+  return (metrics.properties || []).some(p =>
+    (p.channels || []).some(c => c.platform === platform && isActive(c))
+  );
+}
+
+function renderPlatforms(metrics) {
+  const grid = document.getElementById('platformsGrid');
+  const aggregated = aggregateByPlatform(metrics);
+  document.getElementById('platformsHead').textContent =
+    `${aggregated.length} platforms · ${aggregated.filter(p => platformIsActive(metrics, p.platform)).length} active`;
+
+  grid.innerHTML = aggregated.map(p => {
+    const meta = PLATFORM[p.platform] || { color: '#888', name: p.platform };
+    const active = platformIsActive(metrics, p.platform);
+    const accountLabel = p.accounts.length === 1 ? '1 account' : `${p.accounts.length} accounts`;
+    const breakdown = p.activeAccounts > 0 && p.passiveAccounts > 0
+      ? `${p.activeAccounts} active · ${p.passiveAccounts} passive`
+      : (active ? 'all active' : 'all passive');
+    return `
+      <div class="platform-card ${active ? '' : 'passive'}" style="--platform-color:${meta.color}">
+        <div class="platform-card-head">
+          <div class="platform-card-title">
+            <span class="platform-card-icon">${ICONS[p.platform] || ''}</span>
+            <span>${escapeHtml(meta.name)}</span>
+          </div>
+          <span class="status-badge ${active ? 'active' : 'passive'}">
+            <span class="status-dot"></span>${active ? 'focused' : 'monitoring'}
+          </span>
+        </div>
+        <div class="platform-card-sublabel">${p.platform === 'substack' ? 'Subscribers' : 'Followers'}</div>
+        <div class="platform-card-metric">${fmt(p.followers)}</div>
+        <div class="platform-card-delta ${p.delta > 0 ? '' : 'flat'}">${deltaText(p.delta)} this week</div>
+        <div class="platform-card-spark">${sparkline(p.history, meta.color)}</div>
+        <div class="platform-card-foot">
+          <span>${accountLabel}</span>
+          <span>${breakdown}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function computeWeekStreak(shipsByDay) {
+  const now = new Date();
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  monday.setHours(0,0,0,0);
+  let streak = 0;
+  for (let w = 0; w < 200; w++) {
+    const start = new Date(monday.getTime() - w * 7 * 86400e3);
+    const end = new Date(start.getTime() + 7 * 86400e3);
+    let has = false;
+    for (const d in shipsByDay) {
+      const t = new Date(d).getTime();
+      if (t >= start.getTime() && t < end.getTime() && shipsByDay[d] > 0) { has = true; break; }
+    }
+    if (has) streak++; else break;
+  }
+  return streak;
+}
+
+function renderProperties(metrics) {
+  const grid = document.getElementById('propertiesGrid');
+  grid.innerHTML = metrics.properties.map(p => {
+    const activeChannels  = p.channels.filter(isActive);
+    const passiveChannels = p.channels.filter(c => !isActive(c));
+    const activeTotal   = activeChannels.reduce((s, c) => s + followersOf(c), 0);
+    const passiveTotal  = passiveChannels.reduce((s, c) => s + followersOf(c), 0);
+    const activeDelta   = activeChannels.reduce((s, c) => s + (c.weeklyDelta || 0), 0);
+
+    // Sparkline only from active channels (the focus number)
+    const activeHistLens = activeChannels.map(c => (c.history || []).length).filter(n => n > 0);
+    const histLen = activeHistLens.length ? Math.min(...activeHistLens) : 0;
+    const propHistory = [];
+    if (histLen > 0) {
+      for (let i = 0; i < histLen; i++) {
+        let sum = 0;
+        activeChannels.forEach(c => {
+          if (c.history && c.history.length) sum += c.history[c.history.length - histLen + i];
+        });
+        propHistory.push(sum);
+      }
+    }
+
+    // Channel rows: active first, then passive (dimmed)
+    const ordered = [...activeChannels, ...passiveChannels];
+    const channels = ordered.map(c => {
+      const plat = PLATFORM[c.platform] || PLATFORM.linkedin;
+      const cDelta = c.weeklyDelta || 0;
+      const status = c.status || 'active';
+      return `
+        <a class="channel-row ${status === 'passive' ? 'passive' : ''}" href="${c.url}" target="_blank" rel="noopener" style="--channel-color:${plat.color}">
+          <span class="channel-icon">${ICONS[c.platform] || ''}</span>
+          <span class="channel-handle"><span class="channel-status-dot ${status}"></span><span class="at">@</span>${escapeHtml(c.handle)}</span>
+          <span class="channel-followers">${fmt(followersOf(c))}</span>
+          <span class="channel-delta ${cDelta > 0 ? '' : 'flat'}">${cDelta > 0 ? '+' + cDelta : '—'}</span>
+        </a>
+      `;
+    }).join('');
+
+    const passiveBlock = passiveChannels.length > 0
+      ? `<div class="property-passive">
+           <span>+ passive reach (${passiveChannels.length} ${passiveChannels.length === 1 ? 'channel' : 'channels'})</span>
+           <span class="property-passive-value">${fmt(passiveTotal)}</span>
+         </div>`
+      : '';
+
+    const kind = p.kind || 'property';
+    const kindLabel = kind === 'company' ? 'Company' : kind === 'sub-brand' ? 'Sub-brand' : kind === 'founder' ? 'Founder' : kind;
+    return `
+      <div class="property" style="--property-color:${p.color}">
+        <div class="property-head">
+          <div>
+            <span class="property-kind ${kind}">${kindLabel}</span>
+            <div class="property-name">${escapeHtml(p.name)}</div>
+            <div class="property-tagline">${escapeHtml(p.tagline || '')}</div>
+          </div>
+          <div class="property-color-dot"></div>
+        </div>
+        <div class="property-total">
+          <div class="property-total-label">
+            <span>Active reach</span>
+            <span class="status-badge active"><span class="status-dot"></span>${activeChannels.length} ${activeChannels.length === 1 ? 'channel' : 'channels'}</span>
+          </div>
+          <div class="property-total-value">${fmt(activeTotal)}</div>
+          <div class="property-delta">${deltaText(activeDelta)} this week</div>
+        </div>
+        <div class="property-spark">${sparkline(propHistory, p.color)}</div>
+        ${passiveBlock}
+        <div class="property-channels">${channels}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderAccounts(metrics) {
+  const body = document.getElementById('accountsBody');
+  const rows = [];
+  metrics.properties.forEach(p => {
+    p.channels.forEach(c => {
+      rows.push({ property: p.name, channel: c });
+    });
+  });
+  // Active first, then by followers desc
+  rows.sort((a, b) => {
+    const aa = isActive(a.channel) ? 0 : 1;
+    const bb = isActive(b.channel) ? 0 : 1;
+    if (aa !== bb) return aa - bb;
+    return followersOf(b.channel) - followersOf(a.channel);
+  });
+  const activeCount = rows.filter(r => isActive(r.channel)).length;
+  document.getElementById('accountsCount').textContent = `${rows.length} accounts · ${activeCount} active`;
+  body.innerHTML = rows.map(r => {
+    const plat = PLATFORM[r.channel.platform];
+    const d = r.channel.weeklyDelta || 0;
+    const status = r.channel.status || 'active';
+    return `
+      <a class="accounts-row ${status === 'passive' ? 'passive' : ''}" href="${r.channel.url}" target="_blank" rel="noopener" style="--channel-color:${plat.color}; ${status === 'passive' ? 'opacity:0.55;' : ''}">
+        <span class="accounts-icon">${ICONS[r.channel.platform]}</span>
+        <span class="accounts-property">${escapeHtml(r.property)}</span>
+        <span class="accounts-platform">${plat.name}</span>
+        <span class="accounts-handle"><span class="channel-status-dot ${status}"></span><span class="at">@</span>${escapeHtml(r.channel.handle)}</span>
+        <span class="accounts-followers">${fmt(followersOf(r.channel))}</span>
+        <span class="accounts-delta ${d > 0 ? '' : 'flat'}">${d > 0 ? '+' + d : '—'}</span>
+        <span class="accounts-arrow">→</span>
+      </a>
+    `;
+  }).join('');
+}
+
+function renderTeam(team) {
+  const grid = document.getElementById('teamGrid');
+  if (!team.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = team.map(t => {
+    const initials = (t.name || '').slice(0, 1).toUpperCase() + (t.lastName ? t.lastName.slice(0, 1).toUpperCase() : '');
+    return `
+      <a class="team-card" href="${t.linkedin}" target="_blank" rel="noopener">
+        <div class="team-avatar">${initials}</div>
+        <div class="team-name">${escapeHtml(t.name)} ${escapeHtml(t.lastName || '')}</div>
+        <div class="team-role">${escapeHtml(t.role || '')}</div>
+        <div class="team-stats">
+          <span>
+            ${t.followers != null
+              ? `<span class="team-followers">${fmt(t.followers)}</span><span class="team-followers-label">followers</span>`
+              : `<span class="team-followers-label">no data</span>`}
+          </span>
+          <span class="team-link">LinkedIn →</span>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+function renderHeatmap(shipsByDay) {
+  const el = document.getElementById('heatmap');
+  const WEEKS = 12;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const offset = (today.getDay() + 6) % 7;
+  const start = new Date(today);
+  start.setDate(today.getDate() - offset - (WEEKS - 1) * 7);
+
+  let html = '';
+  let total = 0, active = 0, best = { date: null, count: 0 };
+  for (let w = 0; w < WEEKS; w++) {
+    let col = '<div class="heatmap-col">';
+    for (let d = 0; d < 7; d++) {
+      const cellDate = new Date(start.getTime() + (w * 7 + d) * 86400e3);
+      if (cellDate > today) { col += `<div class="heatmap-cell" style="opacity:0.2"></div>`; continue; }
+      const key = cellDate.toISOString().slice(0, 10);
+      const c = shipsByDay[key] || 0;
+      total += c; if (c > 0) active++;
+      if (c > best.count) best = { date: cellDate, count: c };
+      const lvl = c === 0 ? '' : c === 1 ? 'l1' : c === 2 ? 'l2' : c <= 4 ? 'l3' : 'l4';
+      const tip = c === 0
+        ? `0 ships · ${cellDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+        : `${c} ship${c > 1 ? 's' : ''} · ${cellDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+      col += `<div class="heatmap-cell ${lvl}" data-tip="${tip}"></div>`;
+    }
+    col += '</div>';
+    html += col;
+  }
+  el.innerHTML = html;
+
+  document.getElementById('statTotalShips').textContent = total;
+  document.getElementById('statAvgPerWeek').textContent = (total / WEEKS).toFixed(1);
+  document.getElementById('statActiveDays').textContent = active;
+  document.getElementById('statBestDay').textContent = best.date
+    ? best.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    : '—';
+}
+
+function renderShips(metrics, substackPosts) {
+  const ships = [];
+  substackPosts.slice(0, 6).forEach(p => ships.push({
+    platform: 'substack', title: p.title, url: p.link, date: new Date(p.pubDate)
+  }));
+  metrics.properties.forEach(p => {
+    p.channels.forEach(c => {
+      if (c.latestPost && c.platform !== 'substack') {
+        ships.push({
+          platform: c.platform,
+          title: c.latestPost.caption,
+          url: c.latestPost.url,
+          date: new Date(c.latestPost.date)
+        });
+      }
+    });
+  });
+  ships.sort((a, b) => b.date - a.date);
+
+  const log = document.getElementById('shipsLog');
+  if (!ships.length) { log.innerHTML = '<div class="ship" style="opacity:0.5"><div class="ship-when">—</div><div></div><div class="ship-title">Nothing shipped yet.</div><div></div></div>'; return; }
+
+  log.innerHTML = ships.slice(0, 10).map(s => `
+    <a class="ship" href="${s.url}" target="_blank" rel="noopener" style="--tag-color:${(PLATFORM[s.platform]||{}).color}">
+      <div class="ship-when">${timeAgo(s.date)}</div>
+      <div class="ship-tag"><span class="ship-tag-dot"></span>${(PLATFORM[s.platform]||{}).name || s.platform}</div>
+      <div class="ship-title">${escapeHtml(s.title)}</div>
+      <div class="ship-arrow">→</div>
+    </a>
+  `).join('');
+}
+
+function renderMilestones(milestones) {
+  const grid = document.getElementById('milestonesGrid');
+  if (!milestones.length) {
+    grid.innerHTML = '<div class="milestone"><span class="milestone-emoji">🎯</span><div class="milestone-title">Add your first milestone</div><div class="milestone-date">Edit data/metrics.json</div></div>';
+    return;
+  }
+  grid.innerHTML = milestones
+    .slice()
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .map(m => `
+      <div class="milestone">
+        <span class="milestone-emoji">${m.emoji || '🎉'}</span>
+        <div class="milestone-title">${escapeHtml(m.title)}</div>
+        <div class="milestone-date">${new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+      </div>
+    `).join('');
+}
+
+function renderMeta(metrics) {
+  document.getElementById('lastUpdatedText').textContent = metrics.lastUpdated ? timeAgo(metrics.lastUpdated) : '—';
+  const badge = document.getElementById('sourceBadge');
+  if (metrics.source === 'stub') { badge.textContent = '⚠ stub data'; badge.classList.add('stub'); }
+  else if (metrics.source === 'api') { badge.textContent = '✓ live from APIs'; badge.classList.add('live'); }
+  else { badge.textContent = metrics.source || 'manual'; }
+}
+
+function renderLastShip(metrics, substackPosts) {
+  const candidates = [];
+  if (substackPosts[0]) candidates.push(new Date(substackPosts[0].pubDate));
+  metrics.properties.forEach(p => {
+    p.channels.forEach(c => {
+      if (c.latestPost) candidates.push(new Date(c.latestPost.date));
+    });
+  });
+  if (!candidates.length) return;
+  const latest = new Date(Math.max(...candidates.map(d => d.getTime())));
+  document.getElementById('lastShipText').textContent = timeAgo(latest);
+}
+
+load().catch(e => {
+  console.error(e);
+  document.getElementById('sourceBadge').textContent = '⚠ fetch failed';
+});
+</script>
+</body>
+</html>
