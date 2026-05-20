@@ -1,18 +1,23 @@
 #!/usr/bin/env node
-// Refreshes data/metrics.json by calling Apify (Instagram + TikTok) and
-// Phantombuster (LinkedIn) — the two services we already pay for.
+// Refreshes data/metrics.json by calling Apify actors for every platform.
+// One service, one API token, one code pattern.
 //
 // Substack pulls live via RSS client-side, so we don't touch it here.
 //
 // Required env (set as GitHub repo secrets, surfaced by the workflow):
-//   APIFY_TOKEN                         – single Apify token, covers all actors
-//   APIFY_IG_ACTOR                      – optional, defaults to apify/instagram-profile-scraper
-//   APIFY_TIKTOK_ACTOR                  – optional, defaults to clockworks/tiktok-scraper
-//   PHANTOMBUSTER_API_KEY               – your Phantombuster API key
-//   PHANTOMBUSTER_LI_AGENT_ID           – the agent ID of your "LinkedIn Profile Scraper" phantom
-//   PHANTOMBUSTER_LI_SESSION_COOKIE     – the li_at session cookie (PB needs one to scrape)
+//   APIFY_TOKEN                       – the only secret you have to set
 //
-// Missing creds for a backend → that backend is skipped (others still run).
+// Optional env (override the default actors if you want a different scraper):
+//   APIFY_IG_ACTOR                    – default apify/instagram-profile-scraper
+//   APIFY_TIKTOK_ACTOR                – default clockworks/tiktok-scraper
+//   APIFY_LINKEDIN_PROFILE_ACTOR      – default dev_fusion/linkedin-profile-scraper
+//   APIFY_LINKEDIN_COMPANY_ACTOR      – default apimaestro/linkedin-company-page-detail
+//   LINKEDIN_SESSION_COOKIE           – only required if the LinkedIn actor you
+//                                       picked needs a session cookie (the li_at
+//                                       value from a logged-in LinkedIn browser
+//                                       tab). Default actors don't need it.
+//
+// Adding a new platform = add one more actor ID and one more fetch helper.
 
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
@@ -24,17 +29,18 @@ const HISTORY_LIMIT = 12;
 
 const {
   APIFY_TOKEN,
-  APIFY_IG_ACTOR = 'apify/instagram-profile-scraper',
-  APIFY_TIKTOK_ACTOR = 'clockworks/tiktok-scraper',
-  PHANTOMBUSTER_API_KEY,
-  PHANTOMBUSTER_LI_AGENT_ID,
-  PHANTOMBUSTER_LI_SESSION_COOKIE
+  APIFY_IG_ACTOR              = 'apify/instagram-profile-scraper',
+  APIFY_TIKTOK_ACTOR          = 'clockworks/tiktok-scraper',
+  APIFY_LINKEDIN_PROFILE_ACTOR = 'dev_fusion/linkedin-profile-scraper',
+  APIFY_LINKEDIN_COMPANY_ACTOR = 'apimaestro/linkedin-company-page-detail',
+  LINKEDIN_SESSION_COOKIE
 } = process.env;
 
-// ─── Apify ──────────────────────────────────────────────
+// ─── Apify helper ──────────────────────────────────────
 // Run an actor synchronously and get the dataset items in one call.
 // Docs: https://docs.apify.com/api/v2#tag/Actor-runs/operation/act_runs_post
 async function runApifyActor(actorId, input) {
+  if (!APIFY_TOKEN) throw new Error('APIFY_TOKEN not set');
   const url = `https://api.apify.com/v2/acts/${actorId.replace('/', '~')}/run-sync-get-dataset-items?token=${APIFY_TOKEN}&timeout=180`;
   const res = await fetch(url, {
     method: 'POST',
@@ -45,9 +51,10 @@ async function runApifyActor(actorId, input) {
   return res.json();
 }
 
+// ─── Platform fetchers ─────────────────────────────────
 async function fetchInstagramBatch(handles) {
   if (!APIFY_TOKEN || handles.length === 0) return {};
-  console.log(`[Apify] Instagram → ${handles.join(', ')}`);
+  console.log(`[Apify · IG] ${handles.join(', ')}`);
   const items = await runApifyActor(APIFY_IG_ACTOR, {
     usernames: handles,
     resultsType: 'details',
@@ -57,13 +64,13 @@ async function fetchInstagramBatch(handles) {
   for (const item of (items || [])) {
     const handle = (item.username || '').toLowerCase();
     if (!handle) continue;
-    const latest = (item.latestPosts || item.latestIgtvs || [])[0];
+    const latest = (item.latestPosts || [])[0];
     out[handle] = {
-      followers:    item.followersCount ?? item.followers ?? null,
+      followers: item.followersCount ?? item.followers ?? null,
       postsThisWeek: countRecent(item.latestPosts, 7, p => p.timestamp || p.takenAtTimestamp),
       latestPost: latest ? {
         caption: (latest.caption || '').slice(0, 140),
-        url:     latest.url || latest.shortCode ? `https://instagram.com/p/${latest.shortCode}` : `https://instagram.com/${handle}`,
+        url:     latest.url || (latest.shortCode ? `https://instagram.com/p/${latest.shortCode}` : `https://instagram.com/${handle}`),
         date:    isoDay(latest.timestamp || latest.takenAtTimestamp)
       } : null,
       recentDates: (item.latestPosts || []).map(p => isoDay(p.timestamp || p.takenAtTimestamp)).filter(Boolean)
@@ -74,7 +81,7 @@ async function fetchInstagramBatch(handles) {
 
 async function fetchTikTokBatch(handles) {
   if (!APIFY_TOKEN || handles.length === 0) return {};
-  console.log(`[Apify] TikTok → ${handles.join(', ')}`);
+  console.log(`[Apify · TikTok] ${handles.join(', ')}`);
   const items = await runApifyActor(APIFY_TIKTOK_ACTOR, {
     profiles: handles,
     resultsPerPage: 5,
@@ -82,7 +89,7 @@ async function fetchTikTokBatch(handles) {
     shouldDownloadCovers: false
   });
   // clockworks/tiktok-scraper returns one item per video, grouped under
-  // authorMeta. Roll them up by author.
+  // authorMeta. Roll them up by author handle.
   const grouped = new Map();
   for (const item of (items || [])) {
     const author = item.authorMeta || item.author || {};
@@ -102,7 +109,10 @@ async function fetchTikTokBatch(handles) {
     const weekAgoSec = Math.floor((Date.now() - 7 * 86400e3) / 1000);
     out[handle] = {
       followers: data.followers,
-      postsThisWeek: data.videos.filter(v => (v.createTime || v.createTimeISO ? Date.parse(v.createTimeISO || 0) / 1000 : 0) > weekAgoSec).length,
+      postsThisWeek: data.videos.filter(v => {
+        const ts = v.createTimeISO ? Date.parse(v.createTimeISO) / 1000 : v.createTime;
+        return ts && ts > weekAgoSec;
+      }).length,
       viewsLast30d: data.videos.reduce((s, v) => s + (v.playCount || v.views || 0), 0),
       latestPost: latest ? {
         caption: (latest.text || latest.title || '').slice(0, 140),
@@ -115,76 +125,49 @@ async function fetchTikTokBatch(handles) {
   return out;
 }
 
-// ─── Phantombuster ──────────────────────────────────────
-// Launch an agent and poll until done, then fetch output.
-// Docs: https://hub.phantombuster.com/reference/post_agents-launch-1
-async function launchPhantom(agentId, args) {
-  const res = await fetch('https://api.phantombuster.com/api/v2/agents/launch', {
-    method: 'POST',
-    headers: {
-      'X-Phantombuster-Key': PHANTOMBUSTER_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ id: agentId, argument: args })
-  });
-  if (!res.ok) throw new Error(`PB launch ${res.status}: ${await res.text()}`);
-  const body = await res.json();
-  return body.containerId;
-}
-
-async function waitForPhantom(containerId, timeoutMs = 300000) {
-  const start = Date.now();
-  while (Date.now() - start < timeoutMs) {
-    const res = await fetch(`https://api.phantombuster.com/api/v2/containers/fetch?id=${containerId}`, {
-      headers: { 'X-Phantombuster-Key': PHANTOMBUSTER_API_KEY }
-    });
-    if (!res.ok) throw new Error(`PB fetch ${res.status}: ${await res.text()}`);
-    const body = await res.json();
-    if (body.status === 'finished' || body.status === 'finished_with_errors') return body;
-    await new Promise(r => setTimeout(r, 5000));
-  }
-  throw new Error('PB container timed out');
-}
-
-async function fetchPhantomResult(containerId) {
-  const res = await fetch(`https://api.phantombuster.com/api/v2/containers/fetch-result-object?id=${containerId}`, {
-    headers: { 'X-Phantombuster-Key': PHANTOMBUSTER_API_KEY }
-  });
-  if (!res.ok) throw new Error(`PB result ${res.status}: ${await res.text()}`);
-  const body = await res.json();
-  try { return JSON.parse(body.resultObject || '[]'); } catch { return []; }
-}
-
-async function fetchLinkedInBatch(profiles) {
-  if (!PHANTOMBUSTER_API_KEY || !PHANTOMBUSTER_LI_AGENT_ID || !PHANTOMBUSTER_LI_SESSION_COOKIE || profiles.length === 0) {
-    if (profiles.length > 0) console.log('[PB] LinkedIn: missing PHANTOMBUSTER_API_KEY / agent ID / session cookie — skipping');
-    return {};
-  }
-  console.log(`[PB] LinkedIn → ${profiles.map(p => p.url).join(', ')}`);
-  const containerId = await launchPhantom(PHANTOMBUSTER_LI_AGENT_ID, {
-    sessionCookie: PHANTOMBUSTER_LI_SESSION_COOKIE,
-    profileUrls: profiles.map(p => p.url),
-    // The PB Profile Scraper agent often expects a CSV/spreadsheet input.
-    // For modern versions it accepts an inline array; older agents may
-    // need spreadsheetUrl. Adjust if your specific phantom needs different args.
-    numberOfLinesPerLaunch: profiles.length
-  });
-  await waitForPhantom(containerId);
-  const rows = await fetchPhantomResult(containerId);
-
+async function fetchLinkedInProfilesBatch(urls) {
+  if (!APIFY_TOKEN || urls.length === 0) return {};
+  console.log(`[Apify · LinkedIn personal] ${urls.length} profile(s)`);
+  const input = {
+    profileUrls: urls,
+    // Some LinkedIn actors require a cookie; others handle auth internally.
+    // We pass it if present; the actor ignores fields it doesn't use.
+    ...(LINKEDIN_SESSION_COOKIE ? { cookie: [{ name: 'li_at', value: LINKEDIN_SESSION_COOKIE, domain: '.linkedin.com' }] } : {})
+  };
+  const items = await runApifyActor(APIFY_LINKEDIN_PROFILE_ACTOR, input);
   const out = {};
-  for (const row of (rows || [])) {
-    const url = (row.profileUrl || row.linkedinProfileUrl || row.url || '').toLowerCase();
+  for (const item of (items || [])) {
+    // Different actors use different field names. Try all known variants.
+    const url = (item.url || item.profileUrl || item.linkedinUrl || item.publicIdentifier || '').toLowerCase();
     if (!url) continue;
     out[url] = {
-      followers: row.followersCount ?? row.followers ?? row.connectionsCount ?? null,
-      headline:  row.headline || row.title || null
+      followers: item.followersCount ?? item.followers ?? item.followerCount ?? item.connections ?? null,
+      headline:  item.headline || item.title || null
     };
   }
   return out;
 }
 
-// ─── helpers ────────────────────────────────────────────
+async function fetchLinkedInCompaniesBatch(urls) {
+  if (!APIFY_TOKEN || urls.length === 0) return {};
+  console.log(`[Apify · LinkedIn company] ${urls.length} page(s)`);
+  const items = await runApifyActor(APIFY_LINKEDIN_COMPANY_ACTOR, {
+    urls: urls,
+    ...(LINKEDIN_SESSION_COOKIE ? { cookie: [{ name: 'li_at', value: LINKEDIN_SESSION_COOKIE, domain: '.linkedin.com' }] } : {})
+  });
+  const out = {};
+  for (const item of (items || [])) {
+    const url = (item.url || item.companyUrl || item.linkedinUrl || '').toLowerCase();
+    if (!url) continue;
+    out[url] = {
+      followers: item.followersCount ?? item.followers ?? item.followerCount ?? null,
+      headline:  item.tagline || item.description || null
+    };
+  }
+  return out;
+}
+
+// ─── helpers ───────────────────────────────────────────
 function isoDay(ts) {
   if (!ts) return null;
   const d = typeof ts === 'number' ? new Date(ts < 1e12 ? ts * 1000 : ts) : new Date(ts);
@@ -216,42 +199,48 @@ function bumpShipsByDay(shipsByDay, dates) {
   return out;
 }
 
-// ─── main ───────────────────────────────────────────────
+function isCompanyUrl(u) { return /\/company\//i.test(u || ''); }
+
+// ─── main ──────────────────────────────────────────────
 async function main() {
   const raw = await readFile(METRICS_PATH, 'utf8');
   const metrics = JSON.parse(raw);
 
-  // Collect handles to refresh per backend
-  const igHandles = [];
-  const tiktokHandles = [];
-  const linkedinUrls = [];
+  // Group all the work by platform / type
+  const igHandles      = [];
+  const tiktokHandles  = [];
+  const liPersonalUrls = new Set();
+  const liCompanyUrls  = new Set();
 
   for (const property of metrics.properties || []) {
     for (const channel of property.channels || []) {
       if (channel.platform === 'instagram') igHandles.push(channel.handle);
       else if (channel.platform === 'tiktok') tiktokHandles.push(channel.handle);
-      else if (channel.platform === 'linkedin') linkedinUrls.push({ url: channel.url, channel });
+      else if (channel.platform === 'linkedin') {
+        (isCompanyUrl(channel.url) ? liCompanyUrls : liPersonalUrls).add(channel.url);
+      }
     }
   }
   for (const member of metrics.team || []) {
-    if (member.linkedin) linkedinUrls.push({ url: member.linkedin, member });
+    if (member.linkedin) liPersonalUrls.add(member.linkedin);
   }
 
-  const [igData, tiktokData, linkedinData] = await Promise.all([
+  const [igData, ttData, liPersonalData, liCompanyData] = await Promise.all([
     fetchInstagramBatch(igHandles).catch(e => { console.error('IG batch failed:', e.message); return {}; }),
     fetchTikTokBatch(tiktokHandles).catch(e => { console.error('TT batch failed:', e.message); return {}; }),
-    fetchLinkedInBatch(linkedinUrls).catch(e => { console.error('LI batch failed:', e.message); return {}; })
+    fetchLinkedInProfilesBatch([...liPersonalUrls]).catch(e => { console.error('LI personal batch failed:', e.message); return {}; }),
+    fetchLinkedInCompaniesBatch([...liCompanyUrls]).catch(e => { console.error('LI company batch failed:', e.message); return {}; })
   ]);
 
   let updated = 0;
 
-  // Apply to channels
+  // Apply to property channels
   for (const property of metrics.properties || []) {
     for (const channel of property.channels || []) {
       let fresh = null;
-      if (channel.platform === 'instagram') fresh = igData[channel.handle.toLowerCase()];
-      else if (channel.platform === 'tiktok') fresh = tiktokData[channel.handle.toLowerCase()];
-      else if (channel.platform === 'linkedin') fresh = linkedinData[(channel.url || '').toLowerCase()];
+      if (channel.platform === 'instagram')      fresh = igData[channel.handle.toLowerCase()];
+      else if (channel.platform === 'tiktok')    fresh = ttData[channel.handle.toLowerCase()];
+      else if (channel.platform === 'linkedin')  fresh = (isCompanyUrl(channel.url) ? liCompanyData : liPersonalData)[(channel.url || '').toLowerCase()];
 
       if (!fresh || fresh.followers == null) continue;
       const prev = channel.followers || 0;
@@ -269,10 +258,9 @@ async function main() {
 
   // Apply to team LinkedIns
   for (const member of metrics.team || []) {
-    const fresh = linkedinData[(member.linkedin || '').toLowerCase()];
+    const fresh = liPersonalData[(member.linkedin || '').toLowerCase()];
     if (!fresh || fresh.followers == null) continue;
     member.followers = fresh.followers;
-    if (fresh.headline) member.role = member.role || fresh.headline;
     updated++;
     console.log(`✓ team ${member.name}: ${fresh.followers} followers`);
   }

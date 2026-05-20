@@ -19,16 +19,19 @@ jobs:
 
       - name: Refresh metrics.json
         env:
-          # Apify — single token covers all actors. Optional actor overrides
-          # if you want to swap to different scrapers later.
+          # The only required secret. Single Apify token covers every actor below.
           APIFY_TOKEN:                       ${{ secrets.APIFY_TOKEN }}
-          APIFY_IG_ACTOR:                    ${{ vars.APIFY_IG_ACTOR }}      # optional, default apify/instagram-profile-scraper
-          APIFY_TIKTOK_ACTOR:                ${{ vars.APIFY_TIKTOK_ACTOR }}  # optional, default clockworks/tiktok-scraper
 
-          # Phantombuster — LinkedIn (company + personal profiles)
-          PHANTOMBUSTER_API_KEY:             ${{ secrets.PHANTOMBUSTER_API_KEY }}
-          PHANTOMBUSTER_LI_AGENT_ID:         ${{ secrets.PHANTOMBUSTER_LI_AGENT_ID }}
-          PHANTOMBUSTER_LI_SESSION_COOKIE:   ${{ secrets.PHANTOMBUSTER_LI_SESSION_COOKIE }}
+          # Optional: override the default scrapers if you want to swap actors.
+          # Defined as repo *variables* (not secrets) since the IDs aren't sensitive.
+          APIFY_IG_ACTOR:                    ${{ vars.APIFY_IG_ACTOR }}
+          APIFY_TIKTOK_ACTOR:                ${{ vars.APIFY_TIKTOK_ACTOR }}
+          APIFY_LINKEDIN_PROFILE_ACTOR:      ${{ vars.APIFY_LINKEDIN_PROFILE_ACTOR }}
+          APIFY_LINKEDIN_COMPANY_ACTOR:      ${{ vars.APIFY_LINKEDIN_COMPANY_ACTOR }}
+
+          # Optional: some LinkedIn actors require a li_at cookie. The defaults
+          # don't, but set this if you swap to an actor that needs it.
+          LINKEDIN_SESSION_COOKIE:           ${{ secrets.LINKEDIN_SESSION_COOKIE }}
         run: node scripts/refresh-metrics.mjs
 
       - name: Commit if changed
