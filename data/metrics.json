@@ -1,5 +1,11 @@
 {
   "_note": "Source of truth for the Growth Northstar dashboard. Substack pulls live via RSS. IG + TikTok refresh via scripts/refresh-metrics.mjs (run by .github/workflows/refresh-metrics.yml on a 6h schedule) when account tokens are configured as repo secrets. LinkedIn personal-profile followers are manual only — there's no public API for them.",
+  "_statusNote": "Each channel has a `status` field: 'active' means we're investing time/effort here this quarter; 'passive' means the account exists but isn't a focus. Active channels drive the Northstar reach total; passive ones are tracked separately.",
+  "platformFocus": {
+    "active": ["tiktok", "linkedin", "substack"],
+    "passive": ["instagram"],
+    "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
+  },
   "lastUpdated": "2026-05-20T08:00:00Z",
   "source": "stub",
   "properties": [
@@ -11,6 +17,7 @@
       "channels": [
         {
           "platform": "instagram",
+          "status": "passive",
           "handle": "outcurvehealth",
           "url": "https://instagram.com/outcurvehealth",
           "followers": 2840,
@@ -21,6 +28,7 @@
         },
         {
           "platform": "tiktok",
+          "status": "active",
           "handle": "outcurvehealth",
           "url": "https://tiktok.com/@outcurvehealth",
           "followers": 1620,
@@ -32,6 +40,7 @@
         },
         {
           "platform": "tiktok",
+          "status": "passive",
           "handle": "outcurvehealth2",
           "url": "https://tiktok.com/@outcurvehealth2",
           "followers": 580,
@@ -42,6 +51,7 @@
         },
         {
           "platform": "linkedin",
+          "status": "active",
           "handle": "outcurve",
           "url": "https://www.linkedin.com/company/outcurve/",
           "followers": 312,
@@ -61,6 +71,7 @@
       "channels": [
         {
           "platform": "substack",
+          "status": "active",
           "handle": "rareform030",
           "url": "https://rareform030.substack.com",
           "subscribers": 247,
@@ -70,6 +81,7 @@
         },
         {
           "platform": "instagram",
+          "status": "passive",
           "handle": "rareformhealth",
           "url": "https://instagram.com/rareformhealth",
           "followers": 1283,
@@ -81,6 +93,7 @@
         },
         {
           "platform": "tiktok",
+          "status": "active",
           "handle": "rareformhealth",
           "url": "https://tiktok.com/@rareformhealth",
           "followers": 412,
@@ -100,6 +113,7 @@
       "channels": [
         {
           "platform": "linkedin",
+          "status": "active",
           "handle": "stoddy-carey",
           "url": "https://www.linkedin.com/in/stoddy-carey/",
           "followers": 4280,
@@ -109,6 +123,7 @@
         },
         {
           "platform": "instagram",
+          "status": "passive",
           "handle": "stoddycarey",
           "url": "https://instagram.com/stoddycarey",
           "followers": 1820,
@@ -119,6 +134,7 @@
         },
         {
           "platform": "tiktok",
+          "status": "active",
           "handle": "stoddycarey06",
           "url": "https://tiktok.com/@stoddycarey06",
           "followers": 240,
