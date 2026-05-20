@@ -32,7 +32,7 @@ const {
   APIFY_IG_ACTOR              = 'apify/instagram-profile-scraper',
   APIFY_TIKTOK_ACTOR          = 'clockworks/tiktok-scraper',
   APIFY_LINKEDIN_PROFILE_ACTOR = 'dev_fusion/linkedin-profile-scraper',
-  APIFY_LINKEDIN_COMPANY_ACTOR = 'apimaestro/linkedin-company-page-detail',
+  APIFY_LINKEDIN_COMPANY_ACTOR = 'apimaestro/linkedin-company-detail',
   LINKEDIN_SESSION_COOKIE
 } = process.env;
 
@@ -125,46 +125,64 @@ async function fetchTikTokBatch(handles) {
   return out;
 }
 
+// dev_fusion/linkedin-profile-scraper
+//   Input:  { profileUrls: ["https://www.linkedin.com/in/<slug>", ...] }
+//   Output (per profile): { url, headline, followers, connections, ... }
+//   No cookie required (the actor handles auth internally).
 async function fetchLinkedInProfilesBatch(urls) {
   if (!APIFY_TOKEN || urls.length === 0) return {};
   console.log(`[Apify · LinkedIn personal] ${urls.length} profile(s)`);
   const input = {
     profileUrls: urls,
-    // Some LinkedIn actors require a cookie; others handle auth internally.
-    // We pass it if present; the actor ignores fields it doesn't use.
     ...(LINKEDIN_SESSION_COOKIE ? { cookie: [{ name: 'li_at', value: LINKEDIN_SESSION_COOKIE, domain: '.linkedin.com' }] } : {})
   };
   const items = await runApifyActor(APIFY_LINKEDIN_PROFILE_ACTOR, input);
   const out = {};
   for (const item of (items || [])) {
-    // Different actors use different field names. Try all known variants.
-    const url = (item.url || item.profileUrl || item.linkedinUrl || item.publicIdentifier || '').toLowerCase();
-    if (!url) continue;
-    out[url] = {
-      followers: item.followersCount ?? item.followers ?? item.followerCount ?? item.connections ?? null,
+    // Match on the original input URL — most actors echo it back as `url` or
+    // `linkedinUrl`. Fall back to building one from `publicIdentifier`.
+    const echoedUrl = item.url || item.linkedinUrl || item.profileUrl
+      || (item.publicIdentifier ? `https://www.linkedin.com/in/${item.publicIdentifier}/` : '');
+    if (!echoedUrl) continue;
+    out[normalizeUrl(echoedUrl)] = {
+      followers: item.followers ?? item.followersCount ?? item.connections ?? null,
       headline:  item.headline || item.title || null
     };
   }
   return out;
 }
 
+// apimaestro/linkedin-company-detail
+//   Input:  { companies: ["<url|slug|name>", ...] }
+//   Output (per company): { basic_info: { name, ... }, stats: { follower_count, employee_count } }
+//   No cookie required.
 async function fetchLinkedInCompaniesBatch(urls) {
   if (!APIFY_TOKEN || urls.length === 0) return {};
   console.log(`[Apify · LinkedIn company] ${urls.length} page(s)`);
   const items = await runApifyActor(APIFY_LINKEDIN_COMPANY_ACTOR, {
-    urls: urls,
-    ...(LINKEDIN_SESSION_COOKIE ? { cookie: [{ name: 'li_at', value: LINKEDIN_SESSION_COOKIE, domain: '.linkedin.com' }] } : {})
+    companies: urls
   });
   const out = {};
   for (const item of (items || [])) {
-    const url = (item.url || item.companyUrl || item.linkedinUrl || '').toLowerCase();
-    if (!url) continue;
-    out[url] = {
-      followers: item.followersCount ?? item.followers ?? item.followerCount ?? null,
-      headline:  item.tagline || item.description || null
+    // The actor returns either the input URL or a normalized one. Try both.
+    const basic = item.basic_info || item.basicInfo || item || {};
+    const stats = item.stats || item || {};
+    const echoedUrl = item.url || basic.url || basic.linkedinUrl || basic.companyUrl
+      || (basic.universal_name ? `https://www.linkedin.com/company/${basic.universal_name}/` : '')
+      || (basic.universalName ? `https://www.linkedin.com/company/${basic.universalName}/` : '');
+    if (!echoedUrl) continue;
+    out[normalizeUrl(echoedUrl)] = {
+      followers: stats.follower_count ?? stats.followerCount ?? item.followers ?? item.followersCount ?? null,
+      headline:  basic.tagline || basic.description || null,
+      name:      basic.name || null
     };
   }
   return out;
+}
+
+function normalizeUrl(u) {
+  // Lower-case + strip trailing slash so matching is robust.
+  return (u || '').toLowerCase().replace(/\/+$/, '');
 }
 
 // ─── helpers ───────────────────────────────────────────
@@ -240,7 +258,7 @@ async function main() {
       let fresh = null;
       if (channel.platform === 'instagram')      fresh = igData[channel.handle.toLowerCase()];
       else if (channel.platform === 'tiktok')    fresh = ttData[channel.handle.toLowerCase()];
-      else if (channel.platform === 'linkedin')  fresh = (isCompanyUrl(channel.url) ? liCompanyData : liPersonalData)[(channel.url || '').toLowerCase()];
+      else if (channel.platform === 'linkedin')  fresh = (isCompanyUrl(channel.url) ? liCompanyData : liPersonalData)[normalizeUrl(channel.url)];
 
       if (!fresh || fresh.followers == null) continue;
       const prev = channel.followers || 0;
@@ -258,7 +276,7 @@ async function main() {
 
   // Apply to team LinkedIns
   for (const member of metrics.team || []) {
-    const fresh = liPersonalData[(member.linkedin || '').toLowerCase()];
+    const fresh = liPersonalData[normalizeUrl(member.linkedin)];
     if (!fresh || fresh.followers == null) continue;
     member.followers = fresh.followers;
     updated++;
