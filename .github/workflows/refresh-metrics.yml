@@ -19,18 +19,16 @@ jobs:
 
       - name: Refresh metrics.json
         env:
-          # Instagram (Graph API): one token can cover every Business/Creator account
-          # the token's owner admins. Each account also needs its numeric user ID.
-          IG_ACCESS_TOKEN:              ${{ secrets.IG_ACCESS_TOKEN }}
-          IG_USER_ID_OUTCURVEHEALTH:    ${{ secrets.IG_USER_ID_OUTCURVEHEALTH }}
-          IG_USER_ID_RAREFORM030:       ${{ secrets.IG_USER_ID_RAREFORM030 }}
-          IG_USER_ID_STODDYCAREY:       ${{ secrets.IG_USER_ID_STODDYCAREY }}
+          # Apify — single token covers all actors. Optional actor overrides
+          # if you want to swap to different scrapers later.
+          APIFY_TOKEN:                       ${{ secrets.APIFY_TOKEN }}
+          APIFY_IG_ACTOR:                    ${{ vars.APIFY_IG_ACTOR }}      # optional, default apify/instagram-profile-scraper
+          APIFY_TIKTOK_ACTOR:                ${{ vars.APIFY_TIKTOK_ACTOR }}  # optional, default clockworks/tiktok-scraper
 
-          # TikTok (Display API): each account has its own OAuth user token.
-          TT_TOKEN_OUTCURVEHEALTH:      ${{ secrets.TT_TOKEN_OUTCURVEHEALTH }}
-          TT_TOKEN_OUTCURVEHEALTH2:     ${{ secrets.TT_TOKEN_OUTCURVEHEALTH2 }}
-          TT_TOKEN_RAREFORM030:         ${{ secrets.TT_TOKEN_RAREFORM030 }}
-          TT_TOKEN_STODDYCAREY06:       ${{ secrets.TT_TOKEN_STODDYCAREY06 }}
+          # Phantombuster — LinkedIn (company + personal profiles)
+          PHANTOMBUSTER_API_KEY:             ${{ secrets.PHANTOMBUSTER_API_KEY }}
+          PHANTOMBUSTER_LI_AGENT_ID:         ${{ secrets.PHANTOMBUSTER_LI_AGENT_ID }}
+          PHANTOMBUSTER_LI_SESSION_COOKIE:   ${{ secrets.PHANTOMBUSTER_LI_SESSION_COOKIE }}
         run: node scripts/refresh-metrics.mjs
 
       - name: Commit if changed
