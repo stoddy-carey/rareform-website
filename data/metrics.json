@@ -53,13 +53,13 @@
         {
           "platform": "linkedin",
           "status": "active",
-          "handle": "outcurve",
-          "url": "https://www.linkedin.com/company/outcurve/",
+          "handle": "outcurve-health",
+          "url": "https://www.linkedin.com/company/outcurve-health/",
           "followers": 312,
           "weeklyDelta": 18,
           "postsThisWeek": 3,
           "history": [180, 205, 230, 248, 265, 282, 298, 312],
-          "_note": "Outcurve company LinkedIn — confirmed via Notion + web search."
+          "_note": "Confirmed via browser 2026-05-20 — the right page is /company/outcurve-health/ (NOT /company/outcurve/ which is a different B2B GTM consultancy)."
         }
       ],
       "_aliases": ["outcurvehealth2 (secondary TikTok, energy & sickness lane)"]
