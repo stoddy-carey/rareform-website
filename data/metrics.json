@@ -1,92 +1,218 @@
 {
-  "_note": "Source of truth for the growth dashboard. Substack posts are pulled live via RSS, so this file holds follower counts, history, milestones, and any data that requires authenticated APIs. Update manually OR let .github/workflows/refresh-metrics.yml refresh IG + TikTok on a schedule when secrets are set.",
+  "_note": "Source of truth for the Growth Northstar dashboard. Substack pulls live via RSS. IG + TikTok refresh via scripts/refresh-metrics.mjs (run by .github/workflows/refresh-metrics.yml on a 6h schedule) when account tokens are configured as repo secrets. LinkedIn personal-profile followers are manual only — there's no public API for them.",
   "lastUpdated": "2026-05-20T08:00:00Z",
   "source": "stub",
-  "platforms": {
-    "substack": {
-      "handle": "rareform030",
-      "url": "https://rareform030.substack.com",
-      "subscribers": 247,
-      "weeklyDelta": 12,
-      "history": [128, 142, 161, 178, 195, 210, 222, 235, 247],
-      "_subscribersNote": "Substack does not expose subscriber count via RSS. Update manually each week."
+  "properties": [
+    {
+      "id": "outcurve",
+      "name": "Outcurve",
+      "tagline": "Personalized health · default-alive",
+      "color": "#84cc16",
+      "channels": [
+        {
+          "platform": "instagram",
+          "handle": "outcurvehealth",
+          "url": "https://instagram.com/outcurvehealth",
+          "followers": 2840,
+          "weeklyDelta": 142,
+          "postsThisWeek": 5,
+          "history": [1820, 1980, 2140, 2310, 2470, 2620, 2740, 2840],
+          "latestPost": { "caption": "What 8 weeks on Outcurve looks like (data, not vibes).", "url": "https://instagram.com/outcurvehealth", "date": "2026-05-19" }
+        },
+        {
+          "platform": "tiktok",
+          "handle": "outcurvehealth",
+          "url": "https://tiktok.com/@outcurvehealth",
+          "followers": 1620,
+          "weeklyDelta": 88,
+          "postsThisWeek": 4,
+          "viewsLast30d": 38400,
+          "history": [820, 980, 1140, 1280, 1410, 1530, 1600, 1620],
+          "latestPost": { "caption": "Perks of being alc-free, day 14", "url": "https://tiktok.com/@outcurvehealth", "date": "2026-05-18" }
+        },
+        {
+          "platform": "tiktok",
+          "handle": "outcurvehealth2",
+          "url": "https://tiktok.com/@outcurvehealth2",
+          "followers": 580,
+          "weeklyDelta": 24,
+          "postsThisWeek": 2,
+          "history": [320, 380, 420, 470, 510, 545, 565, 580],
+          "latestPost": { "caption": "Energy & sickness prevention — week 6", "url": "https://tiktok.com/@outcurvehealth2", "date": "2026-05-17" }
+        },
+        {
+          "platform": "linkedin",
+          "handle": "outcurve",
+          "url": "https://www.linkedin.com/company/outcurve/",
+          "followers": 312,
+          "weeklyDelta": 18,
+          "postsThisWeek": 3,
+          "history": [180, 205, 230, 248, 265, 282, 298, 312],
+          "_note": "Outcurve company LinkedIn. Update URL if /company/outcurve is wrong."
+        }
+      ]
     },
-    "instagram": {
-      "handle": "rareform030",
-      "url": "https://instagram.com/rareform030",
-      "followers": 1283,
-      "weeklyDelta": 64,
-      "postsThisWeek": 5,
-      "reachLast30d": 18420,
-      "history": [820, 900, 980, 1055, 1120, 1180, 1219, 1283],
-      "latestPost": {
-        "caption": "Sunday slow flow at Vondel — 8am, free, bring water.",
-        "url": "https://instagram.com/rareform030",
-        "date": "2026-05-19"
-      }
+    {
+      "id": "rareform",
+      "name": "Rareform",
+      "tagline": "Berlin's healthy life, weekly",
+      "color": "#22d3ee",
+      "channels": [
+        {
+          "platform": "substack",
+          "handle": "rareform030",
+          "url": "https://rareform030.substack.com",
+          "subscribers": 247,
+          "weeklyDelta": 12,
+          "history": [128, 142, 161, 178, 195, 210, 222, 235, 247],
+          "_note": "Subscriber count requires manual updates — RSS doesn't expose it. Posts pulled live."
+        },
+        {
+          "platform": "instagram",
+          "handle": "rareform030",
+          "url": "https://instagram.com/rareform030",
+          "followers": 1283,
+          "weeklyDelta": 64,
+          "postsThisWeek": 5,
+          "history": [820, 900, 980, 1055, 1120, 1180, 1219, 1283],
+          "latestPost": { "caption": "Sunday slow flow at Vondel — 8am, free, bring water.", "url": "https://instagram.com/rareform030", "date": "2026-05-19" }
+        },
+        {
+          "platform": "tiktok",
+          "handle": "rareform030",
+          "url": "https://tiktok.com/@rareform030",
+          "followers": 412,
+          "weeklyDelta": 38,
+          "postsThisWeek": 3,
+          "viewsLast30d": 24180,
+          "history": [180, 215, 245, 280, 312, 348, 374, 412],
+          "latestPost": { "caption": "Run-club origin story in 12 seconds", "url": "https://tiktok.com/@rareform030", "date": "2026-05-17" }
+        }
+      ]
     },
-    "tiktok": {
-      "handle": "rareform030",
-      "url": "https://tiktok.com/@rareform030",
-      "followers": 412,
-      "weeklyDelta": 38,
-      "postsThisWeek": 3,
-      "viewsLast30d": 24180,
-      "history": [180, 215, 245, 280, 312, 348, 374, 412],
-      "latestPost": {
-        "caption": "Run-club origin story in 12 seconds",
-        "url": "https://tiktok.com/@rareform030",
-        "date": "2026-05-17"
-      }
+    {
+      "id": "stoddy",
+      "name": "Stoddy Carey",
+      "tagline": "Cofounder, in public",
+      "color": "#f472b6",
+      "channels": [
+        {
+          "platform": "linkedin",
+          "handle": "stoddy-carey",
+          "url": "https://www.linkedin.com/in/stoddy-carey/",
+          "followers": 4280,
+          "weeklyDelta": 87,
+          "postsThisWeek": 4,
+          "history": [3420, 3560, 3720, 3860, 3980, 4100, 4205, 4280]
+        },
+        {
+          "platform": "instagram",
+          "handle": "stoddycarey",
+          "url": "https://instagram.com/stoddycarey",
+          "followers": 1820,
+          "weeklyDelta": 34,
+          "postsThisWeek": 2,
+          "history": [1480, 1560, 1640, 1700, 1740, 1770, 1795, 1820],
+          "_note": "Verify @stoddycarey is the right IG handle — Notion db only has the TikTok variant."
+        },
+        {
+          "platform": "tiktok",
+          "handle": "stoddycarey06",
+          "url": "https://tiktok.com/@stoddycarey06",
+          "followers": 240,
+          "weeklyDelta": 12,
+          "postsThisWeek": 1,
+          "history": [120, 145, 170, 192, 210, 222, 232, 240]
+        }
+      ]
     }
-  },
+  ],
+  "team": [
+    {
+      "name": "Stoddy",
+      "lastName": "Carey",
+      "role": "Cofounder · Growth & User Research",
+      "linkedin": "https://www.linkedin.com/in/stoddy-carey/",
+      "followers": 4280,
+      "_followersNote": "Same number as the Stoddy LinkedIn channel above — kept here for the team grid."
+    },
+    {
+      "name": "Sebastian",
+      "lastName": "Oehlschläger",
+      "role": "Cofounder · Engineering",
+      "linkedin": "https://www.linkedin.com/in/sebastianoehlschlaeger/",
+      "followers": 1840
+    },
+    {
+      "name": "Jurgen",
+      "lastName": "Celmeta",
+      "role": "Founding Engineer · Architecture",
+      "linkedin": "https://www.linkedin.com/in/jurgen-celmeta-91ba1312b/",
+      "followers": 620
+    },
+    {
+      "name": "Uma",
+      "lastName": "Patel",
+      "role": "Founder's Associate · Growth",
+      "linkedin": "https://www.linkedin.com/in/uma-patel-89320615b/",
+      "followers": 380
+    },
+    {
+      "name": "Louis",
+      "lastName": "Currie",
+      "role": "Founding Designer",
+      "linkedin": "https://www.linkedin.com/in/louiscurrie/",
+      "followers": 1240
+    }
+  ],
   "shipsByDay": {
-    "2026-05-20": 2,
-    "2026-05-19": 1,
-    "2026-05-18": 2,
-    "2026-05-17": 1,
-    "2026-05-15": 1,
-    "2026-05-14": 2,
-    "2026-05-13": 1,
-    "2026-05-12": 1,
+    "2026-05-20": 3,
+    "2026-05-19": 2,
+    "2026-05-18": 3,
+    "2026-05-17": 2,
+    "2026-05-15": 2,
+    "2026-05-14": 3,
+    "2026-05-13": 2,
+    "2026-05-12": 2,
     "2026-05-11": 1,
-    "2026-05-10": 2,
-    "2026-05-08": 1,
+    "2026-05-10": 3,
+    "2026-05-08": 2,
     "2026-05-07": 1,
-    "2026-05-06": 2,
-    "2026-05-05": 1,
+    "2026-05-06": 3,
+    "2026-05-05": 2,
     "2026-05-03": 1,
-    "2026-05-02": 1,
+    "2026-05-02": 2,
     "2026-05-01": 1,
-    "2026-04-29": 1,
-    "2026-04-28": 2,
+    "2026-04-29": 2,
+    "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 1,
+    "2026-04-24": 2,
     "2026-04-23": 1,
-    "2026-04-22": 2,
+    "2026-04-22": 3,
     "2026-04-20": 1,
-    "2026-04-19": 1,
+    "2026-04-19": 2,
     "2026-04-17": 1,
-    "2026-04-15": 2,
+    "2026-04-15": 3,
     "2026-04-14": 1,
     "2026-04-12": 1,
-    "2026-04-10": 1,
+    "2026-04-10": 2,
     "2026-04-08": 1,
     "2026-04-06": 2,
     "2026-04-04": 1,
     "2026-04-02": 1,
-    "2026-03-30": 1,
+    "2026-03-30": 2,
     "2026-03-28": 1,
-    "2026-03-25": 2,
+    "2026-03-25": 3,
     "2026-03-22": 1,
     "2026-03-19": 1,
     "2026-03-15": 1
   },
   "milestones": [
-    { "date": "2026-05-15", "title": "200 Substack subscribers", "emoji": "🎉", "platform": "substack" },
-    { "date": "2026-05-08", "title": "First TikTok over 10k views", "emoji": "🚀", "platform": "tiktok" },
-    { "date": "2026-04-28", "title": "1,000 Instagram followers", "emoji": "💛", "platform": "instagram" },
-    { "date": "2026-04-15", "title": "12-week shipping streak", "emoji": "🔥", "platform": "all" },
-    { "date": "2026-03-22", "title": "First sold-out event", "emoji": "🥳", "platform": "all" }
+    { "date": "2026-05-15", "title": "Stoddy crossed 4,000 LinkedIn followers", "emoji": "💼", "property": "stoddy" },
+    { "date": "2026-05-10", "title": "Outcurve IG hit 2,500 followers", "emoji": "🚀", "property": "outcurve" },
+    { "date": "2026-05-08", "title": "First TikTok over 10k views", "emoji": "🎬", "property": "outcurve" },
+    { "date": "2026-04-28", "title": "Rareform IG passed 1,000", "emoji": "💛", "property": "rareform" },
+    { "date": "2026-04-15", "title": "12-week shipping streak", "emoji": "🔥", "property": "all" },
+    { "date": "2026-03-22", "title": "First sold-out Rareform event", "emoji": "🥳", "property": "rareform" }
   ]
 }

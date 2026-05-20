@@ -2,8 +2,7 @@ name: Refresh growth metrics
 
 on:
   schedule:
-    # Every 6 hours
-    - cron: '0 */6 * * *'
+    - cron: '0 */6 * * *'  # every 6 hours
   workflow_dispatch:
 
 jobs:
@@ -20,9 +19,18 @@ jobs:
 
       - name: Refresh metrics.json
         env:
-          IG_USER_ID: ${{ secrets.IG_USER_ID }}
-          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          TT_ACCESS_TOKEN: ${{ secrets.TT_ACCESS_TOKEN }}
+          # Instagram (Graph API): one token can cover every Business/Creator account
+          # the token's owner admins. Each account also needs its numeric user ID.
+          IG_ACCESS_TOKEN:              ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID_OUTCURVEHEALTH:    ${{ secrets.IG_USER_ID_OUTCURVEHEALTH }}
+          IG_USER_ID_RAREFORM030:       ${{ secrets.IG_USER_ID_RAREFORM030 }}
+          IG_USER_ID_STODDYCAREY:       ${{ secrets.IG_USER_ID_STODDYCAREY }}
+
+          # TikTok (Display API): each account has its own OAuth user token.
+          TT_TOKEN_OUTCURVEHEALTH:      ${{ secrets.TT_TOKEN_OUTCURVEHEALTH }}
+          TT_TOKEN_OUTCURVEHEALTH2:     ${{ secrets.TT_TOKEN_OUTCURVEHEALTH2 }}
+          TT_TOKEN_RAREFORM030:         ${{ secrets.TT_TOKEN_RAREFORM030 }}
+          TT_TOKEN_STODDYCAREY06:       ${{ secrets.TT_TOKEN_STODDYCAREY06 }}
         run: node scripts/refresh-metrics.mjs
 
       - name: Commit if changed
