@@ -27,14 +27,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const METRICS_PATH = join(__dirname, '..', 'data', 'metrics.json');
 const HISTORY_LIMIT = 12;
 
-const {
-  APIFY_TOKEN,
-  APIFY_IG_ACTOR              = 'apify/instagram-profile-scraper',
-  APIFY_TIKTOK_ACTOR          = 'clockworks/tiktok-scraper',
-  APIFY_LINKEDIN_PROFILE_ACTOR = 'dev_fusion/linkedin-profile-scraper',
-  APIFY_LINKEDIN_COMPANY_ACTOR = 'apimaestro/linkedin-company-detail',
-  LINKEDIN_SESSION_COOKIE
-} = process.env;
+const APIFY_TOKEN                  = process.env.APIFY_TOKEN;
+const APIFY_IG_ACTOR               = process.env.APIFY_IG_ACTOR               || 'apify/instagram-profile-scraper';
+const APIFY_TIKTOK_ACTOR           = process.env.APIFY_TIKTOK_ACTOR           || 'clockworks/tiktok-scraper';
+const APIFY_LINKEDIN_PROFILE_ACTOR = process.env.APIFY_LINKEDIN_PROFILE_ACTOR || 'dev_fusion/linkedin-profile-scraper';
+const APIFY_LINKEDIN_COMPANY_ACTOR = process.env.APIFY_LINKEDIN_COMPANY_ACTOR || 'apimaestro/linkedin-company-detail';
+const LINKEDIN_SESSION_COOKIE      = process.env.LINKEDIN_SESSION_COOKIE      || '';
 
 // ─── Apify helper ──────────────────────────────────────
 // Run an actor synchronously and get the dataset items in one call.
@@ -221,6 +219,16 @@ function isCompanyUrl(u) { return /\/company\//i.test(u || ''); }
 
 // ─── main ──────────────────────────────────────────────
 async function main() {
+  if (!APIFY_TOKEN) {
+    console.error('FATAL: APIFY_TOKEN env var is missing. Set it as a repo secret.');
+    process.exit(1);
+  }
+  console.log('Actors in use:');
+  console.log(`  IG          : ${APIFY_IG_ACTOR}`);
+  console.log(`  TikTok      : ${APIFY_TIKTOK_ACTOR}`);
+  console.log(`  LI personal : ${APIFY_LINKEDIN_PROFILE_ACTOR}`);
+  console.log(`  LI company  : ${APIFY_LINKEDIN_COMPANY_ACTOR}`);
+
   const raw = await readFile(METRICS_PATH, 'utf8');
   const metrics = JSON.parse(raw);
 
@@ -289,7 +297,10 @@ async function main() {
     await writeFile(METRICS_PATH, JSON.stringify(metrics, null, 2) + '\n');
     console.log(`\nDone. Updated ${updated} record(s).`);
   } else {
-    console.log('\nNo records updated. metrics.json untouched.');
+    // Hard-fail so the workflow goes red and you get the GitHub failure email,
+    // rather than a green-but-empty run that quietly leaves the dashboard stale.
+    console.error('\nFAIL: zero records updated. Check actor IDs, APIFY_TOKEN, or whether the actors are added to your Apify account.');
+    process.exit(1);
   }
 }
 
