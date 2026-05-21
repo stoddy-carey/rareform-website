@@ -206,13 +206,23 @@ async function fetchLinkedInProfilesBatch(urls) {
     ...(LINKEDIN_SESSION_COOKIE ? { cookie: [{ name: 'li_at', value: LINKEDIN_SESSION_COOKIE, domain: '.linkedin.com' }] } : {})
   };
   const items = await runApifyActor(APIFY_LINKEDIN_PROFILE_ACTOR, input);
+  if (items?.length) {
+    console.log(`  [LI personal] received ${items.length} item(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
+  } else {
+    console.warn(`  ⚠ LI personal actor returned 0 items`);
+  }
   const out = {};
   for (const item of (items || [])) {
-    // Match on the original input URL — most actors echo it back as `url` or
-    // `linkedinUrl`. Fall back to building one from `publicIdentifier`.
-    const echoedUrl = item.url || item.linkedinUrl || item.profileUrl
+    // Match by the URL the actor echoes back. dev_fusion variants use:
+    //   - linkedinUrl, url, profileUrl, publicIdentifier
+    //   - input.url (some actors nest the input)
+    const echoedUrl = item.linkedinUrl || item.url || item.profileUrl
+      || item.input?.url || item.input?.profileUrl
       || (item.publicIdentifier ? `https://www.linkedin.com/in/${item.publicIdentifier}/` : '');
-    if (!echoedUrl) continue;
+    if (!echoedUrl) {
+      console.warn(`  ⚠ LI personal item missing URL. Keys: ${Object.keys(item).join(', ')}`);
+      continue;
+    }
     out[normalizeUrl(echoedUrl)] = {
       followers: item.followers ?? item.followersCount ?? item.connections ?? null,
       headline:  item.headline || item.title || null
@@ -240,9 +250,10 @@ async function fetchLinkedInCompaniesBatch(urls) {
   }
   const out = {};
   for (const item of (items || [])) {
-    const basic = item.basic_info || item.basicInfo || item || {};
-    const stats = item.stats || item || {};
-    const echoedUrl = item.url || basic.url || basic.linkedinUrl || basic.companyUrl
+    const basic = item.basic_info || item.basicInfo || {};
+    const stats = item.stats || {};
+    // apimaestro/linkedin-company-detail echoes the input as `input_identifier`.
+    const echoedUrl = item.input_identifier || item.url || basic.url || basic.linkedin_url || basic.linkedinUrl || basic.companyUrl
       || (basic.universal_name ? `https://www.linkedin.com/company/${basic.universal_name}/` : '')
       || (basic.universalName ? `https://www.linkedin.com/company/${basic.universalName}/` : '');
     if (!echoedUrl) {
@@ -251,7 +262,7 @@ async function fetchLinkedInCompaniesBatch(urls) {
     }
     out[normalizeUrl(echoedUrl)] = {
       followers: stats.follower_count ?? stats.followerCount ?? item.followers ?? item.followersCount ?? null,
-      headline:  basic.tagline || basic.description || null,
+      headline:  item.tagline || basic.tagline || basic.description || null,
       name:      basic.name || null
     };
   }
@@ -264,8 +275,28 @@ function normalizeUrl(u) {
 }
 
 // ─── LinkedIn engagement (per-post) ──────────────────────
-// apimaestro/linkedin-profile-posts — pulls recent posts + reactions/comments/reposts
-// for personal LinkedIn URLs.
+// Helper: pull a numeric engagement field from a `stats` object using all
+// the field-name variants we've seen across LinkedIn actors.
+function liStat(stats, ...names) {
+  if (!stats || typeof stats !== 'object') return null;
+  for (const n of names) {
+    if (stats[n] != null) return stats[n];
+  }
+  return null;
+}
+
+// Helper: extract the profile/company URL from an author/source object.
+function liAuthorUrl(author) {
+  if (!author || typeof author !== 'object') return '';
+  return author.url || author.linkedin_url || author.linkedinUrl || author.profile_url
+      || author.profileUrl || author.public_url
+      || (author.public_identifier ? `https://www.linkedin.com/in/${author.public_identifier}/` : '')
+      || (author.universal_name ? `https://www.linkedin.com/company/${author.universal_name}/` : '')
+      || '';
+}
+
+// apimaestro/linkedin-profile-posts — actual schema:
+//   { urn, full_urn, posted_at, text, url, post_type, author{}, stats{}, media, pagination_token }
 async function fetchLinkedInPersonalPosts(urls) {
   if (!APIFY_TOKEN || urls.length === 0) return {};
   console.log(`[Apify · LinkedIn personal posts] ${urls.length} profile(s)`);
@@ -280,32 +311,34 @@ async function fetchLinkedInPersonalPosts(urls) {
     console.error(`  ⚠ LinkedIn posts (personal) failed: ${e.message}`);
     return {};
   }
-  if (items?.length) console.log(`  received ${items.length} post(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
-  // Group by profile URL
+  if (items?.length) console.log(`  [LI personal posts] received ${items.length} post(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
   const grouped = {};
   for (const item of items || []) {
-    const authorUrl = item.authorUrl || item.profileUrl || item.author_url || item.profile_url || item.url || '';
+    const stats = item.stats || {};
+    const authorUrl = liAuthorUrl(item.author);
     const norm = normalizeUrl(authorUrl);
     if (!norm) continue;
     if (!grouped[norm]) grouped[norm] = [];
     grouped[norm].push(normalizePost({
       platform: 'linkedin',
-      id:       item.id || item.urn || item.activityUrn,
-      caption:  item.text || item.commentary || item.content || item.postContent,
-      url:      item.url || item.postUrl || item.activityUrl,
-      date:     isoDay(item.postedAt || item.publishedAt || item.date || item.timestamp),
-      type:     item.type || item.contentType || 'post',
-      likes:    item.likesCount ?? item.reactionsCount ?? item.numReactions ?? item.likes,
-      comments: item.commentsCount ?? item.numComments ?? item.comments,
-      views:    item.viewsCount ?? item.numImpressions ?? item.impressions,
-      shares:   item.sharesCount ?? item.repostsCount ?? item.reposts ?? item.shares,
+      id:       item.urn || item.full_urn || item.id,
+      caption:  item.text || item.commentary || item.content,
+      url:      item.url || item.post_url,
+      date:     isoDay(item.posted_at || item.publishedAt || item.date),
+      type:     item.post_type || 'post',
+      likes:    liStat(stats, 'like_count', 'likes', 'reaction_count', 'reactions', 'num_likes', 'total_reactions'),
+      comments: liStat(stats, 'comment_count', 'comments', 'num_comments'),
+      views:    liStat(stats, 'view_count', 'views', 'impression_count', 'impressions'),
+      shares:   liStat(stats, 'repost_count', 'reposts', 'share_count', 'shares', 'num_shares'),
       saves:    null
     }));
   }
   return grouped;
 }
 
-// apimaestro/linkedin-company-posts — same idea for company pages.
+// apimaestro/linkedin-company-posts — actual schema:
+//   { activity_urn, full_urn, post_url, text, posted_at, post_language_code,
+//     post_type, author{}, stats{}, media, document, source_company{} }
 async function fetchLinkedInCompanyPosts(urls) {
   if (!APIFY_TOKEN || urls.length === 0) return {};
   console.log(`[Apify · LinkedIn company posts] ${urls.length} page(s)`);
@@ -321,24 +354,27 @@ async function fetchLinkedInCompanyPosts(urls) {
     console.error(`  ⚠ LinkedIn posts (company) failed: ${e.message}`);
     return {};
   }
-  if (items?.length) console.log(`  received ${items.length} post(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
+  if (items?.length) console.log(`  [LI company posts] received ${items.length} post(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
   const grouped = {};
   for (const item of items || []) {
-    const companyUrl = item.companyUrl || item.authorUrl || item.company_url || item.author_url || item.url || '';
+    const stats = item.stats || {};
+    // The company URL lives in `source_company` (the company the post is from)
+    // or falls back to `author` for older variants.
+    const companyUrl = liAuthorUrl(item.source_company) || liAuthorUrl(item.author);
     const norm = normalizeUrl(companyUrl);
     if (!norm) continue;
     if (!grouped[norm]) grouped[norm] = [];
     grouped[norm].push(normalizePost({
       platform: 'linkedin',
-      id:       item.id || item.urn || item.activityUrn,
+      id:       item.activity_urn || item.full_urn || item.urn || item.id,
       caption:  item.text || item.commentary || item.content,
-      url:      item.url || item.postUrl,
-      date:     isoDay(item.postedAt || item.publishedAt || item.date || item.timestamp),
-      type:     item.type || 'post',
-      likes:    item.likesCount ?? item.reactionsCount ?? item.numReactions,
-      comments: item.commentsCount ?? item.numComments,
-      views:    item.viewsCount ?? item.numImpressions,
-      shares:   item.sharesCount ?? item.repostsCount ?? item.reposts,
+      url:      item.post_url || item.url,
+      date:     isoDay(item.posted_at || item.publishedAt || item.date),
+      type:     item.post_type || 'post',
+      likes:    liStat(stats, 'like_count', 'likes', 'reaction_count', 'reactions', 'num_likes', 'total_reactions'),
+      comments: liStat(stats, 'comment_count', 'comments', 'num_comments'),
+      views:    liStat(stats, 'view_count', 'views', 'impression_count', 'impressions'),
+      shares:   liStat(stats, 'repost_count', 'reposts', 'share_count', 'shares', 'num_shares'),
       saves:    null
     }));
   }
