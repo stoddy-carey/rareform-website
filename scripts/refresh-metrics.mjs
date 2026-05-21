@@ -32,7 +32,11 @@ const APIFY_IG_ACTOR               = process.env.APIFY_IG_ACTOR               ||
 const APIFY_TIKTOK_ACTOR           = process.env.APIFY_TIKTOK_ACTOR           || 'clockworks/tiktok-scraper';
 const APIFY_LINKEDIN_PROFILE_ACTOR = process.env.APIFY_LINKEDIN_PROFILE_ACTOR || 'dev_fusion/linkedin-profile-scraper';
 const APIFY_LINKEDIN_COMPANY_ACTOR = process.env.APIFY_LINKEDIN_COMPANY_ACTOR || 'apimaestro/linkedin-company-detail';
+const APIFY_LI_POSTS_PERSONAL_ACTOR = process.env.APIFY_LI_POSTS_PERSONAL_ACTOR || 'apimaestro/linkedin-profile-posts';
+const APIFY_LI_POSTS_COMPANY_ACTOR  = process.env.APIFY_LI_POSTS_COMPANY_ACTOR  || 'apimaestro/linkedin-company-posts';
 const LINKEDIN_SESSION_COOKIE      = process.env.LINKEDIN_SESSION_COOKIE      || '';
+
+const RECENT_POSTS_LIMIT = 20;  // per channel, in metrics.json
 
 // ─── Apify helper ──────────────────────────────────────
 // Run an actor synchronously and get the dataset items in one call.
@@ -49,6 +53,51 @@ async function runApifyActor(actorId, input) {
   return res.json();
 }
 
+// ─── Engagement helpers ────────────────────────────────
+// Every platform's `recentPosts[]` uses this shape so the dashboard can
+// reason about engagement uniformly regardless of source.
+function normalizePost({ id, caption, url, date, type, likes, comments, views, shares, saves, platform }) {
+  return {
+    id: id || null,
+    platform: platform || null,
+    type: type || null,
+    caption: (caption || '').slice(0, 280),
+    url: url || null,
+    date: date || null,
+    likes:    likes    ?? null,
+    comments: comments ?? null,
+    views:    views    ?? null,
+    shares:   shares   ?? null,
+    saves:    saves    ?? null
+  };
+}
+
+function sumEngagement(posts, sinceDays) {
+  const cutoff = Date.now() - sinceDays * 86400e3;
+  const inWindow = posts.filter(p => p.date && Date.parse(p.date) > cutoff);
+  return {
+    posts:    inWindow.length,
+    likes:    inWindow.reduce((s, p) => s + (p.likes    || 0), 0),
+    comments: inWindow.reduce((s, p) => s + (p.comments || 0), 0),
+    views:    inWindow.reduce((s, p) => s + (p.views    || 0), 0),
+    shares:   inWindow.reduce((s, p) => s + (p.shares   || 0), 0),
+    saves:    inWindow.reduce((s, p) => s + (p.saves    || 0), 0)
+  };
+}
+
+function computeEngagement(posts, followers) {
+  const last7d  = sumEngagement(posts, 7);
+  const last30d = sumEngagement(posts, 30);
+  // Avg engagement rate = (likes + comments + shares) / followers, averaged across posts in window.
+  // Falls back to null if we don't have followers or no posts in window.
+  let avgEngagementRate = null;
+  if (followers && last30d.posts > 0) {
+    const interactions = last30d.likes + last30d.comments + last30d.shares;
+    avgEngagementRate = +((interactions / last30d.posts / followers) * 100).toFixed(2);
+  }
+  return { last7d, last30d, avgEngagementRate };
+}
+
 // ─── Platform fetchers ─────────────────────────────────
 async function fetchInstagramBatch(handles) {
   if (!APIFY_TOKEN || handles.length === 0) return {};
@@ -62,16 +111,28 @@ async function fetchInstagramBatch(handles) {
   for (const item of (items || [])) {
     const handle = (item.username || '').toLowerCase();
     if (!handle) continue;
-    const latest = (item.latestPosts || [])[0];
+    const rawPosts = item.latestPosts || [];
+    const posts = rawPosts.map(p => normalizePost({
+      platform: 'instagram',
+      id:       p.id || p.shortCode,
+      caption:  p.caption,
+      url:      p.url || (p.shortCode ? `https://instagram.com/p/${p.shortCode}` : null),
+      date:     isoDay(p.timestamp || p.takenAtTimestamp),
+      type:     p.type,                       // Image / Video / Sidecar
+      likes:    p.likesCount,
+      comments: p.commentsCount,
+      views:    p.videoViewCount ?? p.videoPlayCount,  // videos only
+      shares:   null,                          // IG doesn't expose shares
+      saves:    null                           // IG doesn't expose saves
+    })).slice(0, RECENT_POSTS_LIMIT);
+    const followers = item.followersCount ?? item.followers ?? null;
     out[handle] = {
-      followers: item.followersCount ?? item.followers ?? null,
-      postsThisWeek: countRecent(item.latestPosts, 7, p => p.timestamp || p.takenAtTimestamp),
-      latestPost: latest ? {
-        caption: (latest.caption || '').slice(0, 140),
-        url:     latest.url || (latest.shortCode ? `https://instagram.com/p/${latest.shortCode}` : `https://instagram.com/${handle}`),
-        date:    isoDay(latest.timestamp || latest.takenAtTimestamp)
-      } : null,
-      recentDates: (item.latestPosts || []).map(p => isoDay(p.timestamp || p.takenAtTimestamp)).filter(Boolean)
+      followers,
+      postsThisWeek: posts.filter(p => p.date && Date.parse(p.date) > Date.now() - 7 * 86400e3).length,
+      latestPost: posts[0] ? { caption: posts[0].caption.slice(0, 140), url: posts[0].url, date: posts[0].date } : null,
+      recentPosts: posts,
+      engagement: computeEngagement(posts, followers),
+      recentDates: posts.map(p => p.date).filter(Boolean)
     };
   }
   const missing = handles.filter(h => !out[h.toLowerCase()]);
@@ -84,7 +145,7 @@ async function fetchTikTokBatch(handles) {
   console.log(`[Apify · TikTok] ${handles.join(', ')}`);
   const items = await runApifyActor(APIFY_TIKTOK_ACTOR, {
     profiles: handles,
-    resultsPerPage: 5,
+    resultsPerPage: RECENT_POSTS_LIMIT,
     shouldDownloadVideos: false,
     shouldDownloadCovers: false
   });
@@ -105,21 +166,27 @@ async function fetchTikTokBatch(handles) {
   }
   const out = {};
   for (const [handle, data] of grouped) {
-    const latest = data.videos[0];
-    const weekAgoSec = Math.floor((Date.now() - 7 * 86400e3) / 1000);
+    const posts = data.videos.map(v => normalizePost({
+      platform: 'tiktok',
+      id:       v.id,
+      caption:  v.text || v.title,
+      url:      v.webVideoUrl || v.shareUrl || `https://tiktok.com/@${handle}`,
+      date:     isoDay(v.createTimeISO || (v.createTime ? v.createTime * 1000 : null)),
+      type:     'video',
+      likes:    v.diggCount,
+      comments: v.commentCount,
+      views:    v.playCount,
+      shares:   v.shareCount,
+      saves:    v.collectCount
+    })).slice(0, RECENT_POSTS_LIMIT);
     out[handle] = {
       followers: data.followers,
-      postsThisWeek: data.videos.filter(v => {
-        const ts = v.createTimeISO ? Date.parse(v.createTimeISO) / 1000 : v.createTime;
-        return ts && ts > weekAgoSec;
-      }).length,
-      viewsLast30d: data.videos.reduce((s, v) => s + (v.playCount || v.views || 0), 0),
-      latestPost: latest ? {
-        caption: (latest.text || latest.title || '').slice(0, 140),
-        url:     latest.webVideoUrl || latest.shareUrl || `https://tiktok.com/@${handle}`,
-        date:    isoDay(latest.createTimeISO || (latest.createTime ? latest.createTime * 1000 : null))
-      } : null,
-      recentDates: data.videos.map(v => isoDay(v.createTimeISO || (v.createTime ? v.createTime * 1000 : null))).filter(Boolean)
+      postsThisWeek: posts.filter(p => p.date && Date.parse(p.date) > Date.now() - 7 * 86400e3).length,
+      viewsLast30d: sumEngagement(posts, 30).views,
+      latestPost: posts[0] ? { caption: posts[0].caption.slice(0, 140), url: posts[0].url, date: posts[0].date } : null,
+      recentPosts: posts,
+      engagement: computeEngagement(posts, data.followers),
+      recentDates: posts.map(p => p.date).filter(Boolean)
     };
   }
   const missing = handles.filter(h => !out[h.toLowerCase()]);
@@ -196,6 +263,88 @@ function normalizeUrl(u) {
   return (u || '').toLowerCase().replace(/\/+$/, '');
 }
 
+// ─── LinkedIn engagement (per-post) ──────────────────────
+// apimaestro/linkedin-profile-posts — pulls recent posts + reactions/comments/reposts
+// for personal LinkedIn URLs.
+async function fetchLinkedInPersonalPosts(urls) {
+  if (!APIFY_TOKEN || urls.length === 0) return {};
+  console.log(`[Apify · LinkedIn personal posts] ${urls.length} profile(s)`);
+  let items = [];
+  try {
+    items = await runApifyActor(APIFY_LI_POSTS_PERSONAL_ACTOR, {
+      urls,
+      profileUrls: urls,
+      total: RECENT_POSTS_LIMIT
+    });
+  } catch (e) {
+    console.error(`  ⚠ LinkedIn posts (personal) failed: ${e.message}`);
+    return {};
+  }
+  if (items?.length) console.log(`  received ${items.length} post(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
+  // Group by profile URL
+  const grouped = {};
+  for (const item of items || []) {
+    const authorUrl = item.authorUrl || item.profileUrl || item.author_url || item.profile_url || item.url || '';
+    const norm = normalizeUrl(authorUrl);
+    if (!norm) continue;
+    if (!grouped[norm]) grouped[norm] = [];
+    grouped[norm].push(normalizePost({
+      platform: 'linkedin',
+      id:       item.id || item.urn || item.activityUrn,
+      caption:  item.text || item.commentary || item.content || item.postContent,
+      url:      item.url || item.postUrl || item.activityUrl,
+      date:     isoDay(item.postedAt || item.publishedAt || item.date || item.timestamp),
+      type:     item.type || item.contentType || 'post',
+      likes:    item.likesCount ?? item.reactionsCount ?? item.numReactions ?? item.likes,
+      comments: item.commentsCount ?? item.numComments ?? item.comments,
+      views:    item.viewsCount ?? item.numImpressions ?? item.impressions,
+      shares:   item.sharesCount ?? item.repostsCount ?? item.reposts ?? item.shares,
+      saves:    null
+    }));
+  }
+  return grouped;
+}
+
+// apimaestro/linkedin-company-posts — same idea for company pages.
+async function fetchLinkedInCompanyPosts(urls) {
+  if (!APIFY_TOKEN || urls.length === 0) return {};
+  console.log(`[Apify · LinkedIn company posts] ${urls.length} page(s)`);
+  let items = [];
+  try {
+    items = await runApifyActor(APIFY_LI_POSTS_COMPANY_ACTOR, {
+      urls,
+      companyUrls: urls,
+      companies: urls,
+      total: RECENT_POSTS_LIMIT
+    });
+  } catch (e) {
+    console.error(`  ⚠ LinkedIn posts (company) failed: ${e.message}`);
+    return {};
+  }
+  if (items?.length) console.log(`  received ${items.length} post(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
+  const grouped = {};
+  for (const item of items || []) {
+    const companyUrl = item.companyUrl || item.authorUrl || item.company_url || item.author_url || item.url || '';
+    const norm = normalizeUrl(companyUrl);
+    if (!norm) continue;
+    if (!grouped[norm]) grouped[norm] = [];
+    grouped[norm].push(normalizePost({
+      platform: 'linkedin',
+      id:       item.id || item.urn || item.activityUrn,
+      caption:  item.text || item.commentary || item.content,
+      url:      item.url || item.postUrl,
+      date:     isoDay(item.postedAt || item.publishedAt || item.date || item.timestamp),
+      type:     item.type || 'post',
+      likes:    item.likesCount ?? item.reactionsCount ?? item.numReactions,
+      comments: item.commentsCount ?? item.numComments,
+      views:    item.viewsCount ?? item.numImpressions,
+      shares:   item.sharesCount ?? item.repostsCount ?? item.reposts,
+      saves:    null
+    }));
+  }
+  return grouped;
+}
+
 // ─── helpers ───────────────────────────────────────────
 function isoDay(ts) {
   if (!ts) return null;
@@ -264,11 +413,13 @@ async function main() {
     if (member.linkedin) liPersonalUrls.add(member.linkedin);
   }
 
-  const [igData, ttData, liPersonalData, liCompanyData] = await Promise.all([
+  const [igData, ttData, liPersonalData, liCompanyData, liPersonalPosts, liCompanyPosts] = await Promise.all([
     fetchInstagramBatch(igHandles).catch(e => { console.error('IG batch failed:', e.message); return {}; }),
     fetchTikTokBatch(tiktokHandles).catch(e => { console.error('TT batch failed:', e.message); return {}; }),
     fetchLinkedInProfilesBatch([...liPersonalUrls]).catch(e => { console.error('LI personal batch failed:', e.message); return {}; }),
-    fetchLinkedInCompaniesBatch([...liCompanyUrls]).catch(e => { console.error('LI company batch failed:', e.message); return {}; })
+    fetchLinkedInCompaniesBatch([...liCompanyUrls]).catch(e => { console.error('LI company batch failed:', e.message); return {}; }),
+    fetchLinkedInPersonalPosts([...liPersonalUrls]).catch(e => { console.error('LI personal posts failed:', e.message); return {}; }),
+    fetchLinkedInCompanyPosts([...liCompanyUrls]).catch(e => { console.error('LI company posts failed:', e.message); return {}; })
   ]);
 
   let updated = 0;
@@ -281,7 +432,24 @@ async function main() {
       else if (channel.platform === 'tiktok')    fresh = ttData[channel.handle.toLowerCase()];
       else if (channel.platform === 'linkedin')  fresh = (isCompanyUrl(channel.url) ? liCompanyData : liPersonalData)[normalizeUrl(channel.url)];
 
-      if (!fresh || fresh.followers == null) continue;
+      // LinkedIn posts (engagement) come from a separate actor and need to be
+      // merged onto the channel after the profile data lands.
+      let liPosts = null;
+      if (channel.platform === 'linkedin') {
+        liPosts = (isCompanyUrl(channel.url) ? liCompanyPosts : liPersonalPosts)[normalizeUrl(channel.url)];
+      }
+
+      if (!fresh || fresh.followers == null) {
+        // LinkedIn profile actor may have failed but posts actor succeeded — still capture posts.
+        if (liPosts && liPosts.length) {
+          channel.recentPosts = liPosts.slice(0, RECENT_POSTS_LIMIT);
+          channel.engagement  = computeEngagement(liPosts, channel.followers);
+          updated++;
+          console.log(`✓ linkedin @${channel.handle}: ${liPosts.length} posts (profile follower count unavailable)`);
+        }
+        continue;
+      }
+
       const prev = channel.followers || 0;
       channel.followers = fresh.followers;
       channel.weeklyDelta = fresh.followers - prev;
@@ -289,9 +457,22 @@ async function main() {
       if (fresh.viewsLast30d != null) channel.viewsLast30d = fresh.viewsLast30d;
       channel.history = appendHistory(channel.history, fresh.followers);
       if (fresh.latestPost) channel.latestPost = fresh.latestPost;
+
+      // Engagement — merge posts from the appropriate source
+      if (channel.platform === 'linkedin' && liPosts && liPosts.length) {
+        channel.recentPosts = liPosts.slice(0, RECENT_POSTS_LIMIT);
+        channel.engagement  = computeEngagement(liPosts, fresh.followers);
+        metrics.shipsByDay  = bumpShipsByDay(metrics.shipsByDay, liPosts.map(p => p.date));
+      } else if (fresh.recentPosts) {
+        channel.recentPosts = fresh.recentPosts;
+        channel.engagement  = fresh.engagement;
+      }
       if (fresh.recentDates) metrics.shipsByDay = bumpShipsByDay(metrics.shipsByDay, fresh.recentDates);
+
       updated++;
-      console.log(`✓ ${channel.platform} @${channel.handle}: ${fresh.followers} followers`);
+      const eng = channel.engagement?.last7d;
+      const engStr = eng ? ` · 7d: ${eng.posts} posts, ${eng.likes} likes, ${eng.views} views` : '';
+      console.log(`✓ ${channel.platform} @${channel.handle}: ${fresh.followers} followers${engStr}`);
     }
   }
 
@@ -304,11 +485,31 @@ async function main() {
     console.log(`✓ team ${member.name}: ${fresh.followers} followers`);
   }
 
+  // Compute cross-channel "top posts this week" so the dashboard can
+  // celebrate the highest-engagement content without re-aggregating in JS.
+  const allRecent = [];
+  for (const property of metrics.properties || []) {
+    for (const channel of property.channels || []) {
+      for (const p of (channel.recentPosts || [])) {
+        if (!p.date) continue;
+        if (Date.parse(p.date) < Date.now() - 7 * 86400e3) continue;
+        allRecent.push({
+          ...p,
+          property: property.name,
+          handle: channel.handle,
+          score: (p.likes || 0) + (p.comments || 0) * 3 + (p.shares || 0) * 5 + (p.views || 0) * 0.001
+        });
+      }
+    }
+  }
+  allRecent.sort((a, b) => b.score - a.score);
+  metrics.topPostsThisWeek = allRecent.slice(0, 10);
+
   if (updated > 0) {
     metrics.lastUpdated = new Date().toISOString();
     metrics.source = 'api';
     await writeFile(METRICS_PATH, JSON.stringify(metrics, null, 2) + '\n');
-    console.log(`\nDone. Updated ${updated} record(s).`);
+    console.log(`\nDone. Updated ${updated} record(s). Top posts this week: ${metrics.topPostsThisWeek.length}`);
   } else {
     // Hard-fail so the workflow goes red and you get the GitHub failure email,
     // rather than a green-but-empty run that quietly leaves the dashboard stale.

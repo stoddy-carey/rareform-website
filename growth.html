@@ -832,6 +832,96 @@ header.nav {
 }
 .ship-arrow { color: var(--text-subtle); font-size: 1rem; transition: color 0.15s, transform 0.15s; }
 .ship:hover .ship-arrow { color: var(--accent); transform: translateX(2px); }
+.ship-engagement {
+  display: flex;
+  gap: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+.ship-engagement span { display: inline-flex; align-items: center; gap: 0.25rem; }
+.ship-engagement svg { width: 11px; height: 11px; opacity: 0.7; }
+
+/* ─── TOP POSTS ─── */
+.top-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.9rem;
+}
+.top-post {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.18s, transform 0.18s;
+}
+.top-post:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+.top-post-rank {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+}
+.top-post-head {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+}
+.top-post-head-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--tag-color);
+}
+.top-post-caption {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  min-height: 3.6em;
+}
+.top-post-stats {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+.top-post-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-subtle);
+  gap: 0.2rem;
+}
+.top-post-stat-num {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
 
 /* ─── MILESTONES ─── */
 .milestones {
@@ -1095,6 +1185,15 @@ footer.foot a:hover { color: var(--text); }
     <div class="team-grid" id="teamGrid"></div>
   </section>
 
+  <!-- ─── TOP POSTS THIS WEEK ─── -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Top performing this week</h2>
+      <span class="head-meta" id="topPostsCount">ranked by engagement</span>
+    </div>
+    <div class="top-posts" id="topPostsGrid"></div>
+  </section>
+
   <!-- ─── RECENT SHIPS ─── -->
   <section class="section">
     <div class="section-head">
@@ -1249,6 +1348,7 @@ async function load() {
   renderHeatmap(shipsByDay);
   renderAccounts(metrics);
   renderTeam(metrics.team || []);
+  renderTopPosts(metrics);
   renderShips(metrics, substackPosts);
   renderMilestones(metrics.milestones || []);
   renderMeta(metrics);
@@ -1304,12 +1404,30 @@ function aggregateByPlatform(metrics) {
         delta: 0,
         history: [],
         activeAccounts: 0,
-        passiveAccounts: 0
+        passiveAccounts: 0,
+        weeklyPosts: 0,
+        weeklyLikes: 0,
+        weeklyComments: 0,
+        weeklyViews: 0,
+        weeklyShares: 0,
+        engagementRates: []
       };
       cur.accounts.push({ property: p.name, handle: c.handle, status: c.status || 'active', followers: followersOf(c) });
       cur.followers += followersOf(c);
       cur.delta += (c.weeklyDelta || 0);
       if (isActive(c)) cur.activeAccounts++; else cur.passiveAccounts++;
+      // Engagement aggregates
+      const e = c.engagement?.last7d;
+      if (e) {
+        cur.weeklyPosts    += e.posts    || 0;
+        cur.weeklyLikes    += e.likes    || 0;
+        cur.weeklyComments += e.comments || 0;
+        cur.weeklyViews    += e.views    || 0;
+        cur.weeklyShares   += e.shares   || 0;
+      }
+      if (c.engagement?.avgEngagementRate != null) {
+        cur.engagementRates.push(c.engagement.avgEngagementRate);
+      }
       // Sum histories element-wise (right-aligned)
       if (c.history && c.history.length) {
         const len = Math.max(cur.history.length, c.history.length);
@@ -1370,6 +1488,12 @@ function renderPlatforms(metrics) {
           <span>${accountLabel}</span>
           <span>${breakdown}</span>
         </div>
+        ${p.weeklyPosts > 0 ? `
+          <div style="margin-top:0.7rem; padding-top:0.7rem; border-top:1px solid var(--border); font-family:var(--font-mono); font-size:0.68rem; color:var(--text-subtle); display:flex; justify-content:space-between; gap:0.5rem;">
+            <span>7d: ${p.weeklyPosts} post${p.weeklyPosts !== 1 ? 's' : ''}</span>
+            <span style="color:var(--text-muted)">${compactNum(p.weeklyLikes)} ♥ · ${compactNum(p.weeklyComments)} 💬${p.weeklyViews ? ' · ' + compactNum(p.weeklyViews) + ' ▶' : ''}</span>
+          </div>
+        ` : ''}
       </div>
     `;
   }).join('');
@@ -1564,21 +1688,42 @@ function renderHeatmap(shipsByDay) {
     : '—';
 }
 
+function compactNum(n) {
+  if (n == null) return null;
+  if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'k';
+  return String(n);
+}
+
+function engagementChips(post) {
+  if (!post) return '';
+  const chips = [];
+  if (post.likes != null)    chips.push(`<span title="likes">♥ ${compactNum(post.likes)}</span>`);
+  if (post.comments != null) chips.push(`<span title="comments">💬 ${compactNum(post.comments)}</span>`);
+  if (post.views != null)    chips.push(`<span title="views">▶ ${compactNum(post.views)}</span>`);
+  if (post.shares != null)   chips.push(`<span title="shares">↗ ${compactNum(post.shares)}</span>`);
+  return chips.length ? `<div class="ship-engagement">${chips.join('')}</div>` : '';
+}
+
 function renderShips(metrics, substackPosts) {
   const ships = [];
   substackPosts.slice(0, 6).forEach(p => ships.push({
-    platform: 'substack', title: p.title, url: p.link, date: new Date(p.pubDate)
+    platform: 'substack', title: p.title, url: p.link, date: new Date(p.pubDate), engagement: null
   }));
   metrics.properties.forEach(p => {
     p.channels.forEach(c => {
-      if (c.latestPost && c.platform !== 'substack') {
+      // Prefer recentPosts (carries engagement) but fall back to legacy latestPost
+      const posts = (c.recentPosts && c.recentPosts.length) ? c.recentPosts : (c.latestPost ? [c.latestPost] : []);
+      posts.forEach(post => {
+        if (c.platform === 'substack' || !post.url || !post.date) return;
         ships.push({
           platform: c.platform,
-          title: c.latestPost.caption,
-          url: c.latestPost.url,
-          date: new Date(c.latestPost.date)
+          title: post.caption || '(no caption)',
+          url: post.url,
+          date: new Date(post.date),
+          engagement: post.likes != null ? post : null
         });
-      }
+      });
     });
   });
   ships.sort((a, b) => b.date - a.date);
@@ -1590,10 +1735,56 @@ function renderShips(metrics, substackPosts) {
     <a class="ship" href="${s.url}" target="_blank" rel="noopener" style="--tag-color:${(PLATFORM[s.platform]||{}).color}">
       <div class="ship-when">${timeAgo(s.date)}</div>
       <div class="ship-tag"><span class="ship-tag-dot"></span>${(PLATFORM[s.platform]||{}).name || s.platform}</div>
-      <div class="ship-title">${escapeHtml(s.title)}</div>
+      <div>
+        <div class="ship-title">${escapeHtml(s.title)}</div>
+        ${engagementChips(s.engagement)}
+      </div>
       <div class="ship-arrow">→</div>
     </a>
   `).join('');
+}
+
+function renderTopPosts(metrics) {
+  const grid = document.getElementById('topPostsGrid');
+  const posts = metrics.topPostsThisWeek || [];
+  document.getElementById('topPostsCount').textContent = posts.length
+    ? `${posts.length} ranked by engagement`
+    : 'nothing shipped this week';
+  if (!posts.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1; padding:1.4rem; border:1px dashed var(--border); border-radius:var(--radius-lg); text-align:center; color:var(--text-subtle); font-family:var(--font-mono); font-size:0.8rem;">No posts in the last 7 days yet. Ship something!</div>';
+    return;
+  }
+  grid.innerHTML = posts.slice(0, 6).map((p, i) => {
+    const meta = PLATFORM[p.platform] || { color: '#888', name: p.platform };
+    const stats = [
+      { label: 'likes', val: p.likes },
+      { label: 'cmts', val: p.comments },
+      { label: 'views', val: p.views },
+      { label: 'shares', val: p.shares }
+    ].filter(s => s.val != null);
+    return `
+      <a class="top-post" href="${p.url}" target="_blank" rel="noopener" style="--tag-color:${meta.color}">
+        <div class="top-post-rank">#${i + 1}</div>
+        <div class="top-post-head">
+          <span class="top-post-head-dot"></span>
+          <span>${escapeHtml(meta.name)}</span>
+          <span style="color:var(--text-subtle)">·</span>
+          <span>@${escapeHtml(p.handle || '')}</span>
+          <span style="color:var(--text-subtle)">·</span>
+          <span>${timeAgo(p.date)}</span>
+        </div>
+        <div class="top-post-caption">${escapeHtml(p.caption || '(no caption)')}</div>
+        <div class="top-post-stats">
+          ${stats.map(s => `
+            <div class="top-post-stat">
+              <div class="top-post-stat-num">${compactNum(s.val)}</div>
+              <div>${s.label}</div>
+            </div>
+          `).join('')}
+        </div>
+      </a>
+    `;
+  }).join('');
 }
 
 function renderMilestones(milestones) {

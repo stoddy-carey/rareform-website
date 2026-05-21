@@ -30,6 +30,8 @@ jobs:
           APIFY_TIKTOK_ACTOR:                ${{ vars.APIFY_TIKTOK_ACTOR }}
           APIFY_LINKEDIN_PROFILE_ACTOR:      ${{ vars.APIFY_LINKEDIN_PROFILE_ACTOR }}
           APIFY_LINKEDIN_COMPANY_ACTOR:      ${{ vars.APIFY_LINKEDIN_COMPANY_ACTOR }}
+          APIFY_LI_POSTS_PERSONAL_ACTOR:     ${{ vars.APIFY_LI_POSTS_PERSONAL_ACTOR }}
+          APIFY_LI_POSTS_COMPANY_ACTOR:      ${{ vars.APIFY_LI_POSTS_COMPANY_ACTOR }}
 
           # Optional: some LinkedIn actors require a li_at cookie. The defaults
           # don't, but set this if you swap to an actor that needs it.
