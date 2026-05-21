@@ -74,6 +74,8 @@ async function fetchInstagramBatch(handles) {
       recentDates: (item.latestPosts || []).map(p => isoDay(p.timestamp || p.takenAtTimestamp)).filter(Boolean)
     };
   }
+  const missing = handles.filter(h => !out[h.toLowerCase()]);
+  if (missing.length) console.warn(`  ⚠ IG returned no data for: ${missing.join(', ')} — handle probably doesn't exist`);
   return out;
 }
 
@@ -120,6 +122,8 @@ async function fetchTikTokBatch(handles) {
       recentDates: data.videos.map(v => isoDay(v.createTimeISO || (v.createTime ? v.createTime * 1000 : null))).filter(Boolean)
     };
   }
+  const missing = handles.filter(h => !out[h.toLowerCase()]);
+  if (missing.length) console.warn(`  ⚠ TikTok returned no data for: ${missing.join(', ')} — account may not exist or has no public videos`);
   return out;
 }
 
@@ -160,15 +164,24 @@ async function fetchLinkedInCompaniesBatch(urls) {
   const items = await runApifyActor(APIFY_LINKEDIN_COMPANY_ACTOR, {
     companies: urls
   });
+  // Diagnostic: dump the top-level keys of the first item so we can see what
+  // shape this actor returns and fix the parser when it inevitably drifts.
+  if (items && items.length) {
+    console.log(`  [LI company] received ${items.length} item(s). First item keys: ${Object.keys(items[0]).join(', ')}`);
+  } else {
+    console.warn(`  ⚠ LI company actor returned 0 items`);
+  }
   const out = {};
   for (const item of (items || [])) {
-    // The actor returns either the input URL or a normalized one. Try both.
     const basic = item.basic_info || item.basicInfo || item || {};
     const stats = item.stats || item || {};
     const echoedUrl = item.url || basic.url || basic.linkedinUrl || basic.companyUrl
       || (basic.universal_name ? `https://www.linkedin.com/company/${basic.universal_name}/` : '')
       || (basic.universalName ? `https://www.linkedin.com/company/${basic.universalName}/` : '');
-    if (!echoedUrl) continue;
+    if (!echoedUrl) {
+      console.warn(`  ⚠ LI company item missing URL field. Item keys: ${Object.keys(item).join(', ')}`);
+      continue;
+    }
     out[normalizeUrl(echoedUrl)] = {
       followers: stats.follower_count ?? stats.followerCount ?? item.followers ?? item.followersCount ?? null,
       headline:  basic.tagline || basic.description || null,

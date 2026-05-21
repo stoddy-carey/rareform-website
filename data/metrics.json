@@ -154,27 +154,13 @@
         {
           "platform": "instagram",
           "status": "passive",
-          "handle": "rareformhealth",
-          "url": "https://instagram.com/rareformhealth",
-          "followers": 1283,
-          "weeklyDelta": 64,
-          "postsThisWeek": 5,
-          "history": [
-            820,
-            900,
-            980,
-            1055,
-            1120,
-            1180,
-            1219,
-            1283
-          ],
-          "latestPost": {
-            "caption": "Sunday slow flow at Vondel — 8am, free, bring water.",
-            "url": "https://instagram.com/rareformhealth",
-            "date": "2026-05-19"
-          },
-          "_note": "Notion accounts DB says @rareformhealth, but the existing site footer links to @rareform030 — please confirm which is correct."
+          "handle": "rareform030",
+          "url": "https://instagram.com/rareform030",
+          "followers": 0,
+          "weeklyDelta": 0,
+          "postsThisWeek": 0,
+          "history": [],
+          "_note": "Reverted from @rareformhealth to @rareform030 — first Apify run showed @rareformhealth doesn't exist on Instagram. Site footer was correct, Notion accounts DB was stale."
         },
         {
           "platform": "tiktok",
@@ -229,26 +215,6 @@
             4205,
             4280
           ]
-        },
-        {
-          "platform": "instagram",
-          "status": "passive",
-          "handle": "stoddycarey",
-          "url": "https://instagram.com/stoddycarey",
-          "followers": 1820,
-          "weeklyDelta": 34,
-          "postsThisWeek": 2,
-          "history": [
-            1480,
-            1560,
-            1640,
-            1700,
-            1740,
-            1770,
-            1795,
-            1820
-          ],
-          "_note": "Verify @stoddycarey is the right IG handle — Notion db only has the TikTok variant."
         },
         {
           "platform": "tiktok",
