@@ -12,7 +12,7 @@
     ],
     "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
   },
-  "lastUpdated": "2026-05-22T10:13:22.197Z",
+  "lastUpdated": "2026-05-23T08:56:57.860Z",
   "source": "api",
   "properties": [
     {
@@ -214,14 +214,14 @@
               "saves": 0
             },
             "last30d": {
-              "posts": 7,
-              "likes": 3,
+              "posts": 5,
+              "likes": 2,
               "comments": 0,
-              "views": 326,
+              "views": 68,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 2.04
+            "avgEngagementRate": 1.9
           }
         },
         {
@@ -232,7 +232,7 @@
           "followers": 17,
           "weeklyDelta": 0,
           "postsThisWeek": 5,
-          "viewsLast30d": 13618,
+          "viewsLast30d": 13364,
           "history": [
             820,
             980,
@@ -245,11 +245,24 @@
             17
           ],
           "latestPost": {
-            "caption": "free nervous system reset ",
-            "url": "https://www.tiktok.com/@outcurvehealth/video/7642650684210318625",
+            "caption": "",
+            "url": "https://www.tiktok.com/@outcurvehealth/video/7642763595477945633",
             "date": "2026-05-22"
           },
           "recentPosts": [
+            {
+              "id": "7642763595477945633",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7642763595477945633",
+              "date": "2026-05-22",
+              "likes": 5,
+              "comments": 0,
+              "views": 715,
+              "shares": 0,
+              "saves": 0
+            },
             {
               "id": "7642650684210318625",
               "platform": "tiktok",
@@ -257,9 +270,9 @@
               "caption": "free nervous system reset ",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7642650684210318625",
               "date": "2026-05-22",
-              "likes": 14,
+              "likes": 16,
               "comments": 0,
-              "views": 238,
+              "views": 294,
               "shares": 0,
               "saves": 0
             },
@@ -270,9 +283,9 @@
               "caption": "Crazy that switching to what we are actually supposed to eat can change the game",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7642356024824843552",
               "date": "2026-05-21",
-              "likes": 163,
+              "likes": 169,
               "comments": 2,
-              "views": 1927,
+              "views": 2046,
               "shares": 4,
               "saves": 0
             },
@@ -283,9 +296,9 @@
               "caption": "there’s no rules on how you spend lunch! go outside, find sun and move your body.",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7642324735757536545",
               "date": "2026-05-21",
-              "likes": 21,
+              "likes": 22,
               "comments": 0,
-              "views": 427,
+              "views": 435,
               "shares": 0,
               "saves": 0
             },
@@ -298,7 +311,7 @@
               "date": "2026-05-17",
               "likes": 37,
               "comments": 0,
-              "views": 298,
+              "views": 301,
               "shares": 0,
               "saves": 1
             },
@@ -311,7 +324,7 @@
               "date": "2026-05-16",
               "likes": 15,
               "comments": 0,
-              "views": 275,
+              "views": 276,
               "shares": 0,
               "saves": 1
             },
@@ -324,7 +337,7 @@
               "date": "2026-05-15",
               "likes": 28,
               "comments": 0,
-              "views": 308,
+              "views": 309,
               "shares": 0,
               "saves": 0
             },
@@ -337,7 +350,7 @@
               "date": "2026-05-15",
               "likes": 80,
               "comments": 0,
-              "views": 862,
+              "views": 863,
               "shares": 0,
               "saves": 2
             },
@@ -350,7 +363,7 @@
               "date": "2026-05-14",
               "likes": 58,
               "comments": 0,
-              "views": 800,
+              "views": 804,
               "shares": 0,
               "saves": 1
             },
@@ -363,7 +376,7 @@
               "date": "2026-05-14",
               "likes": 23,
               "comments": 0,
-              "views": 269,
+              "views": 270,
               "shares": 0,
               "saves": 1
             },
@@ -376,7 +389,7 @@
               "date": "2026-05-14",
               "likes": 44,
               "comments": 0,
-              "views": 750,
+              "views": 751,
               "shares": 0,
               "saves": 0
             },
@@ -389,7 +402,7 @@
               "date": "2026-05-13",
               "likes": 60,
               "comments": 1,
-              "views": 802,
+              "views": 803,
               "shares": 1,
               "saves": 3
             },
@@ -402,7 +415,7 @@
               "date": "2026-05-12",
               "likes": 48,
               "comments": 1,
-              "views": 915,
+              "views": 916,
               "shares": 0,
               "saves": 0
             },
@@ -415,7 +428,7 @@
               "date": "2026-05-12",
               "likes": 38,
               "comments": 0,
-              "views": 318,
+              "views": 319,
               "shares": 0,
               "saves": 1
             },
@@ -428,7 +441,7 @@
               "date": "2026-05-11",
               "likes": 116,
               "comments": 0,
-              "views": 1119,
+              "views": 1121,
               "shares": 1,
               "saves": 0
             },
@@ -493,42 +506,29 @@
               "date": "2026-05-08",
               "likes": 16,
               "comments": 0,
-              "views": 293,
+              "views": 294,
               "shares": 0,
               "saves": 6
-            },
-            {
-              "id": "7635396609978682656",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "Using Outcurve coaching changed the gameeeee",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7635396609978682656",
-              "date": "2026-05-02",
-              "likes": 117,
-              "comments": 0,
-              "views": 1170,
-              "shares": 1,
-              "saves": 3
             }
           ],
           "engagement": {
             "last7d": {
               "posts": 5,
-              "likes": 250,
+              "likes": 249,
               "comments": 2,
-              "views": 3165,
+              "views": 3791,
               "shares": 4,
-              "saves": 2
+              "saves": 1
             },
             "last30d": {
               "posts": 20,
-              "likes": 1044,
+              "likes": 941,
               "comments": 6,
-              "views": 13618,
-              "shares": 7,
-              "saves": 22
+              "views": 13364,
+              "shares": 6,
+              "saves": 19
             },
-            "avgEngagementRate": 310.88
+            "avgEngagementRate": 280.29
           }
         },
         {
@@ -555,7 +555,7 @@
             "url": "https://www.tiktok.com/@outcurvehealth2/video/7632294531882372374",
             "date": "2026-04-24"
           },
-          "viewsLast30d": 773,
+          "viewsLast30d": 0,
           "recentPosts": [
             {
               "id": "7632294531882372374",
@@ -828,14 +828,14 @@
               "saves": 0
             },
             "last30d": {
-              "posts": 2,
-              "likes": 4,
+              "posts": 1,
+              "likes": 0,
               "comments": 0,
-              "views": 773,
+              "views": 0,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 200
+            "avgEngagementRate": 0
           }
         },
         {
@@ -1214,57 +1214,57 @@
   "shipsByDay": {
     "2026-05-20": 3,
     "2026-05-19": 2,
-    "2026-05-18": 5,
-    "2026-05-17": 6,
-    "2026-05-15": 10,
-    "2026-05-14": 11,
-    "2026-05-13": 4,
-    "2026-05-12": 6,
-    "2026-05-11": 7,
-    "2026-05-10": 7,
-    "2026-05-08": 4,
+    "2026-05-18": 6,
+    "2026-05-17": 7,
+    "2026-05-15": 12,
+    "2026-05-14": 14,
+    "2026-05-13": 5,
+    "2026-05-12": 8,
+    "2026-05-11": 10,
+    "2026-05-10": 9,
+    "2026-05-08": 5,
     "2026-05-07": 1,
-    "2026-05-06": 7,
+    "2026-05-06": 8,
     "2026-05-05": 2,
     "2026-05-03": 1,
     "2026-05-02": 4,
     "2026-05-01": 1,
-    "2026-04-29": 14,
+    "2026-04-29": 17,
     "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 10,
-    "2026-04-23": 13,
-    "2026-04-22": 11,
-    "2026-04-20": 7,
-    "2026-04-19": 4,
-    "2026-04-17": 7,
-    "2026-04-15": 7,
-    "2026-04-14": 5,
-    "2026-04-12": 3,
-    "2026-04-10": 4,
-    "2026-04-08": 9,
+    "2026-04-24": 12,
+    "2026-04-23": 16,
+    "2026-04-22": 13,
+    "2026-04-20": 9,
+    "2026-04-19": 5,
+    "2026-04-17": 9,
+    "2026-04-15": 9,
+    "2026-04-14": 7,
+    "2026-04-12": 4,
+    "2026-04-10": 5,
+    "2026-04-08": 13,
     "2026-04-06": 2,
-    "2026-04-04": 3,
+    "2026-04-04": 4,
     "2026-04-02": 1,
     "2026-03-30": 2,
     "2026-03-28": 1,
-    "2026-03-25": 5,
+    "2026-03-25": 6,
     "2026-03-22": 1,
-    "2026-03-19": 5,
+    "2026-03-19": 7,
     "2026-03-15": 1,
-    "2026-04-03": 14,
-    "2026-05-16": 4,
-    "2026-04-21": 4,
-    "2026-05-21": 4,
-    "2026-05-09": 2,
+    "2026-04-03": 18,
+    "2026-05-16": 5,
+    "2026-04-21": 5,
+    "2026-05-21": 6,
+    "2026-05-09": 3,
     "2026-04-30": 1,
-    "2026-04-18": 2,
-    "2026-04-16": 4,
-    "2026-04-13": 2,
-    "2026-04-11": 2,
-    "2026-05-04": 2,
-    "2026-04-27": 2,
-    "2026-05-22": 1
+    "2026-04-18": 3,
+    "2026-04-16": 6,
+    "2026-04-13": 3,
+    "2026-04-11": 3,
+    "2026-05-04": 3,
+    "2026-04-27": 3,
+    "2026-05-22": 3
   },
   "milestones": [
     {
@@ -1312,14 +1312,14 @@
       "caption": "Crazy that switching to what we are actually supposed to eat can change the game",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7642356024824843552",
       "date": "2026-05-21",
-      "likes": 163,
+      "likes": 169,
       "comments": 2,
-      "views": 1927,
+      "views": 2046,
       "shares": 4,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 190.927
+      "score": 197.046
     },
     {
       "id": "7640751989936360706",
@@ -1330,12 +1330,12 @@
       "date": "2026-05-17",
       "likes": 37,
       "comments": 0,
-      "views": 298,
+      "views": 301,
       "shares": 0,
       "saves": 1,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 37.298
+      "score": 37.301
     },
     {
       "id": "7642324735757536545",
@@ -1344,30 +1344,14 @@
       "caption": "there’s no rules on how you spend lunch! go outside, find sun and move your body.",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7642324735757536545",
       "date": "2026-05-21",
-      "likes": 21,
+      "likes": 22,
       "comments": 0,
-      "views": 427,
+      "views": 435,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 21.427
-    },
-    {
-      "id": "7640380910075907350",
-      "platform": "tiktok",
-      "type": "video",
-      "caption": "#alcoholfree #alcoholfreelifestyle",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7640380910075907350",
-      "date": "2026-05-16",
-      "likes": 15,
-      "comments": 0,
-      "views": 275,
-      "shares": 0,
-      "saves": 1,
-      "property": "Outcurve",
-      "handle": "outcurvehealth",
-      "score": 15.275
+      "score": 22.435
     },
     {
       "id": "7642650684210318625",
@@ -1376,14 +1360,14 @@
       "caption": "free nervous system reset ",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7642650684210318625",
       "date": "2026-05-22",
-      "likes": 14,
+      "likes": 16,
       "comments": 0,
-      "views": 238,
+      "views": 294,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 14.238
+      "score": 16.294
     },
     {
       "id": "3899593431987814491",
@@ -1400,6 +1384,22 @@
       "property": "Rareform",
       "handle": "rareform030",
       "score": 10
+    },
+    {
+      "id": "7642763595477945633",
+      "platform": "tiktok",
+      "type": "video",
+      "caption": "",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7642763595477945633",
+      "date": "2026-05-22",
+      "likes": 5,
+      "comments": 0,
+      "views": 715,
+      "shares": 0,
+      "saves": 0,
+      "property": "Outcurve",
+      "handle": "outcurvehealth",
+      "score": 5.715
     }
   ]
 }
