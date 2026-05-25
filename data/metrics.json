@@ -12,7 +12,7 @@
     ],
     "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
   },
-  "lastUpdated": "2026-05-24T09:12:17.713Z",
+  "lastUpdated": "2026-05-25T11:01:57.072Z",
   "source": "api",
   "properties": [
     {
@@ -232,7 +232,7 @@
           "followers": 17,
           "weeklyDelta": 0,
           "postsThisWeek": 4,
-          "viewsLast30d": 13374,
+          "viewsLast30d": 13403,
           "history": [
             820,
             980,
@@ -259,7 +259,7 @@
               "date": "2026-05-22",
               "likes": 6,
               "comments": 0,
-              "views": 717,
+              "views": 726,
               "shares": 0,
               "saves": 0
             },
@@ -285,7 +285,7 @@
               "date": "2026-05-21",
               "likes": 169,
               "comments": 3,
-              "views": 2048,
+              "views": 2055,
               "shares": 4,
               "saves": 0
             },
@@ -296,9 +296,9 @@
               "caption": "there’s no rules on how you spend lunch! go outside, find sun and move your body.",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7642324735757536545",
               "date": "2026-05-21",
-              "likes": 22,
-              "comments": 0,
-              "views": 436,
+              "likes": 23,
+              "comments": 1,
+              "views": 439,
               "shares": 0,
               "saves": 0
             },
@@ -311,7 +311,7 @@
               "date": "2026-05-17",
               "likes": 36,
               "comments": 0,
-              "views": 303,
+              "views": 305,
               "shares": 0,
               "saves": 2
             },
@@ -324,7 +324,7 @@
               "date": "2026-05-16",
               "likes": 15,
               "comments": 0,
-              "views": 276,
+              "views": 278,
               "shares": 0,
               "saves": 1
             },
@@ -350,7 +350,7 @@
               "date": "2026-05-15",
               "likes": 80,
               "comments": 0,
-              "views": 863,
+              "views": 864,
               "shares": 0,
               "saves": 2
             },
@@ -363,7 +363,7 @@
               "date": "2026-05-14",
               "likes": 59,
               "comments": 0,
-              "views": 805,
+              "views": 806,
               "shares": 0,
               "saves": 1
             },
@@ -389,7 +389,7 @@
               "date": "2026-05-14",
               "likes": 44,
               "comments": 0,
-              "views": 751,
+              "views": 752,
               "shares": 0,
               "saves": 0
             },
@@ -402,7 +402,7 @@
               "date": "2026-05-13",
               "likes": 60,
               "comments": 1,
-              "views": 803,
+              "views": 805,
               "shares": 1,
               "saves": 3
             },
@@ -441,7 +441,7 @@
               "date": "2026-05-11",
               "likes": 116,
               "comments": 0,
-              "views": 1122,
+              "views": 1123,
               "shares": 1,
               "saves": 0
             },
@@ -514,21 +514,21 @@
           "engagement": {
             "last7d": {
               "posts": 4,
-              "likes": 213,
-              "comments": 3,
-              "views": 3496,
+              "likes": 214,
+              "comments": 4,
+              "views": 3515,
               "shares": 4,
               "saves": 0
             },
             "last30d": {
               "posts": 20,
-              "likes": 942,
-              "comments": 7,
-              "views": 13374,
+              "likes": 943,
+              "comments": 8,
+              "views": 13403,
               "shares": 6,
               "saves": 20
             },
-            "avgEngagementRate": 280.88
+            "avgEngagementRate": 281.47
           }
         },
         {
@@ -896,7 +896,7 @@
           "handle": "rareform030",
           "url": "https://instagram.com/rareform030",
           "followers": 60,
-          "weeklyDelta": -1,
+          "weeklyDelta": 0,
           "postsThisWeek": 1,
           "history": [
             61,
@@ -904,11 +904,24 @@
           ],
           "_note": "Reverted from @rareformhealth to @rareform030 — first Apify run showed @rareformhealth doesn't exist on Instagram. Site footer was correct, Notion accounts DB was stale.",
           "latestPost": {
-            "caption": "This week in Berlin · MAY 18 – 24\n@bodhispace.berlin @clicqui_ @mrc_berlin @pausify_org @runnersberlin",
-            "url": "https://www.instagram.com/p/DYeI5DCFIBb/",
-            "date": "2026-05-18"
+            "caption": "This week in Berlin · MAY 25 – 31\n@bodhispace.berlin @clicqui_ @mrc_berlin @pausify_org @runnersberlin",
+            "url": "https://www.instagram.com/p/DYwKSUjlF6t/",
+            "date": "2026-05-25"
           },
           "recentPosts": [
+            {
+              "id": "3904666116417674925",
+              "platform": "instagram",
+              "type": "Sidecar",
+              "caption": "This week in Berlin · MAY 25 – 31\n@bodhispace.berlin @clicqui_ @mrc_berlin @pausify_org @runnersberlin",
+              "url": "https://www.instagram.com/p/DYwKSUjlF6t/",
+              "date": "2026-05-25",
+              "likes": 0,
+              "comments": 1,
+              "views": null,
+              "shares": null,
+              "saves": null
+            },
             {
               "id": "3899593431987814491",
               "platform": "instagram",
@@ -1051,39 +1064,26 @@
               "views": null,
               "shares": null,
               "saves": null
-            },
-            {
-              "id": "3856174664016083287",
-              "platform": "instagram",
-              "type": "Image",
-              "caption": "Get ready to run and munch! 🍕\n\nWe are partnering with @rareform030 to help fuel you for the half marathon next weekend! Come run our slow paced 5km and enjoy pizza in the park afterwards from @cheerskiezpizza \n\nRSVP necessary for pizza and spots are limited! By sure to rsvp via ",
-              "url": "https://www.instagram.com/p/DWD4m0QijlX/",
-              "date": "2026-03-19",
-              "likes": 92,
-              "comments": 7,
-              "views": null,
-              "shares": null,
-              "saves": null
             }
           ],
           "engagement": {
             "last7d": {
               "posts": 1,
-              "likes": 4,
-              "comments": 2,
+              "likes": 0,
+              "comments": 1,
               "views": 0,
               "shares": 0,
               "saves": 0
             },
             "last30d": {
-              "posts": 4,
+              "posts": 5,
               "likes": 13,
-              "comments": 3,
+              "comments": 4,
               "views": 0,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 6.67
+            "avgEngagementRate": 5.67
           }
         },
         {
@@ -1215,57 +1215,58 @@
   "shipsByDay": {
     "2026-05-20": 3,
     "2026-05-19": 2,
-    "2026-05-18": 7,
-    "2026-05-17": 8,
-    "2026-05-15": 14,
-    "2026-05-14": 17,
-    "2026-05-13": 6,
-    "2026-05-12": 10,
-    "2026-05-11": 13,
-    "2026-05-10": 11,
-    "2026-05-08": 6,
+    "2026-05-18": 8,
+    "2026-05-17": 9,
+    "2026-05-15": 16,
+    "2026-05-14": 20,
+    "2026-05-13": 7,
+    "2026-05-12": 12,
+    "2026-05-11": 16,
+    "2026-05-10": 13,
+    "2026-05-08": 7,
     "2026-05-07": 1,
-    "2026-05-06": 9,
+    "2026-05-06": 10,
     "2026-05-05": 2,
     "2026-05-03": 1,
     "2026-05-02": 4,
     "2026-05-01": 1,
-    "2026-04-29": 20,
+    "2026-04-29": 23,
     "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 14,
-    "2026-04-23": 19,
-    "2026-04-22": 15,
-    "2026-04-20": 11,
-    "2026-04-19": 6,
-    "2026-04-17": 11,
-    "2026-04-15": 11,
-    "2026-04-14": 9,
-    "2026-04-12": 5,
-    "2026-04-10": 6,
-    "2026-04-08": 17,
+    "2026-04-24": 16,
+    "2026-04-23": 22,
+    "2026-04-22": 17,
+    "2026-04-20": 13,
+    "2026-04-19": 7,
+    "2026-04-17": 13,
+    "2026-04-15": 13,
+    "2026-04-14": 11,
+    "2026-04-12": 6,
+    "2026-04-10": 7,
+    "2026-04-08": 21,
     "2026-04-06": 2,
-    "2026-04-04": 5,
+    "2026-04-04": 6,
     "2026-04-02": 1,
     "2026-03-30": 2,
     "2026-03-28": 1,
-    "2026-03-25": 7,
+    "2026-03-25": 8,
     "2026-03-22": 1,
-    "2026-03-19": 9,
+    "2026-03-19": 10,
     "2026-03-15": 1,
-    "2026-04-03": 22,
-    "2026-05-16": 6,
-    "2026-04-21": 6,
-    "2026-05-21": 8,
-    "2026-05-09": 4,
+    "2026-04-03": 26,
+    "2026-05-16": 7,
+    "2026-04-21": 7,
+    "2026-05-21": 10,
+    "2026-05-09": 5,
     "2026-04-30": 1,
-    "2026-04-18": 4,
-    "2026-04-16": 8,
-    "2026-04-13": 4,
-    "2026-04-11": 4,
-    "2026-05-04": 4,
-    "2026-04-27": 4,
-    "2026-05-22": 5
+    "2026-04-18": 5,
+    "2026-04-16": 10,
+    "2026-04-13": 5,
+    "2026-04-11": 5,
+    "2026-05-04": 5,
+    "2026-04-27": 5,
+    "2026-05-22": 7,
+    "2026-05-25": 1
   },
   "milestones": [
     {
@@ -1315,12 +1316,12 @@
       "date": "2026-05-21",
       "likes": 169,
       "comments": 3,
-      "views": 2048,
+      "views": 2055,
       "shares": 4,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 200.048
+      "score": 200.055
     },
     {
       "id": "7642324735757536545",
@@ -1329,14 +1330,14 @@
       "caption": "there’s no rules on how you spend lunch! go outside, find sun and move your body.",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7642324735757536545",
       "date": "2026-05-21",
-      "likes": 22,
-      "comments": 0,
-      "views": 436,
+      "likes": 23,
+      "comments": 1,
+      "views": 439,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 22.436
+      "score": 26.439
     },
     {
       "id": "7642650684210318625",
@@ -1355,22 +1356,6 @@
       "score": 16.295
     },
     {
-      "id": "3899593431987814491",
-      "platform": "instagram",
-      "type": "Sidecar",
-      "caption": "This week in Berlin · MAY 18 – 24\n@bodhispace.berlin @clicqui_ @mrc_berlin @pausify_org @runnersberlin",
-      "url": "https://www.instagram.com/p/DYeI5DCFIBb/",
-      "date": "2026-05-18",
-      "likes": 4,
-      "comments": 2,
-      "views": null,
-      "shares": null,
-      "saves": null,
-      "property": "Rareform",
-      "handle": "rareform030",
-      "score": 10
-    },
-    {
       "id": "7642763595477945633",
       "platform": "tiktok",
       "type": "video",
@@ -1379,12 +1364,28 @@
       "date": "2026-05-22",
       "likes": 6,
       "comments": 0,
-      "views": 717,
+      "views": 726,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 6.717
+      "score": 6.726
+    },
+    {
+      "id": "3904666116417674925",
+      "platform": "instagram",
+      "type": "Sidecar",
+      "caption": "This week in Berlin · MAY 25 – 31\n@bodhispace.berlin @clicqui_ @mrc_berlin @pausify_org @runnersberlin",
+      "url": "https://www.instagram.com/p/DYwKSUjlF6t/",
+      "date": "2026-05-25",
+      "likes": 0,
+      "comments": 1,
+      "views": null,
+      "shares": null,
+      "saves": null,
+      "property": "Rareform",
+      "handle": "rareform030",
+      "score": 3
     }
   ]
 }
