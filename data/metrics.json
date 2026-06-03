@@ -12,7 +12,7 @@
     ],
     "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
   },
-  "lastUpdated": "2026-06-02T11:10:47.920Z",
+  "lastUpdated": "2026-06-03T11:49:52.719Z",
   "source": "api",
   "properties": [
     {
@@ -27,8 +27,8 @@
           "status": "passive",
           "handle": "outcurvehealth",
           "url": "https://instagram.com/outcurvehealth",
-          "followers": 23,
-          "weeklyDelta": 0,
+          "followers": 22,
+          "weeklyDelta": -1,
           "postsThisWeek": 0,
           "history": [
             1820,
@@ -41,7 +41,8 @@
             2840,
             21,
             22,
-            23
+            23,
+            22
           ],
           "latestPost": {
             "caption": "",
@@ -116,8 +117,8 @@
           "url": "https://tiktok.com/@outcurvehealth",
           "followers": 17,
           "weeklyDelta": 0,
-          "postsThisWeek": 8,
-          "viewsLast30d": 11221,
+          "postsThisWeek": 7,
+          "viewsLast30d": 10921,
           "history": [
             820,
             980,
@@ -130,11 +131,24 @@
             17
           ],
           "latestPost": {
-            "caption": "",
-            "url": "https://www.tiktok.com/@outcurvehealth/video/7646462633385676054",
-            "date": "2026-06-01"
+            "caption": "Is an Ironman that hard....",
+            "url": "https://www.tiktok.com/@outcurvehealth/video/7646828845558926614",
+            "date": "2026-06-02"
           },
           "recentPosts": [
+            {
+              "id": "7646828845558926614",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "Is an Ironman that hard....",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7646828845558926614",
+              "date": "2026-06-02",
+              "likes": 1,
+              "comments": 0,
+              "views": 268,
+              "shares": 0,
+              "saves": 0
+            },
             {
               "id": "7646462633385676054",
               "platform": "tiktok",
@@ -144,7 +158,7 @@
               "date": "2026-06-01",
               "likes": 2,
               "comments": 0,
-              "views": 266,
+              "views": 272,
               "shares": 0,
               "saves": 0
             },
@@ -157,7 +171,7 @@
               "date": "2026-05-31",
               "likes": 8,
               "comments": 0,
-              "views": 270,
+              "views": 272,
               "shares": 0,
               "saves": 0
             },
@@ -170,7 +184,7 @@
               "date": "2026-05-30",
               "likes": 9,
               "comments": 0,
-              "views": 274,
+              "views": 276,
               "shares": 0,
               "saves": 1
             },
@@ -183,7 +197,7 @@
               "date": "2026-05-29",
               "likes": 5,
               "comments": 0,
-              "views": 267,
+              "views": 269,
               "shares": 0,
               "saves": 1
             },
@@ -194,9 +208,9 @@
               "caption": "",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7644998464857771297",
               "date": "2026-05-28",
-              "likes": 30,
+              "likes": 40,
               "comments": 0,
-              "views": 471,
+              "views": 616,
               "shares": 0,
               "saves": 0
             },
@@ -209,7 +223,7 @@
               "date": "2026-05-28",
               "likes": 10,
               "comments": 0,
-              "views": 810,
+              "views": 813,
               "shares": 1,
               "saves": 0
             },
@@ -222,7 +236,7 @@
               "date": "2026-05-27",
               "likes": 6,
               "comments": 0,
-              "views": 830,
+              "views": 833,
               "shares": 0,
               "saves": 1
             },
@@ -235,7 +249,7 @@
               "date": "2026-05-27",
               "likes": 21,
               "comments": 0,
-              "views": 290,
+              "views": 291,
               "shares": 0,
               "saves": 0
             },
@@ -248,7 +262,7 @@
               "date": "2026-05-26",
               "likes": 8,
               "comments": 0,
-              "views": 272,
+              "views": 273,
               "shares": 1,
               "saves": 0
             },
@@ -261,7 +275,7 @@
               "date": "2026-05-26",
               "likes": 127,
               "comments": 0,
-              "views": 1005,
+              "views": 1006,
               "shares": 3,
               "saves": 2
             },
@@ -274,7 +288,7 @@
               "date": "2026-05-22",
               "likes": 16,
               "comments": 0,
-              "views": 305,
+              "views": 306,
               "shares": 0,
               "saves": 0
             },
@@ -286,8 +300,8 @@
               "url": "https://www.tiktok.com/@outcurvehealth/video/7642356024824843552",
               "date": "2026-05-21",
               "likes": 169,
-              "comments": 3,
-              "views": 2071,
+              "comments": 2,
+              "views": 2073,
               "shares": 4,
               "saves": 0
             },
@@ -300,7 +314,7 @@
               "date": "2026-05-21",
               "likes": 23,
               "comments": 1,
-              "views": 447,
+              "views": 449,
               "shares": 0,
               "saves": 0
             },
@@ -313,7 +327,7 @@
               "date": "2026-05-17",
               "likes": 36,
               "comments": 0,
-              "views": 317,
+              "views": 320,
               "shares": 0,
               "saves": 2
             },
@@ -326,7 +340,7 @@
               "date": "2026-05-16",
               "likes": 15,
               "comments": 0,
-              "views": 293,
+              "views": 295,
               "shares": 0,
               "saves": 1
             },
@@ -339,7 +353,7 @@
               "date": "2026-05-15",
               "likes": 28,
               "comments": 0,
-              "views": 319,
+              "views": 321,
               "shares": 0,
               "saves": 0
             },
@@ -352,7 +366,7 @@
               "date": "2026-05-15",
               "likes": 80,
               "comments": 0,
-              "views": 873,
+              "views": 877,
               "shares": 0,
               "saves": 2
             },
@@ -365,7 +379,7 @@
               "date": "2026-05-14",
               "likes": 59,
               "comments": 0,
-              "views": 813,
+              "views": 816,
               "shares": 0,
               "saves": 1
             },
@@ -378,42 +392,29 @@
               "date": "2026-05-14",
               "likes": 23,
               "comments": 0,
-              "views": 272,
+              "views": 275,
               "shares": 0,
               "saves": 1
-            },
-            {
-              "id": "7639564560617196833",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "Turns out there are healthier ways… but I’m still eating my pasta ",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7639564560617196833",
-              "date": "2026-05-14",
-              "likes": 44,
-              "comments": 0,
-              "views": 756,
-              "shares": 0,
-              "saves": 0
             }
           ],
           "engagement": {
             "last7d": {
-              "posts": 8,
-              "likes": 91,
+              "posts": 7,
+              "likes": 75,
               "comments": 0,
-              "views": 3478,
+              "views": 2786,
               "shares": 1,
-              "saves": 3
+              "saves": 2
             },
             "last30d": {
               "posts": 20,
-              "likes": 719,
-              "comments": 4,
-              "views": 11221,
+              "likes": 686,
+              "comments": 3,
+              "views": 10921,
               "shares": 9,
               "saves": 12
             },
-            "avgEngagementRate": 215.29
+            "avgEngagementRate": 205.29
           }
         },
         {
@@ -581,7 +582,7 @@
               "date": "2026-04-16",
               "likes": 32,
               "comments": 0,
-              "views": 391,
+              "views": 392,
               "shares": 1,
               "saves": 3
             },
@@ -780,8 +781,8 @@
           "status": "passive",
           "handle": "rareform030",
           "url": "https://instagram.com/rareform030",
-          "followers": 62,
-          "weeklyDelta": 0,
+          "followers": 63,
+          "weeklyDelta": 1,
           "postsThisWeek": 1,
           "history": [
             61,
@@ -789,7 +790,8 @@
             61,
             60,
             61,
-            62
+            62,
+            63
           ],
           "_note": "Reverted from @rareformhealth to @rareform030 — first Apify run showed @rareformhealth doesn't exist on Instagram. Site footer was correct, Notion accounts DB was stale.",
           "latestPost": {
@@ -965,14 +967,14 @@
               "saves": 0
             },
             "last30d": {
-              "posts": 5,
-              "likes": 13,
+              "posts": 4,
+              "likes": 11,
               "comments": 4,
               "views": 0,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 5.48
+            "avgEngagementRate": 5.95
           }
         },
         {
@@ -1104,13 +1106,13 @@
   "shipsByDay": {
     "2026-05-20": 3,
     "2026-05-19": 2,
-    "2026-05-18": 16,
-    "2026-05-17": 17,
-    "2026-05-15": 32,
-    "2026-05-14": 44,
+    "2026-05-18": 17,
+    "2026-05-17": 18,
+    "2026-05-15": 34,
+    "2026-05-14": 46,
     "2026-05-13": 14,
     "2026-05-12": 23,
-    "2026-05-11": 30,
+    "2026-05-11": 31,
     "2026-05-10": 17,
     "2026-05-08": 8,
     "2026-05-07": 1,
@@ -1122,47 +1124,48 @@
     "2026-04-29": 35,
     "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 28,
-    "2026-04-23": 38,
-    "2026-04-22": 29,
-    "2026-04-20": 29,
-    "2026-04-19": 15,
-    "2026-04-17": 25,
-    "2026-04-15": 29,
-    "2026-04-14": 27,
-    "2026-04-12": 14,
-    "2026-04-10": 15,
-    "2026-04-08": 39,
+    "2026-04-24": 29,
+    "2026-04-23": 39,
+    "2026-04-22": 30,
+    "2026-04-20": 31,
+    "2026-04-19": 16,
+    "2026-04-17": 26,
+    "2026-04-15": 31,
+    "2026-04-14": 29,
+    "2026-04-12": 15,
+    "2026-04-10": 16,
+    "2026-04-08": 41,
     "2026-04-06": 2,
-    "2026-04-04": 14,
+    "2026-04-04": 15,
     "2026-04-02": 1,
     "2026-03-30": 2,
     "2026-03-28": 1,
-    "2026-03-25": 16,
+    "2026-03-25": 17,
     "2026-03-22": 1,
     "2026-03-19": 16,
     "2026-03-15": 1,
-    "2026-04-03": 58,
-    "2026-05-16": 15,
-    "2026-04-21": 15,
-    "2026-05-21": 26,
+    "2026-04-03": 62,
+    "2026-05-16": 16,
+    "2026-04-21": 16,
+    "2026-05-21": 28,
     "2026-05-09": 6,
     "2026-04-30": 1,
-    "2026-04-18": 13,
-    "2026-04-16": 26,
-    "2026-04-13": 13,
-    "2026-04-11": 13,
-    "2026-05-04": 13,
-    "2026-04-27": 13,
-    "2026-05-22": 19,
-    "2026-05-25": 9,
-    "2026-05-26": 28,
-    "2026-05-27": 12,
-    "2026-05-28": 10,
-    "2026-05-29": 4,
-    "2026-05-30": 3,
-    "2026-05-31": 2,
-    "2026-06-01": 3
+    "2026-04-18": 14,
+    "2026-04-16": 28,
+    "2026-04-13": 14,
+    "2026-04-11": 14,
+    "2026-05-04": 14,
+    "2026-04-27": 14,
+    "2026-05-22": 20,
+    "2026-05-25": 10,
+    "2026-05-26": 32,
+    "2026-05-27": 14,
+    "2026-05-28": 12,
+    "2026-05-29": 5,
+    "2026-05-30": 4,
+    "2026-05-31": 3,
+    "2026-06-01": 5,
+    "2026-06-02": 1
   },
   "milestones": [
     {
@@ -1210,30 +1213,14 @@
       "caption": "",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7644998464857771297",
       "date": "2026-05-28",
-      "likes": 30,
+      "likes": 40,
       "comments": 0,
-      "views": 471,
+      "views": 616,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 30.471
-    },
-    {
-      "id": "7644536534795832609",
-      "platform": "tiktok",
-      "type": "video",
-      "caption": "it all counts!",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7644536534795832609",
-      "date": "2026-05-27",
-      "likes": 21,
-      "comments": 0,
-      "views": 290,
-      "shares": 0,
-      "saves": 0,
-      "property": "Outcurve",
-      "handle": "outcurvehealth",
-      "score": 21.29
+      "score": 40.616
     },
     {
       "id": "7644978285373426966",
@@ -1244,12 +1231,12 @@
       "date": "2026-05-28",
       "likes": 10,
       "comments": 0,
-      "views": 810,
+      "views": 813,
       "shares": 1,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 15.81
+      "score": 15.813
     },
     {
       "id": "7645715336091798806",
@@ -1260,12 +1247,12 @@
       "date": "2026-05-30",
       "likes": 9,
       "comments": 0,
-      "views": 274,
+      "views": 276,
       "shares": 0,
       "saves": 1,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 9.274000000000001
+      "score": 9.276
     },
     {
       "id": "7646091534634437910",
@@ -1276,28 +1263,12 @@
       "date": "2026-05-31",
       "likes": 8,
       "comments": 0,
-      "views": 270,
+      "views": 272,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 8.27
-    },
-    {
-      "id": "7644602219337174275",
-      "platform": "tiktok",
-      "type": "video",
-      "caption": "What does it truly take to get to an Ironman...",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7644602219337174275",
-      "date": "2026-05-27",
-      "likes": 6,
-      "comments": 0,
-      "views": 830,
-      "shares": 0,
-      "saves": 1,
-      "property": "Outcurve",
-      "handle": "outcurvehealth",
-      "score": 6.83
+      "score": 8.272
     },
     {
       "id": "7645349532917861655",
@@ -1308,12 +1279,12 @@
       "date": "2026-05-29",
       "likes": 5,
       "comments": 0,
-      "views": 267,
+      "views": 269,
       "shares": 0,
       "saves": 1,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 5.267
+      "score": 5.269
     },
     {
       "id": "7646462633385676054",
@@ -1324,12 +1295,28 @@
       "date": "2026-06-01",
       "likes": 2,
       "comments": 0,
-      "views": 266,
+      "views": 272,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 2.266
+      "score": 2.2720000000000002
+    },
+    {
+      "id": "7646828845558926614",
+      "platform": "tiktok",
+      "type": "video",
+      "caption": "Is an Ironman that hard....",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7646828845558926614",
+      "date": "2026-06-02",
+      "likes": 1,
+      "comments": 0,
+      "views": 268,
+      "shares": 0,
+      "saves": 0,
+      "property": "Outcurve",
+      "handle": "outcurvehealth",
+      "score": 1.268
     },
     {
       "id": "3909739507856212416",
