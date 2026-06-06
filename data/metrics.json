@@ -12,7 +12,7 @@
     ],
     "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
   },
-  "lastUpdated": "2026-06-05T10:38:55.881Z",
+  "lastUpdated": "2026-06-06T09:14:56.890Z",
   "source": "api",
   "properties": [
     {
@@ -27,11 +27,10 @@
           "status": "passive",
           "handle": "outcurvehealth",
           "url": "https://instagram.com/outcurvehealth",
-          "followers": 23,
-          "weeklyDelta": 1,
+          "followers": 25,
+          "weeklyDelta": 2,
           "postsThisWeek": 0,
           "history": [
-            1980,
             2140,
             2310,
             2470,
@@ -42,7 +41,8 @@
             22,
             23,
             22,
-            23
+            23,
+            25
           ],
           "latestPost": {
             "caption": "",
@@ -116,9 +116,9 @@
           "handle": "outcurvehealth",
           "url": "https://tiktok.com/@outcurvehealth",
           "followers": 19,
-          "weeklyDelta": 2,
-          "postsThisWeek": 9,
-          "viewsLast30d": 10843,
+          "weeklyDelta": 0,
+          "postsThisWeek": 10,
+          "viewsLast30d": 11675,
           "history": [
             820,
             980,
@@ -132,11 +132,37 @@
             19
           ],
           "latestPost": {
-            "caption": "Connecting beyond AI..",
-            "url": "https://www.tiktok.com/@outcurvehealth/video/7647570796918967574",
-            "date": "2026-06-04"
+            "caption": "Show up, you never know what doors could open up for you.",
+            "url": "https://www.tiktok.com/@outcurvehealth/video/7647942007050095894",
+            "date": "2026-06-05"
           },
           "recentPosts": [
+            {
+              "id": "7647942007050095894",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "Show up, you never know what doors could open up for you.",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7647942007050095894",
+              "date": "2026-06-05",
+              "likes": 17,
+              "comments": 0,
+              "views": 781,
+              "shares": 0,
+              "saves": 0
+            },
+            {
+              "id": "7647879995607534870",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "cycling vs running... does one require more athleticism than the other?",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7647879995607534870",
+              "date": "2026-06-05",
+              "likes": 6,
+              "comments": 0,
+              "views": 775,
+              "shares": 1,
+              "saves": 0
+            },
             {
               "id": "7647570796918967574",
               "platform": "tiktok",
@@ -146,7 +172,7 @@
               "date": "2026-06-04",
               "likes": 4,
               "comments": 0,
-              "views": 804,
+              "views": 810,
               "shares": 0,
               "saves": 0
             },
@@ -159,7 +185,7 @@
               "date": "2026-06-04",
               "likes": 30,
               "comments": 0,
-              "views": 292,
+              "views": 298,
               "shares": 1,
               "saves": 0
             },
@@ -170,9 +196,9 @@
               "caption": "Different types of commitment ",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7647213400392502561",
               "date": "2026-06-03",
-              "likes": 20,
+              "likes": 24,
               "comments": 0,
-              "views": 263,
+              "views": 286,
               "shares": 0,
               "saves": 0
             },
@@ -185,7 +211,7 @@
               "date": "2026-06-03",
               "likes": 7,
               "comments": 0,
-              "views": 266,
+              "views": 268,
               "shares": 0,
               "saves": 0
             },
@@ -198,7 +224,7 @@
               "date": "2026-06-03",
               "likes": 18,
               "comments": 0,
-              "views": 806,
+              "views": 809,
               "shares": 0,
               "saves": 0
             },
@@ -211,7 +237,7 @@
               "date": "2026-06-02",
               "likes": 1,
               "comments": 1,
-              "views": 279,
+              "views": 280,
               "shares": 0,
               "saves": 0
             },
@@ -224,7 +250,7 @@
               "date": "2026-06-01",
               "likes": 2,
               "comments": 0,
-              "views": 278,
+              "views": 279,
               "shares": 0,
               "saves": 0
             },
@@ -237,7 +263,7 @@
               "date": "2026-05-31",
               "likes": 8,
               "comments": 0,
-              "views": 275,
+              "views": 276,
               "shares": 0,
               "saves": 0
             },
@@ -250,7 +276,7 @@
               "date": "2026-05-30",
               "likes": 9,
               "comments": 0,
-              "views": 279,
+              "views": 281,
               "shares": 0,
               "saves": 1
             },
@@ -263,7 +289,7 @@
               "date": "2026-05-29",
               "likes": 5,
               "comments": 0,
-              "views": 273,
+              "views": 275,
               "shares": 0,
               "saves": 1
             },
@@ -276,7 +302,7 @@
               "date": "2026-05-28",
               "likes": 43,
               "comments": 0,
-              "views": 646,
+              "views": 648,
               "shares": 0,
               "saves": 0
             },
@@ -367,55 +393,29 @@
               "date": "2026-05-21",
               "likes": 169,
               "comments": 3,
-              "views": 2075,
+              "views": 2076,
               "shares": 4,
               "saves": 0
-            },
-            {
-              "id": "7642324735757536545",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "there’s no rules on how you spend lunch! go outside, find sun and move your body.",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7642324735757536545",
-              "date": "2026-05-21",
-              "likes": 23,
-              "comments": 1,
-              "views": 449,
-              "shares": 0,
-              "saves": 0
-            },
-            {
-              "id": "7640751989936360706",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "#alcoholfree #alcoholfreelifestyle",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7640751989936360706",
-              "date": "2026-05-17",
-              "likes": 36,
-              "comments": 0,
-              "views": 325,
-              "shares": 0,
-              "saves": 2
             }
           ],
           "engagement": {
             "last7d": {
-              "posts": 9,
-              "likes": 99,
+              "posts": 10,
+              "likes": 117,
               "comments": 1,
-              "views": 3542,
-              "shares": 1,
-              "saves": 1
+              "views": 4862,
+              "shares": 2,
+              "saves": 0
             },
             "last30d": {
               "posts": 20,
-              "likes": 564,
-              "comments": 5,
-              "views": 10843,
-              "shares": 10,
-              "saves": 7
+              "likes": 532,
+              "comments": 4,
+              "views": 11675,
+              "shares": 11,
+              "saves": 5
             },
-            "avgEngagementRate": 152.37
+            "avgEngagementRate": 143.95
           }
         },
         {
@@ -570,7 +570,7 @@
               "date": "2026-04-17",
               "likes": 8,
               "comments": 0,
-              "views": 813,
+              "views": 814,
               "shares": 0,
               "saves": 0
             },
@@ -583,7 +583,7 @@
               "date": "2026-04-16",
               "likes": 32,
               "comments": 0,
-              "views": 392,
+              "views": 393,
               "shares": 1,
               "saves": 3
             },
@@ -782,8 +782,8 @@
           "status": "passive",
           "handle": "rareform030",
           "url": "https://instagram.com/rareform030",
-          "followers": 64,
-          "weeklyDelta": 0,
+          "followers": 65,
+          "weeklyDelta": 1,
           "postsThisWeek": 2,
           "history": [
             61,
@@ -793,7 +793,8 @@
             61,
             62,
             63,
-            64
+            64,
+            65
           ],
           "_note": "Reverted from @rareformhealth to @rareform030 — first Apify run showed @rareformhealth doesn't exist on Instagram. Site footer was correct, Notion accounts DB was stale.",
           "latestPost": {
@@ -809,9 +810,9 @@
               "caption": "This week on In Conversation, I sat down with @joshua_m_hyde on what somatic work actually is, and one simple practice you can try tonight. \n\n🎧 Link in bio.",
               "url": "https://www.instagram.com/p/DZKLMYUM1Zr/",
               "date": "2026-06-04",
-              "likes": 2,
+              "likes": 3,
               "comments": 0,
-              "views": 14,
+              "views": 16,
               "shares": null,
               "saves": null
             },
@@ -962,21 +963,21 @@
           "engagement": {
             "last7d": {
               "posts": 2,
-              "likes": 4,
+              "likes": 5,
               "comments": 0,
-              "views": 14,
+              "views": 16,
               "shares": 0,
               "saves": 0
             },
             "last30d": {
               "posts": 5,
-              "likes": 14,
+              "likes": 15,
               "comments": 4,
-              "views": 14,
+              "views": 16,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 5.63
+            "avgEngagementRate": 5.85
           }
         },
         {
@@ -1108,13 +1109,13 @@
   "shipsByDay": {
     "2026-05-20": 3,
     "2026-05-19": 2,
-    "2026-05-18": 19,
+    "2026-05-18": 20,
     "2026-05-17": 20,
     "2026-05-15": 35,
     "2026-05-14": 46,
     "2026-05-13": 14,
     "2026-05-12": 23,
-    "2026-05-11": 33,
+    "2026-05-11": 34,
     "2026-05-10": 17,
     "2026-05-08": 8,
     "2026-05-07": 1,
@@ -1126,19 +1127,19 @@
     "2026-04-29": 35,
     "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 31,
-    "2026-04-23": 41,
-    "2026-04-22": 32,
-    "2026-04-20": 35,
-    "2026-04-19": 18,
-    "2026-04-17": 28,
-    "2026-04-15": 35,
-    "2026-04-14": 33,
-    "2026-04-12": 17,
-    "2026-04-10": 18,
-    "2026-04-08": 45,
+    "2026-04-24": 32,
+    "2026-04-23": 42,
+    "2026-04-22": 33,
+    "2026-04-20": 37,
+    "2026-04-19": 19,
+    "2026-04-17": 29,
+    "2026-04-15": 37,
+    "2026-04-14": 35,
+    "2026-04-12": 18,
+    "2026-04-10": 19,
+    "2026-04-08": 47,
     "2026-04-06": 2,
-    "2026-04-04": 17,
+    "2026-04-04": 18,
     "2026-04-02": 1,
     "2026-03-30": 2,
     "2026-03-28": 1,
@@ -1146,30 +1147,31 @@
     "2026-03-22": 1,
     "2026-03-19": 16,
     "2026-03-15": 1,
-    "2026-04-03": 70,
+    "2026-04-03": 74,
     "2026-05-16": 17,
-    "2026-04-21": 18,
-    "2026-05-21": 32,
+    "2026-04-21": 19,
+    "2026-05-21": 33,
     "2026-05-09": 6,
     "2026-04-30": 1,
-    "2026-04-18": 16,
-    "2026-04-16": 32,
-    "2026-04-13": 16,
-    "2026-04-11": 16,
-    "2026-05-04": 16,
-    "2026-04-27": 16,
-    "2026-05-22": 22,
-    "2026-05-25": 12,
-    "2026-05-26": 40,
-    "2026-05-27": 18,
-    "2026-05-28": 16,
-    "2026-05-29": 7,
-    "2026-05-30": 6,
-    "2026-05-31": 5,
-    "2026-06-01": 9,
-    "2026-06-02": 3,
-    "2026-06-03": 6,
-    "2026-06-04": 4
+    "2026-04-18": 17,
+    "2026-04-16": 34,
+    "2026-04-13": 17,
+    "2026-04-11": 17,
+    "2026-05-04": 17,
+    "2026-04-27": 17,
+    "2026-05-22": 23,
+    "2026-05-25": 13,
+    "2026-05-26": 44,
+    "2026-05-27": 20,
+    "2026-05-28": 18,
+    "2026-05-29": 8,
+    "2026-05-30": 7,
+    "2026-05-31": 6,
+    "2026-06-01": 11,
+    "2026-06-02": 4,
+    "2026-06-03": 9,
+    "2026-06-04": 7,
+    "2026-06-05": 2
   },
   "milestones": [
     {
@@ -1219,12 +1221,12 @@
       "date": "2026-06-04",
       "likes": 30,
       "comments": 0,
-      "views": 292,
+      "views": 298,
       "shares": 1,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 35.292
+      "score": 35.298
     },
     {
       "id": "7647213400392502561",
@@ -1233,14 +1235,14 @@
       "caption": "Different types of commitment ",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7647213400392502561",
       "date": "2026-06-03",
-      "likes": 20,
+      "likes": 24,
       "comments": 0,
-      "views": 263,
+      "views": 286,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 20.263
+      "score": 24.286
     },
     {
       "id": "7647137917621652758",
@@ -1251,28 +1253,44 @@
       "date": "2026-06-03",
       "likes": 18,
       "comments": 0,
-      "views": 806,
+      "views": 809,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 18.806
+      "score": 18.809
     },
     {
-      "id": "7645715336091798806",
+      "id": "7647942007050095894",
       "platform": "tiktok",
       "type": "video",
-      "caption": "How do you sustain energy throughout your day?",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7645715336091798806",
-      "date": "2026-05-30",
-      "likes": 9,
+      "caption": "Show up, you never know what doors could open up for you.",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7647942007050095894",
+      "date": "2026-06-05",
+      "likes": 17,
       "comments": 0,
-      "views": 279,
+      "views": 781,
       "shares": 0,
-      "saves": 1,
+      "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 9.279
+      "score": 17.781
+    },
+    {
+      "id": "7647879995607534870",
+      "platform": "tiktok",
+      "type": "video",
+      "caption": "cycling vs running... does one require more athleticism than the other?",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7647879995607534870",
+      "date": "2026-06-05",
+      "likes": 6,
+      "comments": 0,
+      "views": 775,
+      "shares": 1,
+      "saves": 0,
+      "property": "Outcurve",
+      "handle": "outcurvehealth",
+      "score": 11.775
     },
     {
       "id": "7646091534634437910",
@@ -1283,12 +1301,12 @@
       "date": "2026-05-31",
       "likes": 8,
       "comments": 0,
-      "views": 275,
+      "views": 276,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 8.275
+      "score": 8.276
     },
     {
       "id": "7647199709324496150",
@@ -1299,12 +1317,12 @@
       "date": "2026-06-03",
       "likes": 7,
       "comments": 0,
-      "views": 266,
+      "views": 268,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 7.266
+      "score": 7.268
     },
     {
       "id": "7647570796918967574",
@@ -1315,12 +1333,12 @@
       "date": "2026-06-04",
       "likes": 4,
       "comments": 0,
-      "views": 804,
+      "views": 810,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 4.804
+      "score": 4.8100000000000005
     },
     {
       "id": "7646828845558926614",
@@ -1331,28 +1349,12 @@
       "date": "2026-06-02",
       "likes": 1,
       "comments": 1,
-      "views": 279,
+      "views": 280,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 4.279
-    },
-    {
-      "id": "7646462633385676054",
-      "platform": "tiktok",
-      "type": "video",
-      "caption": "",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7646462633385676054",
-      "date": "2026-06-01",
-      "likes": 2,
-      "comments": 0,
-      "views": 278,
-      "shares": 0,
-      "saves": 0,
-      "property": "Outcurve",
-      "handle": "outcurvehealth",
-      "score": 2.278
+      "score": 4.28
     },
     {
       "id": "3911988455578752619",
@@ -1361,14 +1363,14 @@
       "caption": "This week on In Conversation, I sat down with @joshua_m_hyde on what somatic work actually is, and one simple practice you can try tonight. \n\n🎧 Link in bio.",
       "url": "https://www.instagram.com/p/DZKLMYUM1Zr/",
       "date": "2026-06-04",
-      "likes": 2,
+      "likes": 3,
       "comments": 0,
-      "views": 14,
+      "views": 16,
       "shares": null,
       "saves": null,
       "property": "Rareform",
       "handle": "rareform030",
-      "score": 2.014
+      "score": 3.016
     }
   ]
 }
