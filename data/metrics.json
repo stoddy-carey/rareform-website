@@ -12,7 +12,7 @@
     ],
     "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
   },
-  "lastUpdated": "2026-06-06T09:14:56.890Z",
+  "lastUpdated": "2026-06-08T11:47:37.864Z",
   "source": "api",
   "properties": [
     {
@@ -27,11 +27,10 @@
           "status": "passive",
           "handle": "outcurvehealth",
           "url": "https://instagram.com/outcurvehealth",
-          "followers": 25,
-          "weeklyDelta": 2,
+          "followers": 26,
+          "weeklyDelta": 1,
           "postsThisWeek": 0,
           "history": [
-            2140,
             2310,
             2470,
             2620,
@@ -42,7 +41,8 @@
             23,
             22,
             23,
-            25
+            25,
+            26
           ],
           "latestPost": {
             "caption": "",
@@ -115,10 +115,10 @@
           "status": "active",
           "handle": "outcurvehealth",
           "url": "https://tiktok.com/@outcurvehealth",
-          "followers": 19,
-          "weeklyDelta": 0,
-          "postsThisWeek": 10,
-          "viewsLast30d": 11675,
+          "followers": 21,
+          "weeklyDelta": 2,
+          "postsThisWeek": 11,
+          "viewsLast30d": 9635,
           "history": [
             820,
             980,
@@ -129,14 +129,54 @@
             1600,
             1620,
             17,
-            19
+            19,
+            21
           ],
           "latestPost": {
-            "caption": "Show up, you never know what doors could open up for you.",
-            "url": "https://www.tiktok.com/@outcurvehealth/video/7647942007050095894",
-            "date": "2026-06-05"
+            "caption": "Be open, curious, and a student of the unknown!",
+            "url": "https://www.tiktok.com/@outcurvehealth/video/7648684024864541974",
+            "date": "2026-06-07"
           },
           "recentPosts": [
+            {
+              "id": "7648684024864541974",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "Be open, curious, and a student of the unknown!",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7648684024864541974",
+              "date": "2026-06-07",
+              "likes": 6,
+              "comments": 0,
+              "views": 262,
+              "shares": 0,
+              "saves": 1
+            },
+            {
+              "id": "7648313119378328854",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "See what sticks.. you never know what it could lead to",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7648313119378328854",
+              "date": "2026-06-06",
+              "likes": 10,
+              "comments": 0,
+              "views": 774,
+              "shares": 0,
+              "saves": 0
+            },
+            {
+              "id": "7648313037887196438",
+              "platform": "tiktok",
+              "type": "video",
+              "caption": "See what sticks.. you never know what it could lead to",
+              "url": "https://www.tiktok.com/@outcurvehealth/video/7648313037887196438",
+              "date": "2026-06-06",
+              "likes": 12,
+              "comments": 0,
+              "views": 265,
+              "shares": 0,
+              "saves": 0
+            },
             {
               "id": "7647942007050095894",
               "platform": "tiktok",
@@ -146,7 +186,7 @@
               "date": "2026-06-05",
               "likes": 17,
               "comments": 0,
-              "views": 781,
+              "views": 792,
               "shares": 0,
               "saves": 0
             },
@@ -157,9 +197,9 @@
               "caption": "cycling vs running... does one require more athleticism than the other?",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7647879995607534870",
               "date": "2026-06-05",
-              "likes": 6,
+              "likes": 7,
               "comments": 0,
-              "views": 775,
+              "views": 780,
               "shares": 1,
               "saves": 0
             },
@@ -172,7 +212,7 @@
               "date": "2026-06-04",
               "likes": 4,
               "comments": 0,
-              "views": 810,
+              "views": 814,
               "shares": 0,
               "saves": 0
             },
@@ -185,7 +225,7 @@
               "date": "2026-06-04",
               "likes": 30,
               "comments": 0,
-              "views": 298,
+              "views": 300,
               "shares": 1,
               "saves": 0
             },
@@ -196,9 +236,9 @@
               "caption": "Different types of commitment ",
               "url": "https://www.tiktok.com/@outcurvehealth/video/7647213400392502561",
               "date": "2026-06-03",
-              "likes": 24,
+              "likes": 28,
               "comments": 0,
-              "views": 286,
+              "views": 300,
               "shares": 0,
               "saves": 0
             },
@@ -211,7 +251,7 @@
               "date": "2026-06-03",
               "likes": 7,
               "comments": 0,
-              "views": 268,
+              "views": 269,
               "shares": 0,
               "saves": 0
             },
@@ -224,7 +264,7 @@
               "date": "2026-06-03",
               "likes": 18,
               "comments": 0,
-              "views": 809,
+              "views": 810,
               "shares": 0,
               "saves": 0
             },
@@ -237,7 +277,7 @@
               "date": "2026-06-02",
               "likes": 1,
               "comments": 1,
-              "views": 280,
+              "views": 281,
               "shares": 0,
               "saves": 0
             },
@@ -250,7 +290,7 @@
               "date": "2026-06-01",
               "likes": 2,
               "comments": 0,
-              "views": 279,
+              "views": 280,
               "shares": 0,
               "saves": 0
             },
@@ -263,7 +303,7 @@
               "date": "2026-05-31",
               "likes": 8,
               "comments": 0,
-              "views": 276,
+              "views": 278,
               "shares": 0,
               "saves": 0
             },
@@ -276,7 +316,7 @@
               "date": "2026-05-30",
               "likes": 9,
               "comments": 0,
-              "views": 281,
+              "views": 283,
               "shares": 0,
               "saves": 1
             },
@@ -289,7 +329,7 @@
               "date": "2026-05-29",
               "likes": 5,
               "comments": 0,
-              "views": 275,
+              "views": 277,
               "shares": 0,
               "saves": 1
             },
@@ -302,7 +342,7 @@
               "date": "2026-05-28",
               "likes": 43,
               "comments": 0,
-              "views": 648,
+              "views": 649,
               "shares": 0,
               "saves": 0
             },
@@ -357,65 +397,26 @@
               "views": 276,
               "shares": 1,
               "saves": 0
-            },
-            {
-              "id": "7644185254739201313",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "at least there’s a nice view…",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7644185254739201313",
-              "date": "2026-05-26",
-              "likes": 127,
-              "comments": 0,
-              "views": 1006,
-              "shares": 3,
-              "saves": 2
-            },
-            {
-              "id": "7642650684210318625",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "free nervous system reset ",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7642650684210318625",
-              "date": "2026-05-22",
-              "likes": 16,
-              "comments": 0,
-              "views": 306,
-              "shares": 0,
-              "saves": 0
-            },
-            {
-              "id": "7642356024824843552",
-              "platform": "tiktok",
-              "type": "video",
-              "caption": "Crazy that switching to what we are actually supposed to eat can change the game",
-              "url": "https://www.tiktok.com/@outcurvehealth/video/7642356024824843552",
-              "date": "2026-05-21",
-              "likes": 169,
-              "comments": 3,
-              "views": 2076,
-              "shares": 4,
-              "saves": 0
             }
           ],
           "engagement": {
             "last7d": {
-              "posts": 10,
-              "likes": 117,
+              "posts": 11,
+              "likes": 140,
               "comments": 1,
-              "views": 4862,
+              "views": 5647,
               "shares": 2,
-              "saves": 0
+              "saves": 1
             },
             "last30d": {
               "posts": 20,
-              "likes": 532,
-              "comments": 4,
-              "views": 11675,
-              "shares": 11,
-              "saves": 5
+              "likes": 253,
+              "comments": 1,
+              "views": 9635,
+              "shares": 4,
+              "saves": 4
             },
-            "avgEngagementRate": 143.95
+            "avgEngagementRate": 61.43
           }
         },
         {
@@ -782,7 +783,7 @@
           "status": "passive",
           "handle": "rareform030",
           "url": "https://instagram.com/rareform030",
-          "followers": 65,
+          "followers": 66,
           "weeklyDelta": 1,
           "postsThisWeek": 2,
           "history": [
@@ -794,15 +795,29 @@
             62,
             63,
             64,
-            65
+            65,
+            66
           ],
           "_note": "Reverted from @rareformhealth to @rareform030 — first Apify run showed @rareformhealth doesn't exist on Instagram. Site footer was correct, Notion accounts DB was stale.",
           "latestPost": {
-            "caption": "This week on In Conversation, I sat down with @joshua_m_hyde on what somatic work actually is, and one simple practice you can try tonight. ",
-            "url": "https://www.instagram.com/p/DZKLMYUM1Zr/",
-            "date": "2026-06-04"
+            "caption": "This week in Berlin · JUN 8 – 14\n@bodhispace.berlin @slowpokerunclub.berlin",
+            "url": "https://www.instagram.com/p/DZUNbPvFOPT/",
+            "date": "2026-06-08"
           },
           "recentPosts": [
+            {
+              "id": "3914813023018345427",
+              "platform": "instagram",
+              "type": "Sidecar",
+              "caption": "This week in Berlin · JUN 8 – 14\n@bodhispace.berlin @slowpokerunclub.berlin",
+              "url": "https://www.instagram.com/p/DZUNbPvFOPT/",
+              "date": "2026-06-08",
+              "likes": 0,
+              "comments": 0,
+              "views": null,
+              "shares": null,
+              "saves": null
+            },
             {
               "id": "3911988455578752619",
               "platform": "instagram",
@@ -812,7 +827,7 @@
               "date": "2026-06-04",
               "likes": 3,
               "comments": 0,
-              "views": 16,
+              "views": 17,
               "shares": null,
               "saves": null
             },
@@ -945,39 +960,26 @@
               "views": 28,
               "shares": null,
               "saves": null
-            },
-            {
-              "id": "3867270533465513029",
-              "platform": "instagram",
-              "type": "Video",
-              "caption": "Only one way to get through a big session is to spice it up a little bit.",
-              "url": "https://www.instagram.com/p/DWrTg99jBxF/",
-              "date": "2026-04-03",
-              "likes": 4,
-              "comments": 0,
-              "views": 32,
-              "shares": null,
-              "saves": null
             }
           ],
           "engagement": {
             "last7d": {
               "posts": 2,
-              "likes": 5,
+              "likes": 3,
               "comments": 0,
-              "views": 16,
+              "views": 17,
               "shares": 0,
               "saves": 0
             },
             "last30d": {
-              "posts": 5,
+              "posts": 6,
               "likes": 15,
               "comments": 4,
-              "views": 16,
+              "views": 17,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 5.85
+            "avgEngagementRate": 4.8
           }
         },
         {
@@ -1054,8 +1056,8 @@
           "status": "active",
           "handle": "stoddy-carey",
           "url": "https://www.linkedin.com/in/stoddy-carey/",
-          "followers": 4280,
-          "weeklyDelta": 87,
+          "followers": "3223",
+          "weeklyDelta": -1057,
           "postsThisWeek": 4,
           "history": [
             3420,
@@ -1065,7 +1067,8 @@
             3980,
             4100,
             4205,
-            4280
+            4280,
+            "3223"
           ]
         }
       ]
@@ -1077,7 +1080,7 @@
       "lastName": "Carey",
       "role": "Cofounder · Growth & User Research",
       "linkedin": "https://www.linkedin.com/in/stoddy-carey/",
-      "followers": 4280,
+      "followers": "3223",
       "_followersNote": "Mirrors the Stoddy LinkedIn channel under properties[stoddy]."
     },
     {
@@ -1085,14 +1088,14 @@
       "lastName": "Oehlschläger",
       "role": "Cofounder · Engineering",
       "linkedin": "https://www.linkedin.com/in/sebastianoehlschlaeger/",
-      "followers": 1840
+      "followers": "1752"
     },
     {
       "name": "Uma",
       "lastName": "Patel",
       "role": "Founder's Associate · Growth",
       "linkedin": "https://www.linkedin.com/in/uma-patel-89320615b/",
-      "followers": 380
+      "followers": "3686"
     }
   ],
   "_extraAccounts": [
@@ -1109,13 +1112,13 @@
   "shipsByDay": {
     "2026-05-20": 3,
     "2026-05-19": 2,
-    "2026-05-18": 20,
+    "2026-05-18": 21,
     "2026-05-17": 20,
     "2026-05-15": 35,
     "2026-05-14": 46,
     "2026-05-13": 14,
     "2026-05-12": 23,
-    "2026-05-11": 34,
+    "2026-05-11": 35,
     "2026-05-10": 17,
     "2026-05-08": 8,
     "2026-05-07": 1,
@@ -1127,19 +1130,19 @@
     "2026-04-29": 35,
     "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 32,
-    "2026-04-23": 42,
-    "2026-04-22": 33,
-    "2026-04-20": 37,
-    "2026-04-19": 19,
-    "2026-04-17": 29,
-    "2026-04-15": 37,
-    "2026-04-14": 35,
-    "2026-04-12": 18,
-    "2026-04-10": 19,
-    "2026-04-08": 47,
+    "2026-04-24": 33,
+    "2026-04-23": 43,
+    "2026-04-22": 34,
+    "2026-04-20": 39,
+    "2026-04-19": 20,
+    "2026-04-17": 30,
+    "2026-04-15": 39,
+    "2026-04-14": 37,
+    "2026-04-12": 19,
+    "2026-04-10": 20,
+    "2026-04-08": 49,
     "2026-04-06": 2,
-    "2026-04-04": 18,
+    "2026-04-04": 19,
     "2026-04-02": 1,
     "2026-03-30": 2,
     "2026-03-28": 1,
@@ -1147,31 +1150,34 @@
     "2026-03-22": 1,
     "2026-03-19": 16,
     "2026-03-15": 1,
-    "2026-04-03": 74,
+    "2026-04-03": 77,
     "2026-05-16": 17,
-    "2026-04-21": 19,
+    "2026-04-21": 20,
     "2026-05-21": 33,
     "2026-05-09": 6,
     "2026-04-30": 1,
-    "2026-04-18": 17,
-    "2026-04-16": 34,
-    "2026-04-13": 17,
-    "2026-04-11": 17,
-    "2026-05-04": 17,
-    "2026-04-27": 17,
+    "2026-04-18": 18,
+    "2026-04-16": 36,
+    "2026-04-13": 18,
+    "2026-04-11": 18,
+    "2026-05-04": 18,
+    "2026-04-27": 18,
     "2026-05-22": 23,
-    "2026-05-25": 13,
-    "2026-05-26": 44,
-    "2026-05-27": 20,
-    "2026-05-28": 18,
-    "2026-05-29": 8,
-    "2026-05-30": 7,
-    "2026-05-31": 6,
-    "2026-06-01": 11,
-    "2026-06-02": 4,
-    "2026-06-03": 9,
-    "2026-06-04": 7,
-    "2026-06-05": 2
+    "2026-05-25": 14,
+    "2026-05-26": 47,
+    "2026-05-27": 22,
+    "2026-05-28": 20,
+    "2026-05-29": 9,
+    "2026-05-30": 8,
+    "2026-05-31": 7,
+    "2026-06-01": 13,
+    "2026-06-02": 5,
+    "2026-06-03": 12,
+    "2026-06-04": 10,
+    "2026-06-05": 4,
+    "2026-06-07": 1,
+    "2026-06-06": 2,
+    "2026-06-08": 1
   },
   "milestones": [
     {
@@ -1221,12 +1227,12 @@
       "date": "2026-06-04",
       "likes": 30,
       "comments": 0,
-      "views": 298,
+      "views": 300,
       "shares": 1,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 35.298
+      "score": 35.3
     },
     {
       "id": "7647213400392502561",
@@ -1235,14 +1241,14 @@
       "caption": "Different types of commitment ",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7647213400392502561",
       "date": "2026-06-03",
-      "likes": 24,
+      "likes": 28,
       "comments": 0,
-      "views": 286,
+      "views": 300,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 24.286
+      "score": 28.3
     },
     {
       "id": "7647137917621652758",
@@ -1253,12 +1259,12 @@
       "date": "2026-06-03",
       "likes": 18,
       "comments": 0,
-      "views": 809,
+      "views": 810,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 18.809
+      "score": 18.81
     },
     {
       "id": "7647942007050095894",
@@ -1269,12 +1275,12 @@
       "date": "2026-06-05",
       "likes": 17,
       "comments": 0,
-      "views": 781,
+      "views": 792,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 17.781
+      "score": 17.792
     },
     {
       "id": "7647879995607534870",
@@ -1283,30 +1289,46 @@
       "caption": "cycling vs running... does one require more athleticism than the other?",
       "url": "https://www.tiktok.com/@outcurvehealth/video/7647879995607534870",
       "date": "2026-06-05",
-      "likes": 6,
+      "likes": 7,
       "comments": 0,
-      "views": 775,
+      "views": 780,
       "shares": 1,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 11.775
+      "score": 12.78
     },
     {
-      "id": "7646091534634437910",
+      "id": "7648313037887196438",
       "platform": "tiktok",
       "type": "video",
-      "caption": "Being in your 20's is anything but easy. You aren't alone in discovering that.",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7646091534634437910",
-      "date": "2026-05-31",
-      "likes": 8,
+      "caption": "See what sticks.. you never know what it could lead to",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7648313037887196438",
+      "date": "2026-06-06",
+      "likes": 12,
       "comments": 0,
-      "views": 276,
+      "views": 265,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 8.276
+      "score": 12.265
+    },
+    {
+      "id": "7648313119378328854",
+      "platform": "tiktok",
+      "type": "video",
+      "caption": "See what sticks.. you never know what it could lead to",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7648313119378328854",
+      "date": "2026-06-06",
+      "likes": 10,
+      "comments": 0,
+      "views": 774,
+      "shares": 0,
+      "saves": 0,
+      "property": "Outcurve",
+      "handle": "outcurvehealth",
+      "score": 10.774000000000001
     },
     {
       "id": "7647199709324496150",
@@ -1317,12 +1339,28 @@
       "date": "2026-06-03",
       "likes": 7,
       "comments": 0,
-      "views": 268,
+      "views": 269,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 7.268
+      "score": 7.269
+    },
+    {
+      "id": "7648684024864541974",
+      "platform": "tiktok",
+      "type": "video",
+      "caption": "Be open, curious, and a student of the unknown!",
+      "url": "https://www.tiktok.com/@outcurvehealth/video/7648684024864541974",
+      "date": "2026-06-07",
+      "likes": 6,
+      "comments": 0,
+      "views": 262,
+      "shares": 0,
+      "saves": 1,
+      "property": "Outcurve",
+      "handle": "outcurvehealth",
+      "score": 6.2620000000000005
     },
     {
       "id": "7647570796918967574",
@@ -1333,44 +1371,12 @@
       "date": "2026-06-04",
       "likes": 4,
       "comments": 0,
-      "views": 810,
+      "views": 814,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 4.8100000000000005
-    },
-    {
-      "id": "7646828845558926614",
-      "platform": "tiktok",
-      "type": "video",
-      "caption": "Is an Ironman that hard....",
-      "url": "https://www.tiktok.com/@outcurvehealth/video/7646828845558926614",
-      "date": "2026-06-02",
-      "likes": 1,
-      "comments": 1,
-      "views": 280,
-      "shares": 0,
-      "saves": 0,
-      "property": "Outcurve",
-      "handle": "outcurvehealth",
-      "score": 4.28
-    },
-    {
-      "id": "3911988455578752619",
-      "platform": "instagram",
-      "type": "Video",
-      "caption": "This week on In Conversation, I sat down with @joshua_m_hyde on what somatic work actually is, and one simple practice you can try tonight. \n\n🎧 Link in bio.",
-      "url": "https://www.instagram.com/p/DZKLMYUM1Zr/",
-      "date": "2026-06-04",
-      "likes": 3,
-      "comments": 0,
-      "views": 16,
-      "shares": null,
-      "saves": null,
-      "property": "Rareform",
-      "handle": "rareform030",
-      "score": 3.016
+      "score": 4.814
     }
   ]
 }
