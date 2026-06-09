@@ -12,7 +12,7 @@
     ],
     "_note": "Top-level summary of where the team is currently focused. Update this when priorities shift."
   },
-  "lastUpdated": "2026-06-08T11:47:37.864Z",
+  "lastUpdated": "2026-06-09T10:26:45.845Z",
   "source": "api",
   "properties": [
     {
@@ -28,7 +28,7 @@
           "handle": "outcurvehealth",
           "url": "https://instagram.com/outcurvehealth",
           "followers": 26,
-          "weeklyDelta": 1,
+          "weeklyDelta": 0,
           "postsThisWeek": 0,
           "history": [
             2310,
@@ -115,10 +115,10 @@
           "status": "active",
           "handle": "outcurvehealth",
           "url": "https://tiktok.com/@outcurvehealth",
-          "followers": 21,
-          "weeklyDelta": 2,
-          "postsThisWeek": 11,
-          "viewsLast30d": 9635,
+          "followers": 22,
+          "weeklyDelta": 1,
+          "postsThisWeek": 10,
+          "viewsLast30d": 9687,
           "history": [
             820,
             980,
@@ -130,7 +130,8 @@
             1620,
             17,
             19,
-            21
+            21,
+            22
           ],
           "latestPost": {
             "caption": "Be open, curious, and a student of the unknown!",
@@ -147,7 +148,7 @@
               "date": "2026-06-07",
               "likes": 6,
               "comments": 0,
-              "views": 262,
+              "views": 275,
               "shares": 0,
               "saves": 1
             },
@@ -160,7 +161,7 @@
               "date": "2026-06-06",
               "likes": 10,
               "comments": 0,
-              "views": 774,
+              "views": 777,
               "shares": 0,
               "saves": 0
             },
@@ -173,7 +174,7 @@
               "date": "2026-06-06",
               "likes": 12,
               "comments": 0,
-              "views": 265,
+              "views": 267,
               "shares": 0,
               "saves": 0
             },
@@ -186,7 +187,7 @@
               "date": "2026-06-05",
               "likes": 17,
               "comments": 0,
-              "views": 792,
+              "views": 797,
               "shares": 0,
               "saves": 0
             },
@@ -199,7 +200,7 @@
               "date": "2026-06-05",
               "likes": 7,
               "comments": 0,
-              "views": 780,
+              "views": 786,
               "shares": 1,
               "saves": 0
             },
@@ -212,7 +213,7 @@
               "date": "2026-06-04",
               "likes": 4,
               "comments": 0,
-              "views": 814,
+              "views": 819,
               "shares": 0,
               "saves": 0
             },
@@ -225,7 +226,7 @@
               "date": "2026-06-04",
               "likes": 30,
               "comments": 0,
-              "views": 300,
+              "views": 306,
               "shares": 1,
               "saves": 0
             },
@@ -238,7 +239,7 @@
               "date": "2026-06-03",
               "likes": 28,
               "comments": 0,
-              "views": 300,
+              "views": 304,
               "shares": 0,
               "saves": 0
             },
@@ -251,7 +252,7 @@
               "date": "2026-06-03",
               "likes": 7,
               "comments": 0,
-              "views": 269,
+              "views": 271,
               "shares": 0,
               "saves": 0
             },
@@ -277,7 +278,7 @@
               "date": "2026-06-02",
               "likes": 1,
               "comments": 1,
-              "views": 281,
+              "views": 282,
               "shares": 0,
               "saves": 0
             },
@@ -303,7 +304,7 @@
               "date": "2026-05-31",
               "likes": 8,
               "comments": 0,
-              "views": 278,
+              "views": 280,
               "shares": 0,
               "saves": 0
             },
@@ -342,7 +343,7 @@
               "date": "2026-05-28",
               "likes": 43,
               "comments": 0,
-              "views": 649,
+              "views": 650,
               "shares": 0,
               "saves": 0
             },
@@ -355,7 +356,7 @@
               "date": "2026-05-28",
               "likes": 10,
               "comments": 0,
-              "views": 816,
+              "views": 817,
               "shares": 1,
               "saves": 0
             },
@@ -368,7 +369,7 @@
               "date": "2026-05-27",
               "likes": 6,
               "comments": 0,
-              "views": 837,
+              "views": 838,
               "shares": 0,
               "saves": 1
             },
@@ -401,10 +402,10 @@
           ],
           "engagement": {
             "last7d": {
-              "posts": 11,
-              "likes": 140,
-              "comments": 1,
-              "views": 5647,
+              "posts": 10,
+              "likes": 139,
+              "comments": 0,
+              "views": 5412,
               "shares": 2,
               "saves": 1
             },
@@ -412,11 +413,11 @@
               "posts": 20,
               "likes": 253,
               "comments": 1,
-              "views": 9635,
+              "views": 9687,
               "shares": 4,
               "saves": 4
             },
-            "avgEngagementRate": 61.43
+            "avgEngagementRate": 58.64
           }
         },
         {
@@ -584,7 +585,7 @@
               "date": "2026-04-16",
               "likes": 32,
               "comments": 0,
-              "views": 393,
+              "views": 394,
               "shares": 1,
               "saves": 3
             },
@@ -636,7 +637,7 @@
               "date": "2026-04-13",
               "likes": 2,
               "comments": 0,
-              "views": 755,
+              "views": 756,
               "shares": 0,
               "saves": 0
             },
@@ -784,7 +785,7 @@
           "handle": "rareform030",
           "url": "https://instagram.com/rareform030",
           "followers": 66,
-          "weeklyDelta": 1,
+          "weeklyDelta": 0,
           "postsThisWeek": 2,
           "history": [
             61,
@@ -812,7 +813,7 @@
               "caption": "This week in Berlin · JUN 8 – 14\n@bodhispace.berlin @slowpokerunclub.berlin",
               "url": "https://www.instagram.com/p/DZUNbPvFOPT/",
               "date": "2026-06-08",
-              "likes": 0,
+              "likes": 1,
               "comments": 0,
               "views": null,
               "shares": null,
@@ -825,9 +826,9 @@
               "caption": "This week on In Conversation, I sat down with @joshua_m_hyde on what somatic work actually is, and one simple practice you can try tonight. \n\n🎧 Link in bio.",
               "url": "https://www.instagram.com/p/DZKLMYUM1Zr/",
               "date": "2026-06-04",
-              "likes": 3,
+              "likes": 4,
               "comments": 0,
-              "views": 17,
+              "views": 19,
               "shares": null,
               "saves": null
             },
@@ -838,7 +839,7 @@
               "caption": "This week in Berlin · JUN 1 – 7\n@clicqui_ @run_n_rave @slowpokerunclub.berlin",
               "url": "https://www.instagram.com/p/DZCL14iFIHA/",
               "date": "2026-06-01",
-              "likes": 2,
+              "likes": 3,
               "comments": 0,
               "views": null,
               "shares": null,
@@ -965,21 +966,21 @@
           "engagement": {
             "last7d": {
               "posts": 2,
-              "likes": 3,
+              "likes": 5,
               "comments": 0,
-              "views": 17,
+              "views": 19,
               "shares": 0,
               "saves": 0
             },
             "last30d": {
               "posts": 6,
-              "likes": 15,
+              "likes": 18,
               "comments": 4,
-              "views": 17,
+              "views": 19,
               "shares": 0,
               "saves": 0
             },
-            "avgEngagementRate": 4.8
+            "avgEngagementRate": 5.56
           }
         },
         {
@@ -1057,7 +1058,7 @@
           "handle": "stoddy-carey",
           "url": "https://www.linkedin.com/in/stoddy-carey/",
           "followers": "3223",
-          "weeklyDelta": -1057,
+          "weeklyDelta": 0,
           "postsThisWeek": 4,
           "history": [
             3420,
@@ -1095,7 +1096,7 @@
       "lastName": "Patel",
       "role": "Founder's Associate · Growth",
       "linkedin": "https://www.linkedin.com/in/uma-patel-89320615b/",
-      "followers": "3686"
+      "followers": "3696"
     }
   ],
   "_extraAccounts": [
@@ -1112,13 +1113,13 @@
   "shipsByDay": {
     "2026-05-20": 3,
     "2026-05-19": 2,
-    "2026-05-18": 21,
+    "2026-05-18": 22,
     "2026-05-17": 20,
     "2026-05-15": 35,
     "2026-05-14": 46,
     "2026-05-13": 14,
     "2026-05-12": 23,
-    "2026-05-11": 35,
+    "2026-05-11": 36,
     "2026-05-10": 17,
     "2026-05-08": 8,
     "2026-05-07": 1,
@@ -1130,19 +1131,19 @@
     "2026-04-29": 35,
     "2026-04-28": 3,
     "2026-04-26": 1,
-    "2026-04-24": 33,
-    "2026-04-23": 43,
-    "2026-04-22": 34,
-    "2026-04-20": 39,
-    "2026-04-19": 20,
-    "2026-04-17": 30,
-    "2026-04-15": 39,
-    "2026-04-14": 37,
-    "2026-04-12": 19,
-    "2026-04-10": 20,
-    "2026-04-08": 49,
+    "2026-04-24": 34,
+    "2026-04-23": 44,
+    "2026-04-22": 35,
+    "2026-04-20": 41,
+    "2026-04-19": 21,
+    "2026-04-17": 31,
+    "2026-04-15": 41,
+    "2026-04-14": 39,
+    "2026-04-12": 20,
+    "2026-04-10": 21,
+    "2026-04-08": 51,
     "2026-04-06": 2,
-    "2026-04-04": 19,
+    "2026-04-04": 20,
     "2026-04-02": 1,
     "2026-03-30": 2,
     "2026-03-28": 1,
@@ -1150,34 +1151,34 @@
     "2026-03-22": 1,
     "2026-03-19": 16,
     "2026-03-15": 1,
-    "2026-04-03": 77,
+    "2026-04-03": 80,
     "2026-05-16": 17,
-    "2026-04-21": 20,
+    "2026-04-21": 21,
     "2026-05-21": 33,
     "2026-05-09": 6,
     "2026-04-30": 1,
-    "2026-04-18": 18,
-    "2026-04-16": 36,
-    "2026-04-13": 18,
-    "2026-04-11": 18,
-    "2026-05-04": 18,
-    "2026-04-27": 18,
+    "2026-04-18": 19,
+    "2026-04-16": 38,
+    "2026-04-13": 19,
+    "2026-04-11": 19,
+    "2026-05-04": 19,
+    "2026-04-27": 19,
     "2026-05-22": 23,
-    "2026-05-25": 14,
-    "2026-05-26": 47,
-    "2026-05-27": 22,
-    "2026-05-28": 20,
-    "2026-05-29": 9,
-    "2026-05-30": 8,
-    "2026-05-31": 7,
-    "2026-06-01": 13,
-    "2026-06-02": 5,
-    "2026-06-03": 12,
-    "2026-06-04": 10,
-    "2026-06-05": 4,
-    "2026-06-07": 1,
-    "2026-06-06": 2,
-    "2026-06-08": 1
+    "2026-05-25": 15,
+    "2026-05-26": 50,
+    "2026-05-27": 24,
+    "2026-05-28": 22,
+    "2026-05-29": 10,
+    "2026-05-30": 9,
+    "2026-05-31": 8,
+    "2026-06-01": 15,
+    "2026-06-02": 6,
+    "2026-06-03": 15,
+    "2026-06-04": 13,
+    "2026-06-05": 6,
+    "2026-06-07": 2,
+    "2026-06-06": 4,
+    "2026-06-08": 2
   },
   "milestones": [
     {
@@ -1227,12 +1228,12 @@
       "date": "2026-06-04",
       "likes": 30,
       "comments": 0,
-      "views": 300,
+      "views": 306,
       "shares": 1,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 35.3
+      "score": 35.306
     },
     {
       "id": "7647213400392502561",
@@ -1243,12 +1244,12 @@
       "date": "2026-06-03",
       "likes": 28,
       "comments": 0,
-      "views": 300,
+      "views": 304,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 28.3
+      "score": 28.304
     },
     {
       "id": "7647137917621652758",
@@ -1275,12 +1276,12 @@
       "date": "2026-06-05",
       "likes": 17,
       "comments": 0,
-      "views": 792,
+      "views": 797,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 17.792
+      "score": 17.797
     },
     {
       "id": "7647879995607534870",
@@ -1291,12 +1292,12 @@
       "date": "2026-06-05",
       "likes": 7,
       "comments": 0,
-      "views": 780,
+      "views": 786,
       "shares": 1,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 12.78
+      "score": 12.786
     },
     {
       "id": "7648313037887196438",
@@ -1307,12 +1308,12 @@
       "date": "2026-06-06",
       "likes": 12,
       "comments": 0,
-      "views": 265,
+      "views": 267,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 12.265
+      "score": 12.267
     },
     {
       "id": "7648313119378328854",
@@ -1323,12 +1324,12 @@
       "date": "2026-06-06",
       "likes": 10,
       "comments": 0,
-      "views": 774,
+      "views": 777,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 10.774000000000001
+      "score": 10.777
     },
     {
       "id": "7647199709324496150",
@@ -1339,12 +1340,12 @@
       "date": "2026-06-03",
       "likes": 7,
       "comments": 0,
-      "views": 269,
+      "views": 271,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 7.269
+      "score": 7.271
     },
     {
       "id": "7648684024864541974",
@@ -1355,12 +1356,12 @@
       "date": "2026-06-07",
       "likes": 6,
       "comments": 0,
-      "views": 262,
+      "views": 275,
       "shares": 0,
       "saves": 1,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 6.2620000000000005
+      "score": 6.275
     },
     {
       "id": "7647570796918967574",
@@ -1371,12 +1372,12 @@
       "date": "2026-06-04",
       "likes": 4,
       "comments": 0,
-      "views": 814,
+      "views": 819,
       "shares": 0,
       "saves": 0,
       "property": "Outcurve",
       "handle": "outcurvehealth",
-      "score": 4.814
+      "score": 4.819
     }
   ]
 }
